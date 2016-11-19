@@ -1,0 +1,13 @@
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping default-lazy="false"
+	package="com.crm.rk.model">
+	<class name="EmailMessage" table="emailMessage">
+		<id column="编号" name="id" type="integer" length="10">
+		 	<generator class="identity"/>
+		</id>
+		<many-to-one column="所属经理" name="manager" class="Manager" not-null="true" fetch="join"/>
+		<property column="内容" name="context" type="text"/>
+		<property column="标题" name="title" type="string" length="50"/>
+		<property column="类型" name="type" type="string" length="20"/>
+	</class>
+</hibernate-mapping>

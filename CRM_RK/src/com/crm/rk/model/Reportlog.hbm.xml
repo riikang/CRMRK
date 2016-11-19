@@ -1,0 +1,15 @@
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping default-lazy="false"
+	package="com.crm.rk.model">
+	<class name="Reportlog" table="Reportlog">
+		<id column="id" name="id" type="integer" length="10">
+		 	<generator class="identity"/>
+		</id>
+		<many-to-one name="productReport" class="ProductReport" column="关联报表" not-null="true" fetch="join"/>
+		<many-to-one name="product" class="Product" column="商品" not-null="true" fetch="join"/>
+		<property column="月总销量" name="total" type="integer"/>
+		<property column="总金额" name="money" type="double"/>
+		<property column="已收货款" name="moneyed" type="double"/>
+		<property column="未收货款" name="moneying" type="double"/>
+	</class>
+</hibernate-mapping>

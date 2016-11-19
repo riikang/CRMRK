@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:p="http://www.springframework.org/schema/p" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans-3.1.xsd 
+	http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context-3.1.xsd
+	http://www.springframework.org/schema/tx 
+	http://www.springframework.org/schema/tx/spring-tx-3.1.xsd">
+	<context:annotation-config />
+	
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+		<property name="url" value="jdbc:mysql://localhost:3306/crm_rk?useUnicode=true&amp;characterEncoding=UTF-8" />
+		<property name="username" value="root"/>
+		<property name="password" value="123456"/>
+		<!-- 依次为最大连接数量，最大等待连接数量 -->
+		<property name="maxActive" value="100" />
+		<property name="maxIdle" value="60" />
+		<!-- 最大等待时间，单位为毫秒，超时时间会报出错误信息 -->
+		<property name="maxWait" value="10000" />
+	</bean>
+	
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+		<!-- 依赖注入上面所配置的数据源 -->
+		<property name="dataSource" ref="dataSource"></property>
+		<!-- 通过hibernate.hbm.xml配置其他相关属性 -->
+		<property name="configLocation" value="classpath:hibernate.cfg.xml" />
+	</bean>
+       <!-- 事务配置 -->
+    <!-- 定义事务管理器 -->
+	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	<tx:annotation-driven transaction-manager="transactionManager" />
+	
+	<!--发送邮件配置  -->
+	<bean id="sender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+        <property name="host" value="smtp.163.com"/> <!-- 主机(QQ的smtp服务器) -->
+        <property name="username" value="snsd4e9@163.com"/><!-- 邮箱名 -->
+        <property name="password" value="k123456"/> <!-- 独立密码 -->
+        <property name="defaultEncoding" value="UTF-8"/>
+        <property name="javaMailProperties">    
+           <props>    
+               	<prop key="mail.smtp.auth">true</prop>  <!-- 开启身份认证 -->  
+               	<prop key="mail.smtp.starttls.enable">true</prop><!-- 使用默认端口 -->
+           </props>    
+       </property> 
+    </bean>
+
+	<!-- dao层start -->
+	<bean id="baseDao" class="com.crm.rk.dao.impl.BaseDaoImpl"
+		abstract="false" lazy-init="default" autowire="default">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean id="productDao" class="com.crm.rk.dao.impl.ProductDaoImpl"
+		abstract="false" lazy-init="default" autowire="default">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean id="cCustomerDao" class="com.crm.rk.dao.impl.CCustomerDaoImpl"
+		abstract="false" lazy-init="default" autowire="default">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean id="productDictDao" class="com.crm.rk.dao.impl.ProductDictDaoImpl"
+		abstract="false" lazy-init="default" autowire="default">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean id="channelDao" class="com.crm.rk.dao.impl.ChannelDaoImpl"
+		abstract="false" lazy-init="default" autowire="default">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean id="salesmanDao" class="com.crm.rk.dao.impl.SalesmanDaoImpl"
+		abstract="false" lazy-init="default" autowire="default">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean id="customerPDao" class="com.crm.rk.dao.impl.CustomerPDaoImpl"
+		abstract="false" lazy-init="default" autowire="default">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean id="missionDao" class="com.crm.rk.dao.impl.MissionDaoImpl"
+		abstract="false" lazy-init="default" autowire="default">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean id="chanceDao" class="com.crm.rk.dao.impl.ChanceDaoImpl"
+		abstract="false" lazy-init="default" autowire="default">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean id="followupDao" class="com.crm.rk.dao.impl.FollowupDaoImpl"
+		abstract="false" lazy-init="default" autowire="default">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean id="orderDao" class="com.crm.rk.dao.impl.OrderDaoImpl"
+		abstract="false" lazy-init="default" autowire="default">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean id="servicelogDao" class="com.crm.rk.dao.impl.ServicelogDaoImpl"
+		abstract="false" lazy-init="default" autowire="default">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean id="communionlogDao" class="com.crm.rk.dao.impl.CommunionlogDaoImpl"
+		abstract="false" lazy-init="default" autowire="default">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean id="emailMessageDao" class="com.crm.rk.dao.impl.EmailMessageDaoImpl"
+		abstract="false" lazy-init="default" autowire="default">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean id="paylogDao" class="com.crm.rk.dao.impl.PaylogDaoImpl"
+		abstract="false" lazy-init="default" autowire="default">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean id="sendlogDao" class="com.crm.rk.dao.impl.SendlogDaoImpl"
+		abstract="false" lazy-init="default" autowire="default">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean id="reportlogDao" class="com.crm.rk.dao.impl.ReportlogDaoImpl"
+		abstract="false" lazy-init="default" autowire="default">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean id="productReportDao" class="com.crm.rk.dao.impl.ProductReportDaoImpl"
+		abstract="false" lazy-init="default" autowire="default">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean id="customerReportDao" class="com.crm.rk.dao.impl.CustomerReportDaoImpl"
+		abstract="false" lazy-init="default" autowire="default">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean id="customerReportlogDao" class="com.crm.rk.dao.impl.CustomerReportlogDaoImpl"
+		abstract="false" lazy-init="default" autowire="default">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean id="userPowerDao" class="com.crm.rk.dao.impl.UserPowerDaoImpl"
+		abstract="false" lazy-init="default" autowire="default">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean id="managerDao" class="com.crm.rk.dao.impl.ManagerDaoImpl"
+		abstract="false" lazy-init="default" autowire="default">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean id="messageDao" class="com.crm.rk.dao.impl.MessageDaoImpl"
+		abstract="false" lazy-init="default" autowire="default">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<!-- dao层end -->
+
+	<!-- Service层start -->
+	<bean id="baseService" class="com.crm.rk.service.impl.BaseServiceImpl"/>
+	<bean id="productService" class="com.crm.rk.service.impl.ProductServiceImpl"/>
+	<bean id="cCustomerService" class="com.crm.rk.service.impl.CCustomerServiceImpl"/>
+	<bean id="productDictService" class="com.crm.rk.service.impl.ProductDictServiceImpl"/>
+	<bean id="channelService" class="com.crm.rk.service.impl.ChannelServiceImpl"/>
+	<bean id="salesmanService" class="com.crm.rk.service.impl.SalesmanServiceImpl"/>
+	<bean id="customerPService" class="com.crm.rk.service.impl.CustomerPServiceImpl"/>
+	<bean id="missionService" class="com.crm.rk.service.impl.MissionServiceImpl"/>
+	<bean id="chanceService" class="com.crm.rk.service.impl.ChanceServiceImpl"/>
+	<bean id="followupService" class="com.crm.rk.service.impl.FollowupServiceImpl"/>
+	<bean id="orderService" class="com.crm.rk.service.impl.OrderServiceImpl"/>
+	<bean id="communionlogService" class="com.crm.rk.service.impl.CommunionlogServiceImpl"/>
+	<bean id="servicelogService" class="com.crm.rk.service.impl.ServicelogServiceImpl"/>
+	<bean id="emailMessageService" class="com.crm.rk.service.impl.EmailMessageServiceImpl"/>
+	<bean id="paylogService" class="com.crm.rk.service.impl.PaylogServiceImpl"/>
+	<bean id="sendlogService" class="com.crm.rk.service.impl.SendlogServiceImpl"/>
+	<bean id="reportlogService" class="com.crm.rk.service.impl.ReportlogServiceImpl"/>
+	<bean id="productReportService" class="com.crm.rk.service.impl.ProductReportServiceImpl"/>
+	<bean id="customerReportService" class="com.crm.rk.service.impl.CustomerReportServiceImpl"/>
+	<bean id="customerReportlogService" class="com.crm.rk.service.impl.CustomerReportlogServiceImpl"/>
+	<bean id="userPowerService" class="com.crm.rk.service.impl.UserPowerServiceImpl"/>
+	<bean id="managerService" class="com.crm.rk.service.impl.ManagerServiceImpl"/>
+	<bean id="messageService" class="com.crm.rk.service.impl.MessageServiceImpl"/>
+	<!-- Service层end -->
+	
+	<!-- action层start -->
+	<bean id="channelAction" class="com.crm.rk.action.ChannelAction" scope="prototype"/>
+	<bean id="productAction" class="com.crm.rk.action.ProductAction"  scope="prototype"/>
+	<bean id="productDictAction" class="com.crm.rk.action.ProductDictAction"  scope="prototype"/>
+	<bean id="salesmanAction" class="com.crm.rk.action.SalesmanAction"  scope="prototype"/>
+	<bean id="customerPAction" class="com.crm.rk.action.CustomerPAction"  scope="prototype"/>
+	<bean id="missionAction" class="com.crm.rk.action.MissionAction"  scope="prototype"/>
+	<bean id="chanceAction" class="com.crm.rk.action.ChanceAction"  scope="prototype"/>
+	<bean id="followupAction" class="com.crm.rk.action.FollowupAction"  scope="prototype"/>
+	<bean id="orderAction" class="com.crm.rk.action.OrderAction"  scope="prototype"/>
+	<bean id="serviceAction" class="com.crm.rk.action.ServiceAction"  scope="prototype"/>
+	<bean id="communionlogAction" class="com.crm.rk.action.CommunionlogAction"  scope="prototype"/>
+	<bean id="emailMessageAction" class="com.crm.rk.action.EmailMessageAction"  scope="prototype"/>
+	<bean id="orderslogAction" class="com.crm.rk.action.OrderslogAction"  scope="prototype"/>
+	<bean id="productReportAction" class="com.crm.rk.action.ProductReportAction"  scope="prototype"/>
+	<bean id="customerReportAction" class="com.crm.rk.action.CustomerReportAction"  scope="prototype"/>
+	<bean id="loginRegisterAction" class="com.crm.rk.action.LoginRegisterAction"  scope="prototype"/>
+	<bean id="informationAction" class="com.crm.rk.action.InformationAction"  scope="prototype"/>
+	<bean id="messageAction" class="com.crm.rk.action.MessageAction"  scope="prototype"/>
+	<!-- action层end -->
+</beans>
+
+      
+
+	

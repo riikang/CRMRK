@@ -1,0 +1,21 @@
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping default-lazy="false"
+	package="com.crm.rk.model">
+	<class name="Product" table="product">
+		<id column="商品编号" name="id" type="integer" length="10">
+		 	<generator class="identity"/>
+		</id>
+		<many-to-one  name="manager" class="Manager" column="所属经理" not-null="true" fetch="join"/>
+		<property column="商品名称" name="pname" type="string" length="50" not-null="true" />
+		<property column="商品类型" name="type" type="string" length="10" not-null="true" />
+		<property column="商品图片" name="picture" type="string" length="100"/>
+		<property column="商品单价" name="price" type="double" length="20" />
+		<property column="成本" name="costing" type="double" length="20" />
+		<property column="单位" name="unit" type="string" length="8" />
+		<property column="货币" name="currency" type="string" length="10" />
+		<property column="商品状态" name="status" type="string" length="20" />
+		<property column="上市时间" name="market_time" type="date" />	
+		<property column="商品介绍" name="description" type="string" length="100" />		
+	</class>
+
+</hibernate-mapping>

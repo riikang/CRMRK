@@ -1,0 +1,15 @@
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping default-lazy="false"
+	package="com.crm.rk.model">
+	<class name="ProductDict" table="productdict">
+		<id column="id" name="id" type="integer" length="10">
+		 	<generator class="identity"/>
+		</id>
+		<many-to-one  name="manager" class="Manager" column="所属经理" not-null="true" fetch="join"/>
+		<property column="type" name="type" type="string" length="20" />
+		<property column="unit" name="unit" type="string" length="10" />
+		<property column="status" name="status" type="string" length="50"/>
+		<property column="currency" name="currency" type="string" length="20"/>
+	</class>
+
+</hibernate-mapping>

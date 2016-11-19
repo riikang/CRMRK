@@ -1,0 +1,14 @@
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping default-lazy="false"
+	package="com.crm.rk.model">
+	<class name="Manager" table="manager">
+		<id column="编号" name="id" type="integer" length="10">
+		 	<generator class="identity"/>
+		</id>
+		<property column="姓名" name="name" type="string" length="30"/>
+		<property column="公司" name="Company" type="string" length="50"/>
+		<property column="电子邮箱" name="email" type="string" length="50"/>
+		<many-to-one name="userPower" class="UserPower" column="权限编号" unique="true" fetch="join"/>
+	</class>
+
+</hibernate-mapping>

@@ -1,0 +1,21 @@
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping default-lazy="false"
+	package="com.crm.rk.model">
+	<class name="Servicelog" table="servicelog">
+		<id column="id" name="id" type="integer" length="10">
+		 	<generator class="identity"/>
+		</id>
+		<many-to-one column="客户" name="customerP" class="CustomerP" not-null="true" fetch="join"/>
+		<many-to-one column="渠道商" name="channel" class="Channel" fetch="join"/>
+		<many-to-one column="所属经理" name="manager" class="Manager" not-null="true" fetch="join"/>
+		<many-to-one column="相关订单" name="orders" class="Orders"  fetch="join"/>
+		<many-to-one column="产品" name="product" class="Product"  fetch="join"/>
+		<many-to-one column="负责销售员" name="salesman" class="Salesman"  fetch="join"/>
+		<property column="简述" name="title" type="text" length="100" not-null="true"/>
+		<property column="服务评价" name="evaluation" type="string" length="20"/>
+		<property column="服务时间" name="servicedate" type="date"/>
+		<property column="服务类型" name="servicetype" type="string" length="20" />
+		<property column="服务状态" name="status" type="string" length="20" />
+		<property column="服务方式" name="serviceways" type="string" length="20" />
+	</class>
+</hibernate-mapping>

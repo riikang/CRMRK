@@ -1,0 +1,19 @@
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping default-lazy="false"
+	package="com.crm.rk.model">
+	<class name="Salesman" table="salesman">
+		<id column="编号" name="id" type="integer" length="10">
+		 	<generator class="identity"/>
+		</id>
+		<many-to-one column="用户权限" name="userPower" class="UserPower" fetch="join"/>
+		<many-to-one column="所属经理" name="manager" class="Manager" not-null="true" fetch="join"/>
+		<property column="销售员姓名" name="sname" type="string" length="30" not-null="true" />
+		<property column="性别" name="sex" type="string" length="10"/>
+		<property column="生日" name="birth" type="date"/>
+		<property column="联系方式" name="phone" type="string" length="20" />
+		<property column="邮件地址" name="email" type="string" length="50" not-null="true" />
+		<property column="地址" name="address" type="string" length="100" />
+		<many-to-one name="channel" class="Channel" column="所属渠道" not-null="true" fetch="join"/>
+	</class>
+
+</hibernate-mapping>

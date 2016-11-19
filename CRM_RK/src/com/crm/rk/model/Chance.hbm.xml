@@ -1,0 +1,22 @@
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping default-lazy="false"
+	package="com.crm.rk.model">
+	<class name="Chance" table="chance">
+		<id column="id" name="id" type="integer" length="10">
+		 	<generator class="identity"/>
+		</id>
+		<property column="机会名称" name="name" type="string" length="50" not-null="true"/>
+		<many-to-one name="customerP" class="CustomerP" column="客户" not-null="true" fetch="join"/>
+		<many-to-one name="manager" class="Manager" column="所属经理" not-null="true" fetch="join"/>
+		<many-to-one name="product" class="Product" column="产品" not-null="true" fetch="join"/>
+		<many-to-one name="salesman" class="Salesman" column="负责销售员" not-null="true" fetch="join"/>
+		<many-to-one name="channel" class="Channel" column="负责渠道" not-null="true" fetch="join"/>
+		<property column="机会来源" name="source" type="string" length="50" />
+		<property column="需购数量" name="amount" type="int" length="20" />
+		<property column="机会描述" name="description" type="string" length="100" />
+		<property column="机会阶段" name="stage" type="string" length="20" />
+		<property column="备注" name="remarks" type="string" length="100" />
+		<property column="成交总额" name="total" type="double" length="30" />
+		<property column="录入时间" name="getDate" type="date" />
+	</class>
+</hibernate-mapping>

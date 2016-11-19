@@ -1,0 +1,35 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE hibernate-configuration PUBLIC
+          "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+          "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+<session-factory>
+	<property name="dialect">
+		org.hibernate.dialect.MySQLDialect
+	</property>
+	<property name="hbm2ddl.auto">update</property>
+	<mapping resource="com/crm/rk/model/Product.hbm.xml" />
+	<mapping resource="com/crm/rk/model/ProductDict.hbm.xml" />
+	<mapping resource="com/crm/rk/model/Channel.hbm.xml" />
+	<mapping resource="com/crm/rk/model/Salesman.hbm.xml" />
+	<mapping resource="com/crm/rk/model/CCustomer.hbm.xml" />
+	<mapping resource="com/crm/rk/model/CustomerP.hbm.xml" />
+	<mapping resource="com/crm/rk/model/Mission.hbm.xml" />
+	<mapping resource="com/crm/rk/model/Chance.hbm.xml" />
+	<mapping resource="com/crm/rk/model/Followup.hbm.xml" />
+	<mapping resource="com/crm/rk/model/Orders.hbm.xml" />
+	<mapping resource="com/crm/rk/model/Servicelog.hbm.xml" />
+	<mapping resource="com/crm/rk/model/Communionlog.hbm.xml" />
+	<mapping resource="com/crm/rk/model/EmailMessage.hbm.xml" />
+	<mapping resource="com/crm/rk/model/Paylog.hbm.xml" />
+	<mapping resource="com/crm/rk/model/Sendlog.hbm.xml" />
+	<mapping resource="com/crm/rk/model/Reportlog.hbm.xml" />
+	<mapping resource="com/crm/rk/model/ProductReport.hbm.xml" />
+	<mapping resource="com/crm/rk/model/CustomerReport.hbm.xml" />
+	<mapping resource="com/crm/rk/model/CustomerReportlog.hbm.xml" />
+	<mapping resource="com/crm/rk/model/UserPower.hbm.xml" />
+	<mapping resource="com/crm/rk/model/Manager.hbm.xml" />
+	<mapping resource="com/crm/rk/model/Message.hbm.xml" />
+
+</session-factory>
+</hibernate-configuration>

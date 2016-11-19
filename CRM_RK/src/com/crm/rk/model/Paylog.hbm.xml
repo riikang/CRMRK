@@ -1,0 +1,13 @@
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping default-lazy="false"
+	package="com.crm.rk.model">
+	<class name="Paylog" table="paylog">
+		<id column="id" name="id" type="integer" length="10">
+		 	<generator class="identity"/>
+		</id>
+		<many-to-one name="orders" class="Orders" column="关联订单" not-null="true" fetch="join"/>
+		<property column="实际收款如期" name="realPayDate" type="date"/>
+		<property column="收款金额" name="realPay" type="double"/>
+		<property column="欠未收款" name="remainingPay" type="double"/>
+	</class>
+</hibernate-mapping>

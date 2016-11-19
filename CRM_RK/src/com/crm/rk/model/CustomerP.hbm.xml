@@ -1,0 +1,28 @@
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping default-lazy="false"
+	package="com.crm.rk.model">
+	<class name="CustomerP" table="customerp">
+		<id column="个人客户编号" name="id" type="integer" length="10">
+		 	<generator class="identity"/>
+		</id>
+		<many-to-one column="用户权限" name="userPower" class="UserPower" fetch="join"/>
+		<many-to-one column="所属经理" name="manager" class="Manager" not-null="true" fetch="join"/>
+		<property column="获取时间" name="gettime" type="date" not-null="true" />
+		<property column="生日" name="birth" type="date" not-null="true" />
+		<property column="客户名称" name="cname" type="string" length="20" not-null="true"/>
+		<property column="是否企业客户" name="ifcompany" type="string" length="6" not-null="true"  />
+		<property column="客户性别" name="sex" type="string" length="8"  />
+		<property column="省份" name="prov" type="string" length="30"/>
+		<property column="所在城市" name="city" type="string" length="50"/>
+		<property column="手机号" name="phonenum" type="string" length="20"/>
+		<property column="邮箱" name="email" type="string" length="30" not-null="true"/>
+		<property column="客户类型" name="type" type="string" length="10" />
+		<property column="客户状态" name="status" type="string" length="20" />
+		<property column="工作公司" name="company" type="string" length="100" />		
+		<property column="公司座机" name="company_num" type="string" length="50" />
+		<property column="公司地址" name="company_address" type="string" length="100" />
+		<property column="公司行业" name="company_type" type="string" length="30" />
+		<property column="简介" name="description" type="string" length="100" />
+	</class>
+
+</hibernate-mapping>

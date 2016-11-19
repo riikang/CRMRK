@@ -1,0 +1,14 @@
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping default-lazy="false"
+	package="com.crm.rk.model">
+	<class name="Communionlog" table="communionlog">
+		<id column="id" name="id" type="integer" length="10">
+		 	<generator class="identity"/>
+		</id>
+		<many-to-one column="服务记录" name="servicelog" class="Servicelog" not-null="true" fetch="join"/>
+		<property column="时间" name="cdate" type="date"/>
+		<property column="角色" name="crole" type="string" length="20" />
+		<property column="内容" name="context" type="text"/>
+		<property column="姓名" name="name" type="string"/>
+	</class>
+</hibernate-mapping>

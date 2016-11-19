@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd">
+<struts>
+	<constant name="struts.i18n.encoding" value="utf-8"/>
+	<constant name="struts.i18n.reload" value="true"/>
+	<constant name="struts.custom.i18n.resources" value="app"/>	
+	<constant name="struts.multipart.maxSize" value="838860800"/>
+	<package name="crm" extends="struts-default" namespace="/crm">
+		<action name="*_*" class="{1}" method="{2}">
+			<!--权限不足  -->
+			<result name="error">/error.jsp</result>
+			<!-- 商品管理 -->
+		    <result name="findAllProduct_s">/WEB-INF/product/product_table.jsp</result>
+			<result name="deleteSomeProduct_s" type="chain">productAction_findAllProduct</result>
+			<result name="deleteSomeProduct_f" type="chain">productAction_findAllProduct</result>
+			<result name="findTheProduct_s">/WEB-INF/product/updateProduct.jsp</result>
+			<result name="deleteTheProduct_s" type="chain">productAction_findAllProduct</result>
+			<!-- 商品字典管理 -->
+			<result name="findAllDict_s">/WEB-INF/product/productDict.jsp</result>
+			<result name="addDict_s" type="chain">productDictAction_findAllDict</result>
+			<result name="deleteDictDict_s" type="chain">productDictAction_findAllDict</result>
+			<!-- 渠道管理 -->
+			<result name="findAllchannel_s">/WEB-INF/channel/channel_table.jsp</result>
+			<result name="addChannel_s" type="chain">channelAction_findAllchannel</result>
+			<result name="deleteSomeChannel_s" type="chain">channelAction_findAllchannel</result>
+			<result name="deleteSomeChannel_f" type="chain">channelAction_findAllchannel</result>
+			<result name="findTheChannel_s">/WEB-INF/channel/updateChannel.jsp</result>
+			<result name="deleteTheChannel_s" type="chain">channelAction_findAllchannel</result>
+			<result name="updateChannel_s" type="chain">channelAction_findTheChannel</result>
+			<!-- 销售员管理 -->
+			<result name="findAllsalesman_s">/WEB-INF/salesman/salesman_table.jsp</result>
+			<result name="findTheSalesman_s">/WEB-INF/salesman/updateSalesman.jsp</result>
+			<result name="addSalesman_s" type="chain">salesmanAction_findAllsalesman</result>
+			<result name="deleteSomeSalesman_s" type="chain">salesmanAction_findAllsalesman</result>
+			<result name="deleteSomeSalesman_f" type="chain">salesmanAction_findAllsalesman</result>
+			<result name="updateSalesman_s" type="chain">salesmanAction_findTheSalesman</result>
+			<result name="deleteTheSalesman_s" type="chain">salesmanAction_findAllsalesman</result>
+			<!-- 个人客户管理 -->
+			<result name="findAllcustomerp_s">/WEB-INF/customer/pc_table.jsp</result>
+			<result name="findAllcustomerc_s">/WEB-INF/customer/cc_table.jsp</result>
+			<result name="findAllcustomer_s">/WEB-INF/customer/all_table.jsp</result>
+			<result name="findcustomer_s">/WEB-INF/customer/all_table.jsp</result>
+			<result name="findThecustomerp_s">/WEB-INF/customer/updatePc.jsp</result>
+			<result name="addcustomerp_s" type="chain">customerPAction_findAllcustomerp</result>
+			<result name="deleteSomecustomerp_s" type="chain">customerPAction_findAllcustomerp</result>
+			<result name="deleteSomecustomerp_f" type="chain">customerPAction_findAllcustomerp</result>
+			<result name="deleteThecustomerp_s" type="chain">customerPAction_findAllcustomerp</result>
+			<result name="updatecustomerp_s" type="chain">customerPAction_findThecustomerp</result>
+			<!-- 营销任务管理 -->
+			<result name="findnewmission_s">/WEB-INF/mission/new_mission.jsp</result>
+			<result name="findThemission_s">/WEB-INF/mission/updateMission.jsp</result>
+			<result name="findAllmission_s">/WEB-INF/mission/Mission_table.jsp</result>
+			<result name="addMission_s" type="chain">missionAction_findAllmission</result>
+			<result name="deleteSomeMission_s" type="chain">missionAction_findAllmission</result>
+			<result name="deleteSomeMission_f" type="chain">missionAction_findAllmission</result>
+			<result name="deleteTheMission_s" type="chain">missionAction_findAllmission</result>
+			<result name="updateMission_s" type="chain">missionAction_findThemission</result>
+			<!-- 销售机会管理 -->
+			<result name="findnewchance_s">/WEB-INF/chance/new_chance.jsp</result>
+			<result name="findAllchance_s">/WEB-INF/chance/Chance_table.jsp</result>
+			<result name="addchance_s" type="chain">chanceAction_findAllchance</result>
+			<result name="deleteSomechance_s" type="chain">chanceAction_findAllchance</result>
+			<result name="deleteSomechance_f" type="chain">chanceAction_findAllchance</result>
+			<result name="findTheChance_s">/WEB-INF/chance/updateChance.jsp</result>
+			<result name="deleteTheChance_s" type="chain">chanceAction_findAllchance</result>
+			<result name="updateChance_s" type="chain">chanceAction_findTheChance</result>
+			<result name="goBackTheChance_s">/WEB-INF/chance/updateChance.jsp</result>
+			<!-- 销售机会跟进记录 -->
+			<result name="findAllFollowup_s">/WEB-INF/followup/followup_table.jsp</result>
+			<result name="findThefollowup_s">/WEB-INF/followup/updateFollowup.jsp</result>
+			<result name="addfollowup_s" type="chain">followupAction_findAllFollowup</result>
+			<result name="deleteSomefollowup_s" type="chain">followupAction_findAllFollowup</result>
+			<result name="deleteSomefollowup_f" type="chain">followupAction_findAllFollowup</result>
+			<result name="deleteTheFollowup_s" type="chain">followupAction_findAllFollowup</result>
+			<result name="updateFollowup_s" type="chain">followupAction_findThefollowup</result>
+			<!-- 订单管理 -->
+			<result name="findAllOrder_s">/WEB-INF/order/Order_table.jsp</result>
+			<result name="findTheOrder_s">/WEB-INF/order/updateOrder.jsp</result>
+			<result name="deleteSomeorder_s" type="chain">orderAction_findAllOrder</result>
+			<result name="deleteSomeorder_f" type="chain">orderAction_findAllOrder</result>
+			<result name="addorder_s" type="chain">orderAction_findAllOrder</result>
+			<result name="deleteTheOrder_s" type="chain">orderAction_findAllOrder</result>
+			<result name="updateOrder_s" type="chain">orderAction_findTheOrder</result>
+			<result name="findCustomerOrder_s">/WEB-INF/order/customerOrders.jsp</result>
+			<!-- 客户服务 /客户端-->
+			<result name="findAllservice_s">/WEB-INF/service/service_table.jsp</result>
+			<result name="findTheService_s">/WEB-INF/service/updateService.jsp</result>
+			<result name="addservice_s" type="chain">serviceAction_findAllservice</result>
+			<result name="updateServicelog_s" type="chain">serviceAction_findAllservice</result>
+			<!-- 客户服务 /服务端-->
+			<result name="sfindAllservice_s">/WEB-INF/service/s_service_table.jsp</result>
+			<result name="deleteSomeservice_s" type="chain">serviceAction_sfindAllservice</result>
+			<result name="deleteSomeservice_f" type="chain">serviceAction_sfindAllservice</result>
+			<result name="saddservice_s" type="chain">serviceAction_sfindAllservice</result>
+			<result name="sfindTheService_s">/WEB-INF/service/s_updateService.jsp</result>
+			<result name="deleteTheService_s" type="chain">serviceAction_sfindAllservice</result>
+			<result name="supdateServicelog_s" type="chain">serviceAction_sfindTheService</result>
+			<!--祝福语编辑 -->
+			<result name="customerpServer_s">/WEB-INF/customer/customerEmail.jsp</result>
+			<result name="updateMessage_s" type="chain">emailMessageAction_customerpServer</result>
+			<result name="sendSomeEmail_s" type="chain">emailMessageAction_customerpServer</result>
+			<result name="sendSomeEmail_f" type="chain">emailMessageAction_customerpServer</result>
+			<!-- 应收款项管理 -->
+			<result name="findAllOrders_s">/WEB-INF/order/orderslog.jsp</result>
+			<result name="findTheOrderlog_s">/WEB-INF/order/updateOrderslog.jsp</result>
+			<result name="addOrderslog_s" type="chain">orderslogAction_findTheOrderlog</result>
+			<result name="addOrderslog2_s" type="chain">orderslogAction_findTheOrderlog</result>
+			<result name="updateSendlog_s" type="chain">orderslogAction_findTheOrderlog</result>
+			<result name="updatePaylog2_s" type="chain">orderslogAction_findTheOrderlog</result>
+			<result name="updateSendlog2_s" type="chain">orderslogAction_findTheOrderlog</result>
+			<result name="deletePaylog_s" type="chain">orderslogAction_findTheOrderlog</result>
+			<result name="deleteSendlog_s" type="chain">orderslogAction_findTheOrderlog</result>
+			<!-- 商品统计报表 -->
+			<result name="deleteSomeReport_s" type="chain">productReportAction_findAllProductReport</result>
+			<result name="deleteSomeReport_f" type="chain">productReportAction_findAllProductReport</result>
+			<result name="findTheReportlog_s">/WEB-INF/report/productReportlog.jsp</result>
+			<result name="findAllProductReport_s">/WEB-INF/report/productReport_table.jsp</result>
+			<result name="CreateProductReport_s" type="chain">productReportAction_findAllProductReport</result>
+			<result name="deleteTheProductReport_s" type="chain">productReportAction_findAllProductReport</result>
+			<!-- 客户统计报表  -->
+			<result name="findAllCustomerReport_s">/WEB-INF/report/customerReport_table.jsp</result>
+			<result name="deleteSomeCustomerReport_s" type="chain">customerReportAction_findAllCustomerReport</result>
+			<result name="deleteSomeCustomerReport_f" type="chain">customerReportAction_findAllCustomerReport</result>
+			<result name="findTheCustomerReportlog_s">/WEB-INF/report/customerReportlog.jsp</result>
+			<result name="CreateCustomerReport_s" type="chain">customerReportAction_findAllCustomerReport</result>
+			<result name="deleteTheCustomerReport_s" type="chain">customerReportAction_findAllCustomerReport</result>
+			<!-- 个人信息 -->
+			<result name="managerInfo_s">/WEB-INF/information/managerInfo.jsp</result>
+			<result name="salesmanInfo_s">/WEB-INF/information/salesmanInfo.jsp</result>
+			<result name="channelInfo_s">/WEB-INF/information/channelInfo.jsp</result>
+			<!-- 登录、注册 -->
+			<result name="loginSet_1s">/customer_index.jsp</result>
+			<result name="loginSet_2s">/salesman_index.jsp</result>
+			<result name="loginSet_3s">/channel_index.jsp</result>
+			<result name="loginSet_4s">/index.jsp</result>
+			<result name="loginSet_f">/login.jsp</result>
+			<result name="setRegister_s">/login.jsp</result>
+		</action>
+		<!-- AJAX -->
+		<action name="findAllProductByAjax" class="serviceAction" method="findAllProductByAjax"/>
+		<action name="findAllOrdersByAjax" class="serviceAction" method="findAllOrdersByAjax"/>
+		<action name="deletePaylog" class="orderslogAction" method="deletePaylog"/>
+		<!--
+		<action name="addCommunionlogByAjax" class="communionlogAction" method="addCommunionlogByAjax"/>
+		<action name="findAllCommunionlogByAjax" class="communionlogAction" method="findAllCommunionlogByAjax"/>
+		<action name="findCustomerConsumelog" class="customerReportAction" method="findCustomerConsumelog"/>
+		<action name="findReportlogByPid" class="productReportAction" method="findReportlogByPid"/>
+		<action name="updateSendlog" class="orderslogAction" method="updateSendlog"/>
+		<action name="updatePaylog" class="orderslogAction" method="updatePaylog"/>
+		<action name="validateLogin" method="validateLogin" class="loginRegisterAction"/>
+		<action name="jsonTest" class="chanceAction" method="findSalesman"/>
+		<action name="validateRegister1" method="validateRegister1" class="loginRegisterAction"/>  
+		-->
+		
+		<!-- 添加商品管理 -->
+		<action name="addProductAction" class="productAction" method="addProduct">
+		    <result name="addProduct_s" type="chain">productAction_findAllProduct</result>
+		    <result name="error">/error.jsp</result>
+			 <!-- 配置拦截器限制上传文件类型及大小 -->
+		    <interceptor-ref name="fileUpload">
+		    <!-- 上传图片 -->
+		    <param name="allowedTypes">image/bmp,image/x-png,image/png,image/jpg,image/gif,image/jpeg</param>
+		    <param name="maximumSize">10M</param>
+		    </interceptor-ref>
+		    <interceptor-ref name="defaultStack"></interceptor-ref>
+		</action>
+		<!-- 更新商品管理 -->
+		<action name="updateProductAction" class="productAction" method="updateProduct">
+		    <result name="updateProduct_s" type="chain">productAction_findTheProduct</result>
+		    <result name="error">/error.jsp</result>
+			 <!-- 配置拦截器限制上传文件类型及大小 -->
+		    <interceptor-ref name="fileUpload">
+		    <!-- 上传图片 -->
+		    <param name="allowedTypes">image/bmp,image/x-png,image/png,image/jpg,image/gif,image/jpeg</param>
+		    <param name="maximumSize">10M</param>
+		    </interceptor-ref>
+		    <interceptor-ref name="defaultStack"></interceptor-ref>
+		</action>	
+		
+		<action name="download" class="com.WebEdu.DreamFlying.action.UserAction">
+		    <result name="success" type="stream">
+		       <param name="contentType">application/octet-stream;charset=iso-8859-1</param>
+		       <param name="inputName">inputStream</param>
+		       <param name="contentDisposition">attachment;filename="${downloadFileName}"</param>
+		       <param name="bufferSize">8192</param>
+		    </result>
+		</action>
+	</package>
+</struts>    

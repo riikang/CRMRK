@@ -1,0 +1,16 @@
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping default-lazy="false"
+	package="com.crm.rk.model">
+	<class name="Followup" table="followup">
+		<id column="id" name="id" type="integer" length="10">
+		 	<generator class="identity"/>
+		</id>
+		<many-to-one name="chance" class="Chance" column="关联销售机会" not-null="true" fetch="join"/>
+		<property column="联系时间" name="connectTime" type="date"/>
+		<property column="联系方式" name="connectType" type="string" length="20" />
+		<property column="计划内容" name="project" type="string" length="50" not-null="true" />
+		<property column="跟进阶段" name="followstage" type="string" length="50" />
+		<property column="跟进后机会阶段" name="stage" type="string" length="20" />
+		<property column="跟进结果" name="result" type="string" length="50" />
+	</class>
+</hibernate-mapping>

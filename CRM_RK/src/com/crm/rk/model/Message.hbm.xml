@@ -1,0 +1,14 @@
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping default-lazy="false"
+	package="com.crm.rk.model">
+	<class name="Message" table="message">
+		<id column="id" name="id" type="integer" length="10">
+		 	<generator class="identity"/>
+		</id>
+		<property column="是否已查看" name="iflook" type="integer"/>
+		<property column="消息类型" name="type" type="integer" />
+		<property column="目标id" name="mid" type="integer" />
+		<property column="等级" name="level" type="integer" />
+		<property column="通知id" name="pid" type="integer" />
+	</class>
+</hibernate-mapping>

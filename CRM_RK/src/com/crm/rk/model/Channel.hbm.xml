@@ -1,0 +1,18 @@
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping default-lazy="false"
+	package="com.crm.rk.model">
+	<class name="Channel" table="channel">
+		<id column="id" name="id" type="integer" length="10">
+		 	<generator class="identity"/>
+		</id>
+		<property column="渠道商姓名" name="cname" type="string" length="30" not-null="true"/>
+		<many-to-one name="manager" class="Manager" column="所属经理" not-null="true" fetch="join"/>
+		<property column="邮编" name="postcode" type="string" length="20"/>
+		<property column="省份" name="province" type="string" length="14" />
+		<property column="所在城市" name="city" type="string" length="30" />
+		<property column="公司主页" name="website" type="string" length="100" />
+		<property column="公司地址" name="address" type="string" length="50" />
+		<property column="渠道等级" name="level" type="string" length="10" />
+		<property column="录入时间" name="enjoyDate" type="date" />
+	</class>
+</hibernate-mapping>

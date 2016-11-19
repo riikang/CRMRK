@@ -1,0 +1,38 @@
+*{list-style:none;border:none;}
+body{font-family:Arial;background-color:#fff;}
+.tree {  color:#46CFB0;width:800px;margin:50px;}
+.tree li,
+.tree li > a,
+.tree li > span {
+    padding: 4pt;
+    border-radius: 4px;
+}
+
+.tree li a {
+	color:#46CFB0;
+    text-decoration: none;
+    line-height: 20pt;
+    border-radius: 4px;
+}
+
+.tree li a:hover {
+    background-color: #34BC9D;
+    color: #fff;
+    text-decoration:none;
+}
+
+.active {
+    background-color: #34495E;
+    color: white;
+    text-decoration:none;
+}
+
+.active a {
+    color: #fff;
+    text-decoration:none;
+}
+
+.tree li a.active:hover {
+    background-color: #34BC9D;
+    text-decoration:none;
+}

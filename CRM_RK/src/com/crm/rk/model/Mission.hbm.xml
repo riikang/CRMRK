@@ -1,0 +1,24 @@
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping default-lazy="false"
+	package="com.crm.rk.model">
+	<class name="Mission" table="mission">
+		<id column="任务编号" name="id" type="integer" length="10">
+		 	<generator class="identity"/>
+		</id>
+		<property column="任务主题" name="title" type="string" length="100" not-null="true" />
+		<property column="任务内容" name="context" type="string" length="200"/>
+		<property column="开始时间" name="startDate" type="date"/>
+		<property column="结束时间" name="endDate" type="date"/>
+		<property column="更新时间" name="updatetime" type="date"/>
+		<property column="任务总结" name="result" type="text" />
+		<property column="任务状态" name="ststus" type="string" length="20" />
+		<property column="任务类型" name="type" type="string" length="20" />
+		<property column="任务等级" name="level" type="string" length="10" />
+		<property column="重复方式" name="repeatType" type="string" length="20" />
+		<property column="重复时间" name="repeatTime" type="string" length="50" />
+		<many-to-one name="channel" class="Channel" column="负责渠道" not-null="true" fetch="join"/>
+		<many-to-one name="manager" class="Manager" column="所属经理" not-null="true" fetch="join"/>
+		<many-to-one name="salesman" class="Salesman" column="负责销售员" fetch="join"/>
+	</class>
+
+</hibernate-mapping>

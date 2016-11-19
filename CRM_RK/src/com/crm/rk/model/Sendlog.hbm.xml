@@ -1,0 +1,14 @@
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping default-lazy="false"
+	package="com.crm.rk.model">
+	<class name="Sendlog" table="sendlog">
+		<id column="id" name="id" type="integer" length="10">
+		 	<generator class="identity"/>
+		</id>
+		<many-to-one name="orders" class="Orders" column="关联订单" not-null="true" fetch="join"/>
+		<property column="实际交货时间" name="realSendDate" type="date"/>
+		<property column="实际交货数量" name="sendNum" type="integer"/>
+		<property column="交货金额" name="sendPrice" type="double"/>
+		<property column="剩余交货量" name="remainingSend" type="integer"/>
+	</class>
+</hibernate-mapping>

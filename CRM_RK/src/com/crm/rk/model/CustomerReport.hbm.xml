@@ -1,0 +1,13 @@
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping default-lazy="false"
+	package="com.crm.rk.model">
+	<class name="CustomerReport" table="customerreport">
+		<id column="id" name="id" type="integer" length="10">
+		 	<generator class="identity"/>
+		</id>
+		<property column="开始时间" name="starttime" type="date"/>
+		<property column="结束时间" name="endtime" type="date"/>
+		<property column="报告名称" name="reportname" type="string" length="50"/>
+		<many-to-one  name="manager" class="Manager" column="所属经理" not-null="true" fetch="join"/>
+	</class>
+</hibernate-mapping>

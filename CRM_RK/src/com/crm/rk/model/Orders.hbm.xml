@@ -1,0 +1,32 @@
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping default-lazy="false"
+	package="com.crm.rk.model">
+	<class name="Orders" table="orders">
+		<id column="订单编号" name="id" type="string" length="50">
+		 	<generator class="guid"/>
+		</id>
+		<property column="主题" name="title" type="string" length="50"/>
+		<many-to-one name="customerP" class="CustomerP" column="客户" not-null="true" fetch="join"/>
+		<many-to-one name="product" class="Product" column="销售商品" not-null="true" fetch="join"/>
+		<many-to-one name="channel" class="Channel" column="负责渠道商" not-null="true" fetch="join"/>
+		<many-to-one name="salesman" class="Salesman" column="经手销售员" not-null="true" fetch="join"/>
+		<many-to-one name="manager" class="Manager" column="所属经理" not-null="true" fetch="join"/>
+		<many-to-one name="chance" class="Chance" column="关联机会" fetch="join"/>
+		<property column="接单日期" name="dealdate" type="date"/>
+		<property column="付款日期" name="paydate" type="date"/>
+		<property column="送货日期" name="senddate" type="date"/>
+		<property column="欠未付款" name="remainingPay" type="double"/>
+		<property column="已付款" name="paymoney" type="double"/>
+		<property column="数量" name="amount" type="integer" length="20"/>
+		<property column="货币" name="currency" type="string" length="10"/>
+		<property column="实际成交单价" name="dealprice" type="double" length="50"/>
+		<property column="成交总价" name="dealpriceT" type="double" length="50"/>
+		<property column="总成本" name="costingT" type="double" length="50"/>
+		<property column="利润" name="profits" type="double" length="50" />
+		<property column="订单状态" name="status" type="string" length="20" />
+		<property column="支付方式" name="payways" type="string" length="20" />
+		<property column="说明" name="remarker" type="string" length="50" />		
+		<property column="更新客户状态" name="cstatus" type="string" length="20" />
+		<property column="更新客户类型" name="ctype" type="string" length="20" />
+	</class>
+</hibernate-mapping>
