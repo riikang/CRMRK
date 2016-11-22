@@ -29,7 +29,7 @@ import com.crm.rk.service.MessageService;
 import com.crm.rk.service.ProductService;
 import com.crm.rk.service.SalesmanService;
 import com.opensymphony.xwork2.ActionContext;
-
+//commit test
 public class ChanceAction {
 	@Resource private ChanceService chanceService;
 	@Resource private ChannelService channelService;
