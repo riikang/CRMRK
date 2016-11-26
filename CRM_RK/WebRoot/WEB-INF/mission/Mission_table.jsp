@@ -31,6 +31,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script src="<%=path%>/js/TableValidate.js"></script>
 	<script src="<%=path%>/js/myjq.js"></script>
 	
+	<style type="text/css">
+	.notedit{
+		background-color:#0000FF;
+	}
+	</style>
+	
 	<script>
 		//判断所选行是否为空，以及确认是否删除 start
 	    var flag=0;
@@ -60,7 +66,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		$(document).ready(function() {
     		$('.full-width').horizontalNav({});//表格自适应
 		});
+		
+		/*$("note1").hover(function(){
+		    $("note1").addClass("notedit");
+		},function(){
+		    $("note1").addClass("notedit");
+		});*/
+		
 	</script>
+	
   </head>
   
   <body>
@@ -71,7 +85,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<div class="demo">
     		<div class="horizontal-nav full-width horizontalNav-notprocessed">
         		<ul>
-           		  <li><a href="javascript:void(0)">营销任务</a></li>
+           		  <li id="note1" style="background-color:#317eb4"><a href="javascript:void(0)">营销任务</a></li>
            		  <li id="deletesome" onclick="confirm_delete()"><a href="javascript:void(0)">批量删除</a></li>
            		  <li id="addnewmission"><a href="javascript:void(0)">新增任务</a></li>
         		</ul>
