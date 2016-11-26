@@ -68,9 +68,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<s:form id="f1" action="customerReportAction_deleteSomeReport" namespace="/crm">
 		<!-- 导航条 -->
 		<div class="demo">
+			<div class="horizontal-nav full-width horizontalNav-notprocessed">
+        		<ul>
+           		  <li style="background-color:#317eb4"><a href="javascript:void(0)">客户消费统计</a></li>
+        		</ul>
+    		</div>
     		<div class="horizontal-nav full-width horizontalNav-notprocessed">
         		<ul>
-           		  <li><a>客户消费统计</a></li>
            		  <li onclick="confirm_delete()"><a href="javascript:void(0)">批量删除</a></li>
            		  <li><a id="export" href="javascript:void(0)">导出报表</a></li>
           		  <li><a id="createnew" href="javascript:void(0)">生成报表</a></li>
@@ -108,7 +112,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				showColumns: true,
 				showRefresh: true,
 				showExport: true,
-				exportTypes: ['csv','txt','xml'],
+				exportTypes: ['excel'],
 				search: true,
 				clickToSelect: true,
 				columns: [{field:"id",title:"报表编号",align:"center",valign:"middle",sortable:"true"},

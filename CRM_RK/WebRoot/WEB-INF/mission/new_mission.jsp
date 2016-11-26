@@ -44,10 +44,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<s:form id="f1" action="missionAction_deleteSomeMission" namespace="/crm">
 		<!-- 导航条  -->
 		<div class="demo">
+			<div class="horizontal-nav full-width horizontalNav-notprocessed">
+        		<ul>
+           		  <li style="background-color:#317eb4"><a href="javascript:void(0)">新营销任务</a></li>
+        		</ul>
+    		</div>
     		<div class="horizontal-nav full-width horizontalNav-notprocessed">
         		<ul>
-           		  <li><a href="javascript:void(0)">新营销任务</a></li>
-           		  <li><a href="<%=path%>/crm/missionAction_findAllmission.action">所有任务</a></li>
+           		  <li><a href="<%=path%>/crm/missionAction_findAllmission.action">查看所有任务</a></li>
         		</ul>
     		</div>
 		</div>

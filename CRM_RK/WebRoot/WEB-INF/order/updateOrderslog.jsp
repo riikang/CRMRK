@@ -75,9 +75,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<div id="content-body">
 		<!-- 导航条 -->
 		<div class="demo">
+			<div class="horizontal-nav full-width horizontalNav-notprocessed">
+        		<ul>
+           		  <li style="background-color:#317eb4"><a href="javascript:void(0)">应收款项明细</a></li>
+        		</ul>
+    		</div>
     		<div class="horizontal-nav full-width horizontalNav-notprocessed">
         		<ul>
-        		<!--<li><a href="<%=path %>/crm/orderAction_findAllOrder.action">返回列表</a></li>  -->
+        		<!--<li><a href="<%=path %>/crm/orderAction_findAllOrder.action">返回列表</a></li>  -->	
            		  <li><a onclick="javascript:history.go(-1)" href="javascript:void(0);">返回列表</a></li>
            		  <li><a id="addnewp" href="javascript:void(0)">新增付款记录</a></li>
            		  <li><a id="addnews" href="javascript:void(0)">新增交货记录</a></li>

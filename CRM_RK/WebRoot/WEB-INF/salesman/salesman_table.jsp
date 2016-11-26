@@ -68,9 +68,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<s:form id="f1" action="salesmanAction_deleteSomeSalesman" namespace="/crm">
 		<!-- 导航条 -->
 		<div class="demo">
+			<div class="horizontal-nav full-width horizontalNav-notprocessed">
+        		<ul>
+           		  <li style="background-color:#317eb4"><a href="javascript:void(0)">销售员列表</a></li>
+        		</ul>
+    		</div>
     		<div class="horizontal-nav full-width horizontalNav-notprocessed">
         		<ul>
-           		  <li><a>销售员管理</a></li>
            		  <li onclick="confirm_delete()"><a href="javascript:void(0)">批量删除</a></li>
            		  <li id="addnewchannel"><a href="javascript:void(0)">新增销售员</a></li>
         		</ul>

@@ -88,6 +88,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<div id="content-body">
 		<!-- 导航条 -->
 		<div class="demo">
+			<div class="horizontal-nav full-width horizontalNav-notprocessed">
+        		<ul>
+           		  <li style="background-color:#317eb4"><a href="javascript:void(0)">交流记录</a></li>
+        		</ul>
+    		</div>
     		<div class="horizontal-nav full-width horizontalNav-notprocessed">
         		<ul>
            		  <li><a href="<%=path %>/crm/serviceAction_sfindAllservice.action">返回列表</a></li>

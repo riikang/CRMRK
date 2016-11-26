@@ -43,10 +43,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<s:form id="f1" action="chanceAction_deleteSomechance" namespace="/crm">
 		<!-- 导航条  -->
 		<div class="demo">
+			<div class="horizontal-nav full-width horizontalNav-notprocessed">
+        		<ul>
+           		  <li style="background-color:#317eb4"><a href="javascript:void(0)">新销售机会</a></li>
+        		</ul>
+    		</div>
     		<div class="horizontal-nav full-width horizontalNav-notprocessed">
         		<ul>
-           		  <li><a href="javascript:void(0)">新销售机会</a></li>
-           		  <li><a href="<%=path %>/crm/chanceAction_findAllchance.action">所有销售机会</a></li>
+           		  <li><a href="<%=path %>/crm/chanceAction_findAllchance.action">显示所有销售机会</a></li>
         		</ul>
     		</div>
 		</div>

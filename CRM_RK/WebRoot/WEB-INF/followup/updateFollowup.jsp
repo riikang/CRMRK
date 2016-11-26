@@ -51,10 +51,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<div id="content-body">
 		<!-- 导航条  -->
 		<div class="demo">
+			<div class="horizontal-nav full-width horizontalNav-notprocessed">
+        		<ul>
+           		  <li style="background-color:#317eb4"><a href="javascript:void(0)">跟进记录详情</a></li>
+        		</ul>
+    		</div>
     		<div class="horizontal-nav full-width horizontalNav-notprocessed">
         		<ul>
            		  <li><a href="<%=path %>/crm/followupAction_findAllFollowup.action">返回跟进记录列表</a></li>
-           		  <li><a href="<%=path %>/crm/chanceAction_goBackTheChance.action">返回销售机会</a></li>
+           		<!--   <li><a href="<%=path %>/crm/chanceAction_goBackTheChance.action">返回销售机会</a></li> -->
            		  <li onclick="confirm_delete()"><a href="javascript:void(0)">删除</a></li>
            		  <li id="update"><a href="javascript:void(0)">编辑</a></li>
         		</ul>

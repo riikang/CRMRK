@@ -251,6 +251,15 @@ public class OrderAction {
 				customerPs=customerPService.findCustomerPByNameAndManager(customerP.getCname(), manager.getId());
 				salesmans=salesmanService.findSalesmanByNameAndManager(salesman.getSname(), manager.getId());
 				products=productService.findProductByNameAndManager(product.getPname(), manager.getId());
+				orders.setDealdate(new Date());
+				orders.setCustomerP(customerPs.get(0));
+				orders.setSalesman(salesmans.get(0));
+				orders.setChannel(salesmans.get(0).getChannel());
+				orders.setProduct(products.get(0));
+				orders.setCostingT(products.get(0).getCosting()*orders.getAmount());
+				orders.setDealpriceT(orders.getDealprice()*orders.getAmount());
+				orders.setProfits((orders.getDealprice()-products.get(0).getCosting())*orders.getAmount());
+				
 				if(orders.getStatus().equals("已付清款项")){
 					orders.setPaymoney(orders.getDealpriceT());
 					orders.setRemainingPay(0);
@@ -263,14 +272,7 @@ public class OrderAction {
 					orders.setPaymoney(0);
 					orders.setRemainingPay(orders.getDealpriceT());
 				}
-				orders.setDealdate(new Date());
-				orders.setCustomerP(customerPs.get(0));
-				orders.setSalesman(salesmans.get(0));
-				orders.setChannel(salesmans.get(0).getChannel());
-				orders.setProduct(products.get(0));
-				orders.setCostingT(products.get(0).getCosting()*orders.getAmount());
-				orders.setDealpriceT(orders.getDealprice()*orders.getAmount());
-				orders.setProfits((orders.getDealprice()-products.get(0).getCosting())*orders.getAmount());
+				
 				if(!orders.getCstatus().equals("")||orders.getCstatus()!=null){
 					customerPs.get(0).setStatus(orders.getCstatus());
 				}

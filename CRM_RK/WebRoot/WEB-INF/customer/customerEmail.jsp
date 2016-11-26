@@ -66,9 +66,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<s:form id="f1" action="emailMessageAction_sendSomeEmail" namespace="/crm">
 		<!-- 导航条  -->
 		<div class="demo">
+			<div class="horizontal-nav full-width horizontalNav-notprocessed">
+        		<ul>
+           		  <li style="background-color:#317eb4"><a href="javascript:void(0)">客户关怀</a></li>
+        		</ul>
+    		</div>
     		<div class="horizontal-nav full-width horizontalNav-notprocessed">
         		<ul>
-           		  <li><a>客户信息</a></li>
            		  <li onclick="confirm_send()"><a href="javascript:void(0);">发送祝福</a></li>
            		  <li id="edit"><a href="javascript:void(0)">编辑内容</a></li>
         		</ul>

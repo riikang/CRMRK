@@ -31,12 +31,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script src="<%=path%>/js/TableValidate.js"></script>
 	<script src="<%=path%>/js/myjq.js"></script>
 	
-	<style type="text/css">
-	.notedit{
-		background-color:#0000FF;
-	}
-	</style>
-	
 	<script>
 		//判断所选行是否为空，以及确认是否删除 start
 	    var flag=0;
@@ -67,12 +61,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     		$('.full-width').horizontalNav({});//表格自适应
 		});
 		
-		/*$("note1").hover(function(){
-		    $("note1").addClass("notedit");
-		},function(){
-		    $("note1").addClass("notedit");
-		});*/
-		
 	</script>
 	
   </head>
@@ -83,9 +71,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<s:form id="f1" action="missionAction_deleteSomeMission" namespace="/crm">
 		<!-- 导航条  -->
 		<div class="demo">
+			<div class="horizontal-nav full-width horizontalNav-notprocessed">
+        		<ul>
+           		  <li style="background-color:#317eb4"><a href="javascript:void(0)">营销任务列表</a></li>
+        		</ul>
+    		</div>
     		<div class="horizontal-nav full-width horizontalNav-notprocessed">
         		<ul>
-           		  <li id="note1" style="background-color:#317eb4"><a href="javascript:void(0)">营销任务</a></li>
            		  <li id="deletesome" onclick="confirm_delete()"><a href="javascript:void(0)">批量删除</a></li>
            		  <li id="addnewmission"><a href="javascript:void(0)">新增任务</a></li>
         		</ul>
@@ -121,7 +113,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				showColumns: true,
 				showRefresh: true,
 				showExport: true,
-				exportTypes: ['csv','txt','xml'],
+				exportTypes: ['excel'],
 				search: true,
 				clickToSelect: true,
 				columns: [{field:"title",title:"任务主题",align:"left",valign:"middle",sortable:"true"},
@@ -235,8 +227,8 @@ new CBPFWTabs( document.getElementById( 'tabs' ) );
 $(function() {
 	//如果用户等级为3,channel不能改
 	if("${applicationScope.level}"==3){
-		$('#channelid').val("${applicationScope.user.channel.cname}");
-		$('#channelid').attr("disabled","desabled");
+		$('#cname').val("${applicationScope.user.channel.cname}");
+		$('#cname').attr("disabled","desabled");
 		$('#tabs').append("<input type='hidden' id='hid1' name='channel.cname'/>");
 		$('#hid1').val("${applicationScope.user.channel.cname}");
 	}

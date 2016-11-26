@@ -274,9 +274,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<dl class="system_log">
 							<dt>客户服务<img src="images/left/select_xl01.png"></dt>
 							<dd class="first_dd"><a href="javascript:document.getElementById('if1').setAttribute('src', '<%=path %>/crm/emailMessageAction_customerpServer.action');">客户关怀</a></dd>
-							<dd><a href="javascript:document.getElementById('if1').setAttribute('src', '<%=path %>/crm/serviceAction_sfindAllservice.action');">投诉/意见处理</a></dd>
-							<dd><a href="javascript:document.getElementById('if1').setAttribute('src', '<%=path %>/crm/serviceAction_sfindAllservice.action');">产品问答</a></dd>
-							<dd><a href="#">客户满意度</a></dd>
+							<dd><a href="javascript:document.getElementById('if1').setAttribute('src', '<%=path %>/crm/serviceAction_sfindAllservice.action');">投诉/意见/咨询处理</a></dd>
+							<!-- <dd><a href="javascript:document.getElementById('if1').setAttribute('src', '<%=path %>/crm/serviceAction_sfindAllservice.action');">产品问答</a></dd>
+							<dd><a href="#">客户满意度</a></dd> -->
 						</dl>
 	
 						<dl class="custom">

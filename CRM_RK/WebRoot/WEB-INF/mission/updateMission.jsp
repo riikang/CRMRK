@@ -57,6 +57,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<div id="content-body">
 		<!-- 导航条  -->
 		<div class="demo">
+			<div class="horizontal-nav full-width horizontalNav-notprocessed">
+        		<ul>
+           		  <li style="background-color:#317eb4"><a href="javascript:void(0)">任务详情</a></li>
+        		</ul>
+    		</div>
     		<div class="horizontal-nav full-width horizontalNav-notprocessed">
         		<ul>
            		  <li><a href="<%=path %>/crm/missionAction_findAllmission.action">返回列表</a></li>
@@ -313,7 +318,7 @@ $(function() {
     					"<input type='checkbox' id='c12' name='mission.repeatTime' value='十二月'/>十二月</td></tr>");
     			$('#sel6').val(strs[0]);
     			for (var i=1;i<strs.length ;i++ ){
-    				alert(strs[i]);
+    				//alert(strs[i]);
     				if(strs[i]==$('#c1').val()){
     					$('#c1').attr("checked","checked");
     				}

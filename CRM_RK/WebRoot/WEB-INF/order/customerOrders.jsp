@@ -32,11 +32,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script src="<%=path%>/js/myjq.js"></script>
 	
 	<script>
-		//判断所选行是否为空，以及确认是否删除
 		$(document).ready(function(){
 			//表格自适应
     		$('.full-width').horizontalNav({});
-    		
 		});
 	</script>
   </head>
@@ -73,7 +71,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				showColumns: true,
 				showRefresh: true,
 				showExport: true,
-				exportTypes: ['csv','txt','xml'],
+				exportTypes: ['excel'],
 				search: true,
 				clickToSelect: true,
 				columns: [{field:"id",title:"订单编号",align:"center",valign:"middle",sortable:"true"},
