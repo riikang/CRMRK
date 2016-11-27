@@ -326,7 +326,7 @@ public class CustomerPAction extends ActionSupport {
 		Manager manager=(Manager)ActionContext.getContext().getApplication().get("manager");
 		HttpServletRequest request=ServletActionContext.getRequest();
 		String em=request.getParameter("em");
-		userPowers=userPowerService.findByUsernameAndManager(em, manager.getId());
+		userPowers=userPowerService.findByUsername(em);
 		String result="";
 		if(userPowers.size()==0){
 			result="0";
@@ -350,7 +350,7 @@ public class CustomerPAction extends ActionSupport {
 		HttpServletRequest request=ServletActionContext.getRequest();
 		String em=request.getParameter("em");
 		int uid=Integer.valueOf(request.getParameter("uid")); 
-		userPowers=userPowerService.findByUsernameAndManager(em, manager.getId());
+		userPowers=userPowerService.findByUsername(em);
 		userPower=userPowerService.findById(UserPower.class, uid);
 		String result="";
 		if(userPowers.size()==0){
@@ -371,6 +371,80 @@ public class CustomerPAction extends ActionSupport {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}  
+		return null;
+	}
+	
+	public String validateInput3(){
+		Manager manager=(Manager)ActionContext.getContext().getApplication().get("manager");
+		HttpServletRequest request=ServletActionContext.getRequest();
+		HttpServletResponse response=ServletActionContext.getResponse();
+		if(manager!=null){
+			String cname=request.getParameter("cname");
+			String result="";
+			customerPs=customerPService.findCustomerPByNameAndManager(cname, manager.getId());
+			if(customerPs.size()>0){
+				result="1";
+			}else{
+				result="0";
+			}
+			try {
+				response.setCharacterEncoding("utf-8"); 
+				response.getWriter().print(result);
+				response.getWriter().flush();  
+		        response.getWriter().close();  
+			} catch (IOException e) {
+				e.printStackTrace();
+			}  
+		}else{
+			try {
+				response.setCharacterEncoding("utf-8"); 
+				response.getWriter().print("<script> alert('当前权限等级暂时无法执行此操作');</script>");
+				response.getWriter().flush();  
+		        response.getWriter().close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		return null;
+	}
+	
+	public String validateInput4() throws Exception{
+		Manager manager=(Manager)ActionContext.getContext().getApplication().get("manager");
+		HttpServletRequest request=ServletActionContext.getRequest();
+		HttpServletResponse response=ServletActionContext.getResponse();
+		if(manager!=null){
+			String cname=request.getParameter("cname");
+			int cid=Integer.valueOf(request.getParameter("cid"));
+			String result="";
+			customerP=customerPService.findById(CustomerP.class, cid);
+			if(!customerP.getCname().equals(cname)){
+				customerPs=customerPService.findCustomerPByNameAndManager(cname, manager.getId());
+				if(customerPs.size()>0){
+					result="1";
+				}else{
+					result="0";
+				}
+			}else{
+				result="0";
+			}
+			try {
+				response.setCharacterEncoding("utf-8"); 
+				response.getWriter().print(result);
+				response.getWriter().flush();  
+		        response.getWriter().close();  
+			} catch (IOException e) {
+				e.printStackTrace();
+			}  
+		}else{
+			try {
+				response.setCharacterEncoding("utf-8"); 
+				response.getWriter().print("<script> alert('当前权限等级暂时无法执行此操作');</script>");
+				response.getWriter().flush();  
+		        response.getWriter().close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
 		return null;
 	}
 	

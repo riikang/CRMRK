@@ -74,7 +74,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				exportTypes: ['excel'],
 				search: true,
 				clickToSelect: true,
-				columns: [{field:"id",title:"订单编号",align:"center",valign:"middle",sortable:"true"},
+				columns: [{field:"id",title:"订单标题",align:"center",valign:"middle",sortable:"true"},
 				          {field:"time",title:"下单时间",align:"center",valign:"middle",sortable:"true"},
 				          {field:"product",title:"成交商品",align:"center",valign:"middle",sortable:"true"},
 				          {field:"hb",title:"货币单位",align:"center",valign:"middle",sortable:"true"},
@@ -99,7 +99,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<s:iterator value="orderss" id="od1">
 		<script>
 		init.dates[ii] = {
-				'id' : '<s:property value="#od1.id"/>',
+				'id' : '<s:property value="#od1.title"/>',
 				'time' : '<s:property value="#od1.dealdate"/>',
 				'product':'<s:property value="#od1.product.pname"/>',
 				'hb' : '<s:property value="#od1.currency"/>',

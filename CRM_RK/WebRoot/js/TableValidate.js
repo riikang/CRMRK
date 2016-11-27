@@ -29,9 +29,27 @@ $(function(){
 			$('#tip2').html("<font color='red'><b>×请正确输入价格</b></font>");
 			return false;
 		}else{$('#tip2').html("");}
-		$('#tip2').text("");
-		$('#tip1').text("");
-		$('#addordersform').submit();
+		if($('#otitle').val()==""||$('#otitle').val()==null){
+			$('#tip1').html("<font color='red'><b>×标题不能为空</b></font>");
+			return false;
+		}else{
+			$.ajax({
+				type: "POST",
+				url: "crm/orderAction_validateTitle.action",
+				data: {title:$('#otitle').val()},
+				dataType: 'text',
+				success: function(result) {
+					if (result=="1") {
+						$("#tip1").html("<font color='red'><b>×订单标题已存在</b></font>");
+						return 
+					}else{
+						$('#tip2').text("");
+						$('#tip1').text("");
+						$('#addordersform').submit();
+					}
+				}
+			});
+		}
 	});
 	
 	//编辑订单
@@ -56,9 +74,27 @@ $(function(){
 			$('#tip2').html("<font color='red'><b>×请正确输入价格</b></font>");
 			return false;
 		}else{$('#tip2').html("");}
-		$('#tip2').text("");
-		$('#tip1').text("");
-		$('#updateordersform').submit();
+		if($('#otitle').val()==""||$('#otitle').val()==null){
+			$('#tip1').html("<font color='red'><b>×标题不能为空</b></font>");
+			return false;
+		}else{
+			$.ajax({
+				type: "POST",
+				url: "crm/orderAction_validateTitle2.action",
+				data: {ordersid:$('#ordersid').val(),title:$('#otitle').val()},
+				dataType: 'text',
+				success: function(result) {
+					if (result=="1") {
+						$("#tip1").html("<font color='red'><b>×订单标题已存在</b></font>");
+						return 
+					}else{
+						$('#tip2').text("");
+						$('#tip1').text("");
+						$('#updateordersform').submit();
+					}
+				}
+			});
+		}
 	});
 	
 	//添加渠道商
@@ -95,8 +131,21 @@ $(function(){
 		}else{
 			$('#tip1').html("");
 		}
-		$('#tip1').html("");
-		$('#addchannelform').submit();
+		$.ajax({
+			type: "POST",
+			url: "crm/channelAction_validateInput1.action",
+			data: {cname:$('#cname').val()},
+			dataType: 'text',
+			success: function(result) {
+				if (result=="1") {
+					$("#tip1").html("<font color='red'><b>×渠道名称已存在</b></font>");
+					return 
+				}else{
+					$('#tip1').html("");
+					$('#addchannelform').submit();
+				}
+			}
+		});
 	});
 	
 	//编辑渠道商
@@ -133,8 +182,21 @@ $(function(){
 		}else{
 			$('#tip1').html("");
 		}
-		$('#tip1').html("");
-		$('#updatechannelform').submit();
+		$.ajax({
+			type: "POST",
+			url: "crm/channelAction_validateInput2.action",
+			data: {channelid:$('#channelid').val(),cname:$('#cname').val()},
+			dataType: 'text',
+			success: function(result) {
+				if (result=="1") {
+					$("#tip1").html("<font color='red'><b>×渠道名称已存在</b></font>");
+					return 
+				}else{
+					$('#tip1').html("");
+					$('#updatechannelform').submit();
+				}
+			}
+		});
 	});
 	
 	//添加销售员
@@ -157,8 +219,20 @@ $(function(){
 					if (result=="1") {
 						$("#tip1").html("<font color='red'><b>×邮箱已被注册</b></font>");
 					}else{
-						//alert("跳转");
-						$('#addsalesmanform').submit();
+						$.ajax({
+							type: "POST",
+							url: "crm/salesmanAction_validateInput1.action",
+							data: {sname:$('#cname').val()},
+							dataType: 'text',
+							success: function(result) {
+								if (result=="1") {
+									$("#tip1").html("<font color='red'><b>×该姓名已存在</b></font>");
+								}else{
+									$('#tip1').html("");
+									$('#addsalesmanform').submit();
+								}
+							}
+						});
 					}
 				}
 			});
@@ -166,7 +240,6 @@ $(function(){
 			$('#tip1').html("<font color='red'><b>×电子邮箱格式不对</b></font>");
 			return false;
 		}
-		$('#tip1').html("");
 	});
 	
 	//编辑销售员信息
@@ -189,8 +262,20 @@ $(function(){
 					if (result=="1") {
 						$("#tip1").html("<font color='red'><b>×邮箱已被注册</b></font>");
 					}else{
-						//alert("跳转");
-						$('#updatesalesmanform').submit();
+						$.ajax({
+							type: "POST",
+							url: "crm/salesmanAction_validateInput2.action",
+							data: {sname:$('#cname').val(),salesmanid:$('#salesmanid').val()},
+							dataType: 'text',
+							success: function(result) {
+								if (result=="1") {
+									$("#tip1").html("<font color='red'><b>×该姓名已存在</b></font>");
+								}else{
+									$('#tip1').html("");
+									$('#updatesalesmanform').submit();
+								}
+							}
+						});
 					}
 				}
 			});
@@ -198,7 +283,6 @@ $(function(){
 			$('#tip1').html("<font color='red'><b>×电子邮箱格式不对</b></font>");
 			return false;
 		}
-		$('#tip1').html("");
 	});
 	
 	//新增任务
@@ -263,7 +347,7 @@ $(function(){
 	//添加销售机会
 	$('#addchanceb').on('click',function(){
 		if($('#chancename').val().length<=0||$('#chancename').val()>50){
-			$('#tip1').html("<font color='red'><b>×机会名称长度不符(1~50个字节)</b></font>");
+			$('#tip1').html("<font color='red'><b>×机会名称不能为空(1~50个字节)</b></font>");
 			return false;
 		}else{
 			$('#tip1').html("");
@@ -310,15 +394,32 @@ $(function(){
 		}else{
 			$('#tip2').html("");
 		}
-		$('#tip1').html("");
-		$('#tip2').html("");
-		$('#addchanceform').submit();
+		if($('#chancename').val()==""||$('#chancename').val()==null){
+			$("#tip1").html("<font color='red'><b>×机会名称不能为空</b></font>");
+			return false;
+		}else{
+			$.ajax({
+				type: "POST",
+				url: "crm/chanceAction_validateInput1.action",
+				data: {chancename:$('#chancename').val()},
+				dataType: 'text',
+				success: function(result) {
+					if (result=="1") {
+						$("#tip1").html("<font color='red'><b>×机会名称已存在</b></font>");
+					}else{
+						$('#tip1').html("");
+						$('#tip2').html("");
+						$('#addchanceform').submit();
+					}
+				}
+			});
+		}
 	});
 	
 	//编辑销售机会信息
 	$('#updatechanceb').on('click',function(){
 		if($('#chancename').val().length<=0||$('#chancename').val()>50){
-			$('#tip1').html("<font color='red'><b>×机会名称长度不符(1~50个字节)</b></font>");
+			$('#tip1').html("<font color='red'><b>×机会名称不能为空(1~50个字节)</b></font>");
 			return false;
 		}else{
 			$('#tip1').html("");
@@ -365,9 +466,26 @@ $(function(){
 		}else{
 			$('#tip2').html("");
 		}
-		$('#tip1').html("");
-		$('#tip2').html("");
-		$('#updatechanceform').submit();
+		if($('#chancename').val()==""||$('#chancename').val()==null){
+			$("#tip1").html("<font color='red'><b>×机会名称不能为空</b></font>");
+			return false;
+		}else{
+			$.ajax({
+				type: "POST",
+				url: "crm/chanceAction_validateInput2.action",
+				data: {chancename:$('#chancename').val(),chanceid:$('#chanceid').val()},
+				dataType: 'text',
+				success: function(result) {
+					if (result=="1") {
+						$("#tip1").html("<font color='red'><b>×机会名称已存在</b></font>");
+					}else{
+						$('#tip1').html("");
+						$('#tip2').html("");
+						$('#updatechanceform').submit();
+					}
+				}
+			});
+		}
 	});
 	
 	//邮件内容
@@ -479,8 +597,20 @@ $(function(){
 				if (result=="1") {
 					$("#tip1").html("<font color='red'><b>×邮箱地址已存在</b></font>");
 				}else{
-					$("#tip1").html("");
-					$('#addcustomerform').submit();
+					$.ajax({
+						type: "POST",
+						url: "crm/customerPAction_validateInput3.action",
+						data: {cname:$('#cname').val()},
+						dataType: 'text',
+						success: function(result) {
+							if(result=="1"){
+								$("#tip1").html("<font color='red'><b>×客户姓名已存在</b></font>");
+							}else{
+								$("#tip1").html("");
+								$('#addcustomerform').submit();
+							}
+						}
+					});
 				}
 			}
 		});
@@ -529,8 +659,20 @@ $(function(){
 				if (result=="1") {
 					$("#tip1").html("<font color='red'><b>×邮箱地址已存在</b></font>");
 				}else{
-					$("#tip1").html("");
-					$('#updatecustomerform').submit();
+					$.ajax({
+						type: "POST",
+						url: "crm/customerPAction_validateInput4.action",
+						data: {cname:$('#cname').val(),cid:$('#cid').val()},
+						dataType: 'text',
+						success: function(result) {
+							if(result=="1"){
+								$("#tip1").html("<font color='red'><b>×客户姓名已存在</b></font>");
+							}else{
+								$("#tip1").html("");
+								$('#updatecustomerform').submit();
+							}
+						}
+					});
 				}
 			}
 		});
@@ -539,7 +681,7 @@ $(function(){
 	//添加商品
 	$('#addproductb').on('click',function(){
 		if($('#pname').val().length<=0||$('#pname').val().length>50){
-			$('#tip1').html("<font color='red'><b>×商品名称长度不符要求(1~50)</b></font>");
+			$('#tip1').html("<font color='red'><b>×商品名称不能为空(1~50)</b></font>");
 			return false;
 		}
 		if($('#sel1').val()==""||$('#sel1').val()==null){

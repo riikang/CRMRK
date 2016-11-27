@@ -182,7 +182,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<section id="section-1">
 						<table width=100% align="center" cellpadding="8">
 						<tr>
-						<td width="40%" align="right">*客户名称:</td>
+						<td width="40%" align="right">*客户姓名:</td>
 						<td width="60%"><input type="text" style="width:185px;height:30px;" id="cname" name="customerP.cname"/></td>
 						</tr>
 						<tr>

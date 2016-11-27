@@ -179,7 +179,7 @@ public class LoginRegisterAction {
 		Manager manager=(Manager)ActionContext.getContext().getApplication().get("manager");
 		HttpServletRequest request=ServletActionContext.getRequest();
 		String un=request.getParameter("un");
-		userPowers=userPowerService.findByUsernameAndManager(un, manager.getId());
+		userPowers=userPowerService.findByUsername(un);
 		String result="";
 		if(userPowers.size()==0){
 			result="0";
@@ -204,7 +204,7 @@ public class LoginRegisterAction {
 		int upid=Integer.valueOf(request.getParameter("upid"));
 		String un=request.getParameter("un");
 		userPower=userPowerService.findById(UserPower.class, upid);
-		userPowers=userPowerService.findByUsernameAndManager(un, manager.getId());
+		userPowers=userPowerService.findByUsername(un);
 		String result="";
 		if(userPowers.size()==0){
 			result="0";

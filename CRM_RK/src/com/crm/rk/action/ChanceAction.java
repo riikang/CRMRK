@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.struts2.ServletActionContext;
@@ -418,5 +419,80 @@ public class ChanceAction {
 			return "error";
 		}
 	}
+	
+	public String validateInput1(){
+		Manager manager=(Manager)ActionContext.getContext().getApplication().get("manager");
+		HttpServletRequest request=ServletActionContext.getRequest();
+		HttpServletResponse response=ServletActionContext.getResponse();
+		if(manager!=null){
+			String chancename=request.getParameter("chancename");
+			String result="";
+			chances=chanceService.findChanceByNameAndManager(chancename, manager.getId());
+			if(chances.size()>0){
+				result="1";
+			}else{
+				result="0";
+			}
+			try {
+				response.setCharacterEncoding("utf-8"); 
+				response.getWriter().print(result);
+				response.getWriter().flush();  
+		        response.getWriter().close();  
+			} catch (IOException e) {
+				e.printStackTrace();
+			}  
+		}else{
+			try {
+				response.setCharacterEncoding("utf-8"); 
+				response.getWriter().print("<script> alert('当前权限等级暂时无法执行此操作');</script>");
+				response.getWriter().flush();  
+		        response.getWriter().close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		return null;
+	}
+	
+	public String validateInput2() throws Exception{
+		Manager manager=(Manager)ActionContext.getContext().getApplication().get("manager");
+		HttpServletRequest request=ServletActionContext.getRequest();
+		HttpServletResponse response=ServletActionContext.getResponse();
+		if(manager!=null){
+			String chancename=request.getParameter("chancename");
+			int chanceid=Integer.valueOf(request.getParameter("chanceid"));
+			String result="";
+			chance=chanceService.findById(Chance.class, chanceid);
+			if(!chance.getName().equals(chancename)){
+				chances=chanceService.findChanceByNameAndManager(chancename, manager.getId());
+				if(chances.size()>0){
+					result="1";
+				}else{
+					result="0";
+				}
+			}else{
+				result="0";
+			}
+			try {
+				response.setCharacterEncoding("utf-8"); 
+				response.getWriter().print(result);
+				response.getWriter().flush();  
+		        response.getWriter().close();  
+			} catch (IOException e) {
+				e.printStackTrace();
+			}  
+		}else{
+			try {
+				response.setCharacterEncoding("utf-8"); 
+				response.getWriter().print("<script> alert('当前权限等级暂时无法执行此操作');</script>");
+				response.getWriter().flush();  
+		        response.getWriter().close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		return null;
+	}
+	
 	
 }

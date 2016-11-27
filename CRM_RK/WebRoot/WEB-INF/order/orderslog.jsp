@@ -88,7 +88,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				exportTypes: ['excel'],
 				search: true,
 				clickToSelect: true,
-				columns: [{field:"id",title:"订单编号",align:"center",valign:"middle",sortable:"true"},
+				columns: [{field:"id",title:"订单标题",align:"center",valign:"middle",sortable:"true"},
 				          {field:"time",title:"接单时间",align:"center",valign:"middle",sortable:"true"},
 				          {field:"pdate",title:"付款日期",align:"center",valign:"middle",sortable:"true"},
 				          {field:"pmoney",title:"付款金额",align:"center",valign:"middle",sortable:"true"},
@@ -115,7 +115,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<script>
 		init.dates[ii] = {
 				'id' : '<a href="<%=path %>/crm/orderAction_findTheOrder.action?orders.id=<s:property value='#od1.id'/>">'+
-							'&nbsp;<s:property value="#od1.id"/></a>',
+							'&nbsp;<s:property value="#od1.title"/></a>',
 				'time' : '<s:property value="#od1.dealdate"/>',
 				'pdate':'<s:property value="#od1.paydate"/>',
 				'pmoney' : '<s:property value="#od1.dealpriceT"/>',

@@ -180,52 +180,75 @@ public class ProductAction extends ActionSupport {
 	public String validateInput(){
 		Manager manager=(Manager)ActionContext.getContext().getApplication().get("manager");
 		HttpServletRequest request=ServletActionContext.getRequest();
-		String pn=request.getParameter("pn");
-		products=productService.findProductByNameAndManager(pn, manager.getId());
-		String result="";
-		if(products.size()==0){
-			result="0";
-		}else{
-			result="1";
-		}
 		HttpServletResponse response=ServletActionContext.getResponse();
-		try {
-			response.setCharacterEncoding("utf-8"); 
-			response.getWriter().print(result);
-			response.getWriter().flush();  
-	        response.getWriter().close();  
-		} catch (IOException e) {
-			e.printStackTrace();
-		}  
+		if(manager!=null){
+			String pn=request.getParameter("pn");
+			products=productService.findProductByNameAndManager(pn, manager.getId());
+			String result="";
+			if(products.size()==0){
+				result="0";
+			}else{
+				result="1";
+			}
+			try {
+				response.setCharacterEncoding("utf-8"); 
+				response.getWriter().print(result);
+				response.getWriter().flush();  
+		        response.getWriter().close();  
+			} catch (IOException e) {
+				e.printStackTrace();
+			}  
+		}else{
+			try {
+				response.setCharacterEncoding("utf-8"); 
+				response.getWriter().print("<script> alert('当前权限等级暂时无法执行此操作');</script>");
+				response.getWriter().flush();  
+		        response.getWriter().close();  
+			} catch (IOException e) {
+				e.printStackTrace();
+			}  
+		}
+		
 		return null;
 	}
 	
 	public String validateInput2() throws Exception{
 		Manager manager=(Manager)ActionContext.getContext().getApplication().get("manager");
 		HttpServletRequest request=ServletActionContext.getRequest();
-		String pn=request.getParameter("pn");
-		int pid=Integer.valueOf(request.getParameter("pid"));
-		product=productService.findById(Product.class, pid);
-		products=productService.findProductByNameAndManager(pn, manager.getId());
-		String result="";
-		if(products.size()==0){
-			result="0";
-		}else{
-			if(products.get(0).getPname().equals(product.getPname())){
-				result="2";
-			}else{
-				result="1";
-			}
-		}
 		HttpServletResponse response=ServletActionContext.getResponse();
-		try {
-			response.setCharacterEncoding("utf-8"); 
-			response.getWriter().print(result);
-			response.getWriter().flush();  
-	        response.getWriter().close();  
-		} catch (IOException e) {
-			e.printStackTrace();
-		}  
+		if(manager!=null){
+			String pn=request.getParameter("pn");
+			int pid=Integer.valueOf(request.getParameter("pid"));
+			product=productService.findById(Product.class, pid);
+			products=productService.findProductByNameAndManager(pn, manager.getId());
+			String result="";
+			if(products.size()==0){
+				result="0";
+			}else{
+				if(products.get(0).getPname().equals(product.getPname())){
+					result="2";
+				}else{
+					result="1";
+				}
+			}
+			try {
+				response.setCharacterEncoding("utf-8"); 
+				response.getWriter().print(result);
+				response.getWriter().flush();  
+		        response.getWriter().close();  
+			} catch (IOException e) {
+				e.printStackTrace();
+			}  
+		}else{
+			try {
+				response.setCharacterEncoding("utf-8"); 
+				response.getWriter().print("<script> alert('当前权限等级暂时无法执行此操作');</script>");
+				response.getWriter().flush();  
+		        response.getWriter().close();  
+			} catch (IOException e) {
+				e.printStackTrace();
+			}  
+		}
 		return null;
 	}
 	

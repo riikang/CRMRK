@@ -121,7 +121,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   		<div class="close1"><a href="javascript:void(0)" id="closebt"><img src="images/close.gif"></a></div>
  		<div class="goodtxt">
  		<s:form theme="simple" id="updatechannelform" action="channelAction_updateChannel" method="post" namespace="/crm">
- 			<input type="hidden" name="channel.id" value="${channel.id}"/>
+ 			<input type="hidden" id="channelid" name="channel.id" value="${channel.id}"/>
  			<input type="hidden" name="channel.enjoyDate" value="${channel.enjoyDate}" />
     		<div id="tabs" class="tabs">
 				<nav>

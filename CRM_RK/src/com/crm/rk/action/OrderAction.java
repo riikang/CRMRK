@@ -356,4 +356,78 @@ public class OrderAction {
 		}
 	}
 	
+	public String validateTitle(){
+		Manager manager=(Manager)ActionContext.getContext().getApplication().get("manager");
+		HttpServletRequest request=ServletActionContext.getRequest();
+		HttpServletResponse response=ServletActionContext.getResponse();
+		if(manager!=null){
+			String title=request.getParameter("title");
+			String result="";
+			orderss=orderService.findByTitleAndManager(title, manager.getId());
+			if(orderss.size()>0){
+				result="1";
+			}else{
+				result="0";
+			}
+			try {
+				response.setCharacterEncoding("utf-8"); 
+				response.getWriter().print(result);
+				response.getWriter().flush();  
+		        response.getWriter().close();  
+			} catch (IOException e) {
+				e.printStackTrace();
+			}  
+		}else{
+			try {
+				response.setCharacterEncoding("utf-8"); 
+				response.getWriter().print("<script> alert('当前权限等级暂时无法执行此操作');</script>");
+				response.getWriter().flush();  
+		        response.getWriter().close();  
+			} catch (IOException e) {
+				e.printStackTrace();
+			}  
+		}
+		return null;
+	}
+	
+	public String validateTitle2() throws Exception{
+		Manager manager=(Manager)ActionContext.getContext().getApplication().get("manager");
+		HttpServletRequest request=ServletActionContext.getRequest();
+		HttpServletResponse response=ServletActionContext.getResponse();
+		if(manager!=null){
+			String title=request.getParameter("title");
+			String ordersid=request.getParameter("ordersid");
+			String result="";
+			orders=orderService.findByStringId(Orders.class, ordersid);
+			if(!orders.getTitle().equals(title)){
+				orderss=orderService.findByTitleAndManager(title, manager.getId());
+				if(orderss.size()>0){
+					result="1";
+				}else{
+					result="0";
+				}
+			}else{
+				result="0";
+			}
+			try {
+				response.setCharacterEncoding("utf-8"); 
+				response.getWriter().print(result);
+				response.getWriter().flush();  
+		        response.getWriter().close();  
+			} catch (IOException e) {
+				e.printStackTrace();
+			}  
+		}else{
+			try {
+				response.setCharacterEncoding("utf-8"); 
+				response.getWriter().print("<script>alert('当前权限等级暂时无法执行此操作');</script>");
+				response.getWriter().flush();  
+		        response.getWriter().close();  
+			} catch (IOException e) {
+				e.printStackTrace();
+			}  
+		}
+		return null;
+	}
+	
 }

@@ -113,7 +113,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				exportTypes: ['excel'],	
 				search: true,
 				clickToSelect: true,
-				columns: [{field:"id",title:"订单编号",align:"center",valign:"middle",sortable:"true"},
+				columns: [{field:"id",title:"订单标题",align:"center",valign:"middle",sortable:"true"},
 				          {field:"time",title:"接单时间",align:"center",valign:"middle",sortable:"true"},
 				          {field:"product",title:"成交商品",align:"center",valign:"middle",sortable:"true"},
 				          {field:"profits",title:"成交总利润",align:"center",valign:"middle",sortable:"true"},
@@ -140,7 +140,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<script>
 		init.dates[ii] = {
 				'id' : '<input type="checkbox" onchange="confirm_checked(this)" id="oid" name="oid" value="<s:property value="#od1.id"/>"/>&nbsp;'+
-							'<a href="<%=path %>/crm/orderAction_findTheOrder.action?orders.id=<s:property value='#od1.id'/>"><s:property value="#od1.id"/></a>',
+							'<a href="<%=path %>/crm/orderAction_findTheOrder.action?orders.id=<s:property value='#od1.id'/>"><s:property value="#od1.title"/></a>',
 				'time' : '<s:property value="#od1.dealdate"/>',
 				'product':'<s:property value="#od1.product.pname"/>',
 				'profits' : '<s:property value="#od1.profits"/>',
@@ -170,8 +170,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<section id="section-1">
 						<table width=100% align="center" cellpadding="8">
 						<tr>
-						<td width="40%" align="right">主题:</td>
-						<td width="60%"><input type="text" style="width:185px;height:30px;" name="orders.title"/></td>
+						<td width="40%" align="right">*标题:</td>
+						<td width="60%"><input id="otitle" type="text" style="width:185px;height:30px;" name="orders.title"/></td>
 						</tr>
 						<tr>
 						<td align="right">*客户名称:</td>

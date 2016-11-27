@@ -75,7 +75,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					</tr>
 					<tr>
 						<td align="right" width="25%">订单编号:&nbsp;</td><td id="oid" width="25%">${orders.id}</td>
-						<td align="right" width="25%">主题:&nbsp;</td><td width="25%">${orders.title}</td>
+						<td align="right" width="25%">标题:&nbsp;</td><td width="25%">${orders.title}</td>
 					</tr>
 					<tr>
 						<td align="right">客户名称:&nbsp;</td><td id="t1">${orders.customerP.cname}</td>
@@ -129,7 +129,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   		<div class="close1"><a href="javascript:void(0)" id="closebt"><img src="images/close.gif"></a></div>
  		<div class="goodtxt">
  		<s:form theme="simple" id="updateordersform" action="orderAction_updateOrder" method="post" namespace="/crm">
- 			<input type="hidden" name="orders.id" value="${orders.id}"/>
+ 			<input type="hidden" id="ordersid" name="orders.id" value="${orders.id}"/>
  			<input type="hidden" name="orders.dealdate" value="${orders.dealdate}"/>
  			<input type="hidden" name="orders.remainingPay" value="${orders.remainingPay}"/>
  			<input type="hidden" name="orders.paymoney" value="${orders.paymoney}"/>
@@ -144,8 +144,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<section id="section-1">
 						<table width=100% align="center" cellpadding="10">
 						<tr>
-						<td width="40%" align="right">主题:</td>
-						<td width="60%"><input type="text" value="${orders.title}" style="width:185px;height:30px;" name="orders.title"/></td>
+						<td width="40%" align="right">*标题:</td>
+						<td width="60%"><input id="otitle" type="text" value="${orders.title}" style="width:185px;height:30px;" name="orders.title"/></td>
 						</tr>
 						<tr>
 						<td align="right">*客户名称:</td>
