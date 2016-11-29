@@ -30,30 +30,30 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script src="<%=path%>/js/cbpFWTabs.js"></script>
 	<script src="<%=path%>/js/myjq.js"></script>
 	<script>
-		//判断所选行是否为空，以及确认是否删除 start
-	    var flag=0;
-		function confirm_delete(){
-			if(flag>0){
-				if (!confirm("确认删除？")) {
-		           	 window.event.returnValue = false;
-		       		 }
-					else{
-						var f1=document.getElementById("f1");
-						f1.submit();
-						alert("删除成功");
-					}	
-			}else{
-				alert("未选中任何行");
-			}				
+	//删除
+	function confirm_delete(){
+		var rows=$('#reportTable').bootstrapTable('getSelections');
+		if(rows.length==0){
+			alert('请选择需要删除的数据（多选）');
+			return;
 		}
-		function confirm_checked(obj){
-			if(obj.checked==true){
-				flag++;
-			}else{
-				flag--;
-			}
+		if(rows.length>=1){
+			if(!confirm("确认删除？")){
+	           	 window.event.returnValue = false;
+	        }else{
+	        	var deleteid="";
+	        	for(var i=0;i<rows.length;i++){
+	        		if(i==rows.length-1){
+	        			deleteid=deleteid+rows[i].title;
+	        		}else{
+	        			deleteid=deleteid+rows[i].title+", ";
+	        		}
+	        	}
+	        	window.location.href='<%=path %>/crm/productReportAction_deleteSomeReport.action?prid='+deleteid;
+				alert("删除成功");
+			}	
 		}
-		//判断所选行是否为空，以及确认是否删除 end
+	}
 		
 		$(document).ready(function() {
     		$('.full-width').horizontalNav({});//表格自适应
@@ -75,7 +75,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     		</div>
     		<div class="horizontal-nav full-width horizontalNav-notprocessed">
         		<ul>
-           		  <li onclick="confirm_delete()"><a href="javascript:void(0)">批量删除</a></li>
+           		  <li onclick="confirm_delete()"><a href="javascript:void(0)">删除</a></li>
            		  <li><a id="export" href="javascript:void(0)">导出报表</a></li>
           		  <li><a id="createnew" href="javascript:void(0)">生成报表</a></li>
         		</ul>
@@ -110,11 +110,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				search: true,
 				showColumns: true,
 				showRefresh: true,
-				showExport: true,
-				exportTypes: ['excel'],
 				search: true,
 				clickToSelect: true,
-				columns: [{field:"id",title:"报表编号",align:"center",valign:"middle",sortable:"true"},
+				columns: [{field:"checkbox",checkbox: true,align:"center",valign:"middle"},
+						  {field:"title",title:"报表编号",align:"center",valign:"middle",sortable:"true"},
 				          {field:"time",title:"起始日期",align:"center",valign:"middle",sortable:"true"},
 				          {field:"total",title:"月总销量",align:"center",valign:"middle",sortable:"true"},
 				          {field:"money",title:"总金额",align:"center",valign:"middle",sortable:"true"},
@@ -139,7 +138,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<s:iterator value="productReports" id="pr1">
 		<script>
 		init.dates[ii] = {
-				'id' : '<input type="checkbox" onchange="confirm_checked(this)" id="prid" name="prid" value="<s:property value="#pr1.id"/>"/>&nbsp;<s:property value="#pr1.id"/>',
+				//<input type="checkbox" onchange="confirm_checked(this)" id="prid" name="prid" value="<s:property value="#pr1.id"/>"/>&nbsp;
+				'title' : '<s:property value="#pr1.id"/>',
 				'time' : '<s:property value="#pr1.starttime"/>&nbsp;至&nbsp;<s:property value="#pr1.endtime"/>',
 				'total' : '<s:property value="#pr1.total"/>',
 				'money' : '<s:property value="#pr1.money"/>',
@@ -188,6 +188,24 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script>
 new CBPFWTabs( document.getElementById( 'tabs' ) );
 $(function() {
+	//到处excel报表
+	$('#export').click(function(){
+		var rows=$('#reportTable').bootstrapTable('getSelections');
+		if(rows.length==0){
+			alert('请选择需要导出的报表');
+			return;
+		}
+		if(rows.length>1){
+			alert('您选择了多行数据，请选择一行');
+			return;
+		}else{
+			var  webroot=document.location.href;
+	    	var xhindex=webroot.indexOf('_');
+	    	webroot=webroot.substring(0,xhindex+1);
+	    	var actionurl=webroot+'exportTableMessage.action?prid='+rows[0].title;
+	    	window.location.href=actionurl;
+		}
+	});
 	//弹出层事件start	
     $('#createnew').click(function() {
         $('#code').center();

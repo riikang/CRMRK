@@ -112,8 +112,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				search: true,
 				showColumns: true,
 				showRefresh: true,
-				showExport: true,
-				exportTypes: ['excel'],
 				search: true,
 				clickToSelect: true,
 				columns: [{field:"title",title:"任务主题",align:"left",valign:"middle",sortable:"true"},

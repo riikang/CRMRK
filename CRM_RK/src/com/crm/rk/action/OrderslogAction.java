@@ -330,12 +330,18 @@ public class OrderslogAction {
 			if(manager==null||level<2){
 				response.getWriter().println("<script> alert('当前权限等级暂时无法执行此操作');</script>");
 			}else{
-				orderss=orderService.findAllByManager(Orders.class, manager.getId());
+				orderss=orderService.findNoPayOrders(manager.getId());
+				for (int i = 0; i < orderss.size(); i++) {
+					paylogs=paylogService.findPaylogByOrders(orderss.get(i).getId());
+					if(paylogs.size()>0){
+						orderss.get(i).setRemainingPay(paylogs.get(paylogs.size()-1).getRemainingPay());
+					}
+				}
 				ExcelUtils.addValue("dataList", orderss);
-		    	String tplpath = "/report/excel/exportOrdersInfomation.xls";
+		    	String tplpath = "/report/excel/exportNoPayOrders.xls";
 		    	response.reset();
 		    	response.addHeader("Content-Type", "application/vnd.ms-excel");
-		    	String filename = "订单信息统计";
+		    	String filename = "应收款项信息统计";
 		    	response.addHeader("Content-Disposition", "attachment;filename=" + URLEncoder.encode(filename,"UTF-8") + ".xls");
 		    	ExcelUtils.export(request.getSession().getServletContext(),tplpath,response.getOutputStream());
 			}

@@ -1,13 +1,17 @@
 package com.crm.rk.action;
 
 import java.io.IOException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import net.sf.excelutils.ExcelException;
+import net.sf.excelutils.ExcelUtils;
 import net.sf.json.JSONArray;
 import net.sf.json.JsonConfig;
 import net.sf.json.util.CycleDetectionStrategy;
@@ -268,6 +272,33 @@ public class CustomerReportAction {
 	public String deleteTheCustomerReport(){
 		System.out.println(customerReport.getId());
 		return "deleteTheCustomerReport_s";
+	}
+	
+	public void exportTableMessage() throws NumberFormatException, Exception{
+		Manager manager=(Manager)ActionContext.getContext().getApplication().get("manager");
+		HttpServletRequest request=ServletActionContext.getRequest();
+		HttpServletResponse response=ServletActionContext.getResponse();
+		response.setCharacterEncoding("UTF-8");
+		if(ActionContext.getContext().getApplication().get("level")!=null){
+			int level=(Integer)ActionContext.getContext().getApplication().get("level");
+			if(manager==null||level<2){
+				response.getWriter().println("<script> alert('当前权限等级暂时无法执行此操作');</script>");
+			}else{
+				customerReport=customerReportService.findById(CustomerReport.class, Integer.valueOf(crid));
+				customerReportlogs=customerReportlogService.findCustomerReportlogByCrid(customerReport.getId());
+				ExcelUtils.addValue("customerReport", customerReport);
+				ExcelUtils.addValue("customerReportlogs", customerReportlogs);
+		    	String tplpath = "/report/excel/exportCustomerReport.xls";
+		    	response.reset();
+		    	response.addHeader("Content-Type", "application/vnd.ms-excel");
+		    	String filename = customerReport.getStarttime()+"至"+customerReport.getEndtime()+"客户消费统计";
+		    	ExcelUtils.addValue("title", filename);
+		    	response.addHeader("Content-Disposition", "attachment;filename=" + URLEncoder.encode(filename,"UTF-8") + ".xls");
+		    	ExcelUtils.export(request.getSession().getServletContext(),tplpath,response.getOutputStream());
+			}
+		}else{
+			response.getWriter().println("<script> alert('当前权限等级暂时无法执行此操作');</script>");
+		}
 	}
 	
 }

@@ -109,8 +109,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				search: true,
 				showColumns: true,
 				showRefresh: true,
-				showExport: true,
-				exportTypes: ['csv','txt','xml'],
 				search: true,
 				clickToSelect: true,
 				columns: [{field:"name",title:"机会名称",align:"center",valign:"middle",sortable:"true"},
