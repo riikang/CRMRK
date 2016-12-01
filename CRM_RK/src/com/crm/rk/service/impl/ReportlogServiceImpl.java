@@ -19,4 +19,7 @@ public class ReportlogServiceImpl extends BaseServiceImpl<Reportlog> implements 
 	public List<Reportlog> findReportlogByPrid(int id){
 		return reportlogDao.findReportlogByPrid(id);
 	}
+	public void deleteByProductReportId(Class<Reportlog> entityClass,List<Reportlog> reportlogs){
+		reportlogDao.deleteByProductReportId(entityClass,reportlogs);
+	}
 }

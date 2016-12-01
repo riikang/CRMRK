@@ -199,7 +199,7 @@ public class MissionAction extends ActionSupport {
 		}
 	}
 	
-	public String deleteSomeMission(){
+	public String deleteSomeMission() throws Exception{
 		if(mid==null||mid==""){
 			System.out.println("没有数据");
 			return "deleteSomeMission_f";
@@ -211,14 +211,14 @@ public class MissionAction extends ActionSupport {
 				mid2[i]=Integer.parseInt(mid1[i]);
 			}
 			for(int i=0;i<mid2.length;i++){
-				System.out.println(mid2[i]);
+				missionService.deleteById(Mission.class, mid2[i]);
 			}
 			return "deleteSomeMission_s";
 		}
 	}
 	
-	public String deleteTheMission(){
-		System.out.println(mission.getId());
+	public String deleteTheMission() throws Exception{
+		missionService.deleteById(Mission.class, mission.getId());
 		return "deleteTheMission_s";
 	}
 	

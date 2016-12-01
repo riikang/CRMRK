@@ -31,31 +31,31 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script src="<%=path%>/js/TableValidate.js"></script>
 	<script src="<%=path%>/js/myjq.js"></script>
 	<script>
-		//判断所选行是否为空，以及确认是否删除start
-	    var flag=0;
-		function confirm_delete(){
-			if(flag>0){
-				if (!confirm("确认删除？")) {
-		           	 window.event.returnValue = false;
-		       		 }
-					else{
-						var f1=document.getElementById("f1");
-						f1.submit();
-						alert("删除成功");
-					}	
-			}else{
-				alert("未选中任何行");
-			}				
+	//删除
+	function confirm_delete(){
+		var rows=$('#reportTable').bootstrapTable('getSelections');
+		if(rows.length==0){
+			alert('请选择需要删除的数据（多选）');
+			return;
 		}
-		function confirm_checked(obj){
-			if(obj.checked==true){
-				flag++;
-			}else{
-				flag--;
-			}
+		if(rows.length>=1){
+			if(!confirm("确认删除？")){
+	           	 window.event.returnValue = false;
+	        }else{
+	        	var deleteid="";
+	        	for(var i=0;i<rows.length;i++){
+	        		if(i==rows.length-1){
+	        			deleteid=deleteid+rows[i].id;
+	        		}else{
+	        			deleteid=deleteid+rows[i].id+", ";
+	        		}
+	        	}
+	        	window.location.href='<%=path %>/crm/serviceAction_deleteSomeservice.action?scid='+deleteid;
+				alert("删除成功");
+			}	
 		}
-		//判断所选行是否为空，以及确认是否删除end
-		
+	}
+	
 		$(document).ready(function() {
     		$('.full-width').horizontalNav({});//表格自适应
 		});
@@ -75,8 +75,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     		</div>
     		<div class="horizontal-nav full-width horizontalNav-notprocessed">
         		<ul>
-           		  <li onclick="confirm_delete()"><a href="javascript:void(0)">批量删除</a></li>
-           		  <li id="addnew"><a href="javascript:void(0)">新增服务记录</a></li>
+           		  <li onclick="confirm_delete()"><a href="javascript:void(0)">删除</a></li>
+           		  <li id="addnew"><a href="javascript:void(0)">新增</a></li>
         		</ul>
     		</div>
 		</div>
@@ -113,7 +113,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				exportTypes: ['csv','txt','xml'],
 				search: true,
 				clickToSelect: true,
-				columns: [{field:"title",title:"简述",align:"center",valign:"middle",sortable:"true"},
+				columns: [{field:"checkbox",checkbox: true,align:"center",valign:"middle"},
+						  {field:"id",hidden:true},
+						  {field:"title",title:"简述",align:"center",valign:"middle",sortable:"true"},
 				          {field:"stime",title:"服务时间",align:"center",valign:"middle",sortable:"true"},
 				          {field:"stype",title:"服务类型",align:"center",valign:"middle",sortable:"true"},
 				          {field:"status",title:"状态",align:"center",valign:"middle",sortable:"true"},
@@ -139,11 +141,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<s:if test="#sl1.salesman!=null">
 		<script>
 		init.dates[ii] = {
-				'title' : '<input type="checkbox" onchange="confirm_checked(this)" id="scid" name="scid" value="<s:property value="#sl1.id"/>"/>&nbsp;'+
-							'<a href="<%=path %>/crm/serviceAction_sfindTheService.action?servicelog.id=<s:property value='#sl1.id'/>">'+
-							'<s:property value="#sl1.title"/></a>',
+				//'<input type="checkbox" onchange="confirm_checked(this)" id="scid" name="scid" value="<s:property value="#sl1.id"/>"/>&nbsp;'+
+				'id' : '<s:property value='#sl1.id'/>',
+				'title' : '<a href="<%=path %>/crm/serviceAction_sfindTheService.action?servicelog.id=<s:property value='#sl1.id'/>"><s:property value="#sl1.title"/></a>',
 				'stime' : '<s:property value="#sl1.servicedate"/>',
-				'stype':'<s:property value="#sl1.servicetype"/>',
+				'stype' : '<s:property value="#sl1.servicetype"/>',
 				'status' : '<s:property value="#sl1.status"/>',
 				'sways':'<s:property value="#sl1.serviceways"/>',
 				'salesman':'<s:property value="#sl1.salesman.sname"/>'
@@ -154,9 +156,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<s:if test="#sl1.salesman==null">
 		<script>
 		init.dates[ii] = {
-				'title' : '<input type="checkbox" onchange="confirm_checked()" id="scid" name="scid" value="<s:property value="#sl1.id"/>"/>&nbsp;'+
-							'<a href="<%=path %>/crm/serviceAction_sfindTheService.action?servicelog.id=<s:property value='#sl1.id'/>">'+
-							'<s:property value="#sl1.title"/></a>',
+				'id' : '<s:property value='#sl1.id'/>',
+				'title' : '<a href="<%=path %>/crm/serviceAction_sfindTheService.action?servicelog.id=<s:property value='#sl1.id'/>"><s:property value="#sl1.title"/></a>',
 				'stime' : '<s:property value="#sl1.servicedate"/>',
 				'stype':'<s:property value="#sl1.servicetype"/>',
 				'status' : '<s:property value="#sl1.status"/>',

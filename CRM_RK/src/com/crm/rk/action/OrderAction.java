@@ -230,8 +230,7 @@ public class OrderAction {
 		else{
 			String oid1[]=oid.split(", ");
 			for(int i=0;i<oid1.length;i++){
-				System.out.println(oid1[i]);
-				//orderService.deleteByStringId(oid1[i]);
+				orderService.deleteByStringId(Orders.class,oid1[i]);
 			}
 			return "deleteSomeorder_s";
 		}
@@ -290,8 +289,7 @@ public class OrderAction {
 	}
 	
 	public String deleteTheOrder(){
-		System.out.println(orders.getId());
-		//orderService.deleteByStringId(orders.getId());
+		orderService.deleteByStringId(Orders.class,orders.getId());
 		return "deleteTheOrder_s";
 	}
 	

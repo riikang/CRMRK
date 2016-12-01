@@ -12,4 +12,10 @@ public class ReportlogDaoImpl extends BaseDaoImpl<Reportlog> implements Reportlo
 	public List<Reportlog> findReportlogByPrid(int id){
 		return (List<Reportlog>)getHibernateTemplate().find("from Reportlog where productReport.id='"+id+"'");
 	}
+	public void deleteByProductReportId(Class<Reportlog> entityClass,List<Reportlog> reportlogs){
+		String  entityName = this.getHibernateTemplate().getSessionFactory().getClassMetadata(entityClass).getEntityName();
+		for(Reportlog reportlog : reportlogs){
+	         this.getHibernateTemplate().delete(entityName,reportlog);
+	   }
+	}
 }

@@ -83,7 +83,7 @@ public class ProductAction extends ActionSupport {
 		}
 	}
 	
-	public String deleteSomeProduct(){
+	public String deleteSomeProduct() throws Exception{
 		if(pid==null||pid==""){
 			System.out.println("没有数据");
 			return "deleteSomeProduct_f";
@@ -95,14 +95,14 @@ public class ProductAction extends ActionSupport {
 				pid2[i]=Integer.parseInt(pid1[i]);
 			}
 			for(int i=0;i<pid2.length;i++){
-				System.out.println(pid2[i]);
+				productService.deleteById(Product.class, pid2[i]);
 			}
 			return "deleteSomeProduct_s";
 		}
 	}
 	
-	public String deleteTheProduct(){
-		System.out.println(product.getId());
+	public String deleteTheProduct() throws Exception{
+		productService.deleteById(Product.class, product.getId());
 		return "deleteTheProduct_s";
 	}
 	

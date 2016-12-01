@@ -41,10 +41,10 @@
 			<result name="findAllcustomer_s">/WEB-INF/customer/all_table.jsp</result>
 			<result name="findcustomer_s">/WEB-INF/customer/all_table.jsp</result>
 			<result name="findThecustomerp_s">/WEB-INF/customer/updatePc.jsp</result>
-			<result name="addcustomerp_s" type="chain">customerPAction_findAllcustomerp</result>
-			<result name="deleteSomecustomerp_s" type="chain">customerPAction_findAllcustomerp</result>
-			<result name="deleteSomecustomerp_f" type="chain">customerPAction_findAllcustomerp</result>
-			<result name="deleteThecustomerp_s" type="chain">customerPAction_findAllcustomerp</result>
+			<result name="addcustomerp_s" type="chain">customerPAction_findAllcustomer</result>
+			<result name="deleteSomecustomerp_s" type="chain">customerPAction_findAllcustomer</result>
+			<result name="deleteSomecustomerp_f" type="chain">customerPAction_findAllcustomer</result>
+			<result name="deleteThecustomerp_s" type="chain">customerPAction_findAllcustomer</result>
 			<result name="updatecustomerp_s" type="chain">customerPAction_findThecustomerp</result>
 			<!-- 营销任务管理 -->
 			<result name="findnewmission_s">/WEB-INF/mission/new_mission.jsp</result>

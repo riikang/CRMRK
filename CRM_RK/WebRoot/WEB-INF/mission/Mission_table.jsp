@@ -78,8 +78,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     		</div>
     		<div class="horizontal-nav full-width horizontalNav-notprocessed">
         		<ul>
-           		  <li id="deletesome" onclick="confirm_delete()"><a href="javascript:void(0)">批量删除</a></li>
-           		  <li id="addnewmission"><a href="javascript:void(0)">新增任务</a></li>
+           		  <li id="deletesome" onclick="confirm_delete()"><a href="javascript:void(0)">删除</a></li>
+           		  <li id="addnewmission"><a href="javascript:void(0)">新增</a></li>
         		</ul>
     		</div>
 		</div>

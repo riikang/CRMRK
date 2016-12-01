@@ -154,7 +154,7 @@ public class SalesmanAction extends ActionSupport {
 		}
 	}
 	
-	public String deleteSomeSalesman(){
+	public String deleteSomeSalesman() throws Exception{
 		if(sid==null||sid==""){
 			System.out.println("没有数据");
 			return "deleteSomeSalesman_f";
@@ -166,7 +166,7 @@ public class SalesmanAction extends ActionSupport {
 				sid2[i]=Integer.parseInt(sid1[i]);
 			}
 			for(int i=0;i<sid2.length;i++){
-				System.out.println(sid2[i]);
+				salesmanService.deleteById(Salesman.class, sid2[i]);
 			}
 			return "deleteSomeSalesman_s";
 		}
@@ -201,8 +201,7 @@ public class SalesmanAction extends ActionSupport {
 	}
 	
 	public String deleteTheSalesman() throws Exception{
-		System.out.println(salesman.getId());
-		//salesmanService.deleteById(Salesman.class,salesman.getId());
+		salesmanService.deleteById(Salesman.class,salesman.getId());
 		return "deleteTheSalesman_s";
 	}
 	

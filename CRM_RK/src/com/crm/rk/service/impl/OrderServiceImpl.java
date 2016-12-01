@@ -13,8 +13,8 @@ import com.crm.rk.service.OrderService;
 @Transactional(readOnly = false)
 public class OrderServiceImpl extends BaseServiceImpl<Orders> implements OrderService {
 	@Resource private OrderDao orderDao;
-	public void deleteByStringId(String id){
-		orderDao.deleteByStringId(id);
+	public void deleteByStringId(Class<Orders> entityClass,String id){
+		orderDao.deleteByStringId(entityClass,id);
 	}
 	public Orders findByStringId(Class<Orders> entityClass,String id){
 		return orderDao.findByStringId(entityClass, id);

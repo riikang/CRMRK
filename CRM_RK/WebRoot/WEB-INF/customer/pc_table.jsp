@@ -76,7 +76,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     		</div>
     		<div class="horizontal-nav full-width horizontalNav-notprocessed">
         		<ul>
-           		  <li onclick="confirm_delete()"><a href="javascript:void(0)">批量删除</a></li>
+           		  <!-- <li onclick="confirm_delete()"><a href="javascript:void(0)">批量删除</a></li> -->
            		  <!-- <li id="addnewchannel"><a href="javascript:void(0)">新增客户</a></li>  -->
         		</ul>
     		</div>
@@ -110,8 +110,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				search: true,
 				showColumns: true,
 				showRefresh: true,
-				showExport: true,
-				exportTypes: ['csv','txt','xml'],
 				search: true,
 				clickToSelect: true,
 				columns: [{field:"id",title:"客户编号",align:"center",valign:"middle",sortable:"true"},

@@ -279,7 +279,7 @@ public class ChanceAction {
 		}
 	}
 	
-	public String deleteSomechance(){
+	public String deleteSomechance() throws Exception{
 		if(cid==null||cid==""){
 			System.out.println("没有数据");
 			return "deleteSomechance_f";
@@ -291,7 +291,7 @@ public class ChanceAction {
 				cid2[i]=Integer.parseInt(cid1[i]);
 			}
 			for(int i=0;i<cid2.length;i++){
-				System.out.println(cid2[i]);
+				chanceService.deleteById(Chance.class, cid2[i]);
 			}
 			return "deleteSomechance_s";
 		}
@@ -340,8 +340,7 @@ public class ChanceAction {
 	}
 	
 	public String deleteTheChance() throws Exception{
-		//chanceService.deleteById(Chance.class,chance.getId());
-		System.out.println(chance.getId());
+		chanceService.deleteById(Chance.class,chance.getId());
 		return "deleteTheChance_s";
 	}
 	

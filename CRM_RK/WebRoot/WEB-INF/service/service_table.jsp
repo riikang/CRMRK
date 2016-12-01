@@ -51,7 +51,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     		</div>
     		<div class="horizontal-nav full-width horizontalNav-notprocessed">
         		<ul>
-           		  <li id="addnew"><a href="javascript:void(0)">新增服务记录</a></li>
+           		  <li id="addnew"><a href="javascript:void(0)">新增</a></li>
         		</ul>
     		</div>
 		</div>

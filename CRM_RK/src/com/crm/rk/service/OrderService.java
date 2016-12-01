@@ -5,7 +5,7 @@ import java.util.List;
 import com.crm.rk.model.Orders;
 
 public interface OrderService extends BaseService<Orders> {
-	public void deleteByStringId(String id);
+	public void deleteByStringId(Class<Orders> entityClass,String id);
 	public Orders findByStringId(Class<Orders> entityClass,String id);
 	public List<Orders> findByTitle(String title);
 	public List<Orders> findNoPayOrders(int id);

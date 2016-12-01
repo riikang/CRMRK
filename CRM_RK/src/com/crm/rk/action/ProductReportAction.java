@@ -226,7 +226,7 @@ public class ProductReportAction {
 		return "CreateProductReport_s";
 	}
 	
-	public String deleteSomeReport(){
+	public String deleteSomeReport() throws Exception{
 		if(prid==null||prid==""){
 			System.out.println("没有数据");
 			return "deleteSomeReport_f";
@@ -238,7 +238,9 @@ public class ProductReportAction {
 				prid2[i]=Integer.parseInt(prid1[i]);
 			}
 			for(int i=0;i<prid2.length;i++){
-				System.out.println(prid2[i]);
+				reportlogs=reportlogService.findReportlogByPrid(prid2[i]);
+				reportlogService.deleteByProductReportId(Reportlog.class, reportlogs);
+				productReportService.deleteById(ProductReport.class, prid2[i]);
 			}
 			return "deleteSomeReport_s";
 		}
@@ -260,8 +262,10 @@ public class ProductReportAction {
 		}
 	}
 	
-	public String deleteTheProductReport(){
-		System.out.println(productReport.getId());
+	public String deleteTheProductReport() throws Exception{
+		reportlogs=reportlogService.findReportlogByPrid(productReport.getId());
+		reportlogService.deleteByProductReportId(Reportlog.class, reportlogs);
+		productReportService.deleteById(ProductReport.class, productReport.getId());
 		return "deleteTheProductReport_s";
 	}
 	

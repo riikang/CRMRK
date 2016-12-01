@@ -199,7 +199,7 @@ public class ServiceAction {
 		}
 	}
 	
-	public String deleteSomeservice(){
+	public String deleteSomeservice() throws Exception{
 		if(scid==null||scid==""){
 			System.out.println("没有数据");
 			return "deleteSomeservice_f";
@@ -211,15 +211,14 @@ public class ServiceAction {
 				scid2[i]=Integer.parseInt(scid1[i]);
 			}
 			for(int i=0;i<scid2.length;i++){
-				System.out.println(scid2[i]);
+				servicelogService.deleteById(Servicelog.class, scid2[i]);
 			}
 			return "deleteSomeservice_s";
 		}
 	}
 	
 	public String deleteTheService() throws Exception{
-		System.out.println(servicelog.getId());
-		//servicelogService.deleteById(Servicelog.class, servicelog.getId());
+		servicelogService.deleteById(Servicelog.class, servicelog.getId());
 		return "deleteTheService_s";
 	}
 	

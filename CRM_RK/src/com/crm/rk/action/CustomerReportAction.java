@@ -118,7 +118,7 @@ public class CustomerReportAction {
 		this.products = products;
 	}
 	
-	public String deleteSomeReport(){
+	public String deleteSomeReport() throws Exception{
 		if(crid==null||crid==""){
 			System.out.println("没有数据");
 			return "deleteSomeCustomerReport_f";
@@ -130,7 +130,9 @@ public class CustomerReportAction {
 				crid2[i]=Integer.parseInt(crid1[i]);
 			}
 			for(int i=0;i<crid2.length;i++){
-				System.out.println(crid2[i]);
+				customerReportlogs=customerReportlogService.findCustomerReportlogByCrid(crid2[i]);
+				customerReportlogService.deleteByCustomerReportId(CustomerReportlog.class, customerReportlogs);
+				customerReportService.deleteById(CustomerReport.class, crid2[i]);
 			}
 			return "deleteSomeCustomerReport_s";
 		}
@@ -269,8 +271,10 @@ public class CustomerReportAction {
 		return null;
 	}
 	
-	public String deleteTheCustomerReport(){
-		System.out.println(customerReport.getId());
+	public String deleteTheCustomerReport() throws Exception{
+		customerReportlogs=customerReportlogService.findCustomerReportlogByCrid(customerReport.getId());
+		customerReportlogService.deleteByCustomerReportId(CustomerReportlog.class, customerReportlogs);
+		customerReportService.deleteById(CustomerReport.class, customerReport.getId());
 		return "deleteTheCustomerReport_s";
 	}
 	

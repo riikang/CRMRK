@@ -264,12 +264,12 @@ public class CustomerPAction extends ActionSupport {
 		}
 	}
 	
-	public String deleteThecustomerp(){
-		System.out.println(customerP.getId());
+	public String deleteThecustomerp() throws Exception{
+		customerPService.deleteById(CustomerP.class, customerP.getId());
 		return "deleteThecustomerp_s";
 	}
 	
-	public String deleteSomecustomerp(){
+	public String deleteSomecustomerp() throws Exception{
 		if(ccid==null||ccid==""){
 			System.out.println("没有数据");
 			return "deleteSomecustomerp_f";
@@ -281,7 +281,7 @@ public class CustomerPAction extends ActionSupport {
 				ccid2[i]=Integer.parseInt(ccid1[i]);
 			}
 			for(int i=0;i<ccid2.length;i++){
-				System.out.println(ccid2[i]);
+				customerPService.deleteById(CustomerP.class,ccid2[i]);
 			}
 			return "deleteSomecustomerp_s";
 		}

@@ -6,8 +6,9 @@ import com.crm.rk.dao.OrderDao;
 import com.crm.rk.model.Orders;
 @SuppressWarnings("unchecked")
 public class OrderDaoImpl extends BaseDaoImpl<Orders> implements OrderDao {
-	public void deleteByStringId(String id){
-		getHibernateTemplate().delete("from Orders where id='"+id+"'");
+	public void deleteByStringId(Class<Orders> entityClass,String id){
+		String  entityName = this.getHibernateTemplate().getSessionFactory().getClassMetadata(entityClass).getEntityName();
+		getHibernateTemplate().delete(entityName, this.findByStringId(entityClass, id));
 	}
 	public Orders findByStringId(Class<Orders> entityClass,String id){
 		return (Orders)getHibernateTemplate().get(entityClass, id);
