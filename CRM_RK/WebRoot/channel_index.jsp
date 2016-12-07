@@ -22,13 +22,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		//保存各种新消息的变量
 		var neworders=0,newmission=0,newchance=0,newservice=0,newcallback=0,newall=0;
 		var neworders2="",newmission2="",newchance2="",newservice2="",newcallback2="",newall2="";
+		var newchanceid="",newmissionid="";
 		$(function(){
 			//检查登录权限
 			if("${applicationScope.level}"!=3){
 				alert("您没有权限浏览该页面，请重新登录");
 				window.location.href="<%=path%>/login.jsp";
 			}
-			
+			//默认加载页面
+			document.getElementById("if1").setAttribute("src","version.jsp");
 			//动态显示时间
 			setInterval(function(){   
 	            $("#atime").text("当前时间:"+new Date().toLocaleString());   
@@ -55,7 +57,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			$('#workspace').click(function(){
 				$('#workspace').addClass("active");
 				$('#info').removeClass("active");
-				$('#if1').attr('src', '');
+				$('#if1').attr('src', 'version.jsp');
 			});
 			$('dd').click(function(){
 				$('#workspace').addClass("active");
@@ -86,6 +88,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			}else{
 				newmission2=newmission2+","+${m1.mid};
 			}
+			if(newmissionid==""){
+				newmissionid=${m1.id};
+			}else{
+				newmissionid=newmissionid+","+${m1.id};
+			}
 		</script>
 		</s:if>
 		<s:if test="#m1.type==5">
@@ -95,6 +102,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				newchance2=${m1.mid};
 			}else{
 				newchance2=newchance2+","+${m1.mid};
+			}
+			if(newchanceid==""){
+				newchanceid=${m1.id};
+			}else{
+				newchanceid=newchanceid+","+${m1.id};
 			}
 		</script>
 		</s:if>
@@ -191,48 +203,68 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								<li class="divider-vertical">
 								</li>
 								<li class="dropdown">
-									 <a data-toggle="dropdown" class="dropdown-toggle" href="#">主要功能<strong class="caret"></strong></a>
+									 <a data-toggle="dropdown" class="dropdown-toggle" href="javascript:void(0)">主要功能<strong class="caret"></strong></a>
 									<ul class="dropdown-menu">
 										<li>
-											<a href="#">下拉导航1</a>
+											<a href="javascript:document.getElementById('if1').setAttribute('src', '<%=path %>/crm/customerPAction_findAllcustomer.action');">客户管理</a>
 										</li>
 										<li>
-											<a href="#">下拉导航2</a>
+											<a href="javascript:document.getElementById('if1').setAttribute('src', '<%=path %>/crm/productReportAction_findAllProductReport.action');">商品销售报表</a>
 										</li>
 										<li>
-											<a href="#">其他</a>
+											<a href="javascript:document.getElementById('if1').setAttribute('src', '<%=path %>/crm/customerReportAction_findAllCustomerReport.action');">客户消费报表</a>
+										</li>
+										<li>
+											<a href="javascript:document.getElementById('if1').setAttribute('src', '<%=path %>/crm/chanceAction_findAllchance.action');">销售机会</a>
+										</li>
+										<li>
+											<a href="javascript:document.getElementById('if1').setAttribute('src', '<%=path %>/crm/missionAction_findAllmission.action');">销售任务</a>
+										</li>
+										<li>
+											<a href="javascript:document.getElementById('if1').setAttribute('src', '<%=path %>/crm/orderAction_findAllOrder.action');">订单管理</a>
+										</li>
+										<li>
+											<a href="javascript:document.getElementById('if1').setAttribute('src', '<%=path %>/crm/salesmanAction_findAllsalesman.action');">销售员管理</a>
+										</li>
+										<li>
+											<a href="javascript:document.getElementById('if1').setAttribute('src', '<%=path %>/crm/emailMessageAction_customerpServer.action');">客户关怀</a>
+										</li>
+										<li>
+											<a href="javascript:document.getElementById('if1').setAttribute('src', '<%=path %>/crm/serviceAction_sfindAllservice.action');">客户服务</a>
 										</li>
 										<li class="divider"></li>
 										<li class="nav-header">
-											标签
+											账户
 										</li>
 										<li>
-											<a href="#">链接1</a>
+											<a href="javascript:$('#info').addClass('active');$('#workspace').removeClass('active');$('#if1').attr('src', '<%=path %>/crm/informationAction_channelInfo.action');">个人信息</a>
 										</li>
 										<li>
-											<a href="#">链接2</a>
+											<a href="javascript:window.location.href='<%=path%>/crm/loginRegisterAction_logout.action'">注销</a>
 										</li>
 									</ul>
 								</li>
 								<li class="divider-vertical">
 								</li>
 								<li class="dropdown">
-									 <a data-toggle="dropdown" class="dropdown-toggle" href="#">消息(<span id='mm6'>0</span>)<strong class="caret"></strong></a>
+									 <a data-toggle="dropdown" class="dropdown-toggle" href="javascript:void(0)">消息(<span id='mm6'>0</span>)<strong class="caret"></strong></a>
 									<ul class="dropdown-menu">
+									<!-- 
 										<li>
-											<a href="#">新订单(<span id='mm1'>0</span>)</a>
+											<a href="javascript:void();">新订单(<span id='mm1'>0</span>)</a>
+										</li>
+									-->
+										<li>
+											<a href="javascript:document.getElementById('if1').setAttribute('src','<%=path %>/crm/chanceAction_findnewchance.action?meid='+newchance2+'&newchanceid='+newchanceid)">新销售机会(<span id='mm2'>0</span>)</a>
 										</li>
 										<li>
-											<a href="javascript:document.getElementById('if1').setAttribute('src','<%=path %>/crm/chanceAction_findnewchance.action?meid='+newchance2)">新销售机会(<span id='mm2'>0</span>)</a>
+											<a href="javascript:document.getElementById('if1').setAttribute('src','<%=path %>/crm/missionAction_findnewmission.action?meid='+newmission2+'&newmissionid='+newmissionid)">新营销任务(<span id='mm3'>0</span>)</a>
 										</li>
 										<li>
-											<a href="javascript:document.getElementById('if1').setAttribute('src','<%=path %>/crm/missionAction_findnewmission.action?meid='+newmission2)">新营销任务(<span id='mm3'>0</span>)</a>
+											<a href="javascript:void();">待处理客服服务(<span id='mm4'>0</span>)</a>
 										</li>
 										<li>
-											<a href="#">待处理客服服务(<span id='mm4'>0</span>)</a>
-										</li>
-										<li>
-											<a href="#">新回复(<span id='mm5'>0</span>)</a>
+											<a href="javascript:void();">新回复(<span id='mm5'>0</span>)</a>
 										</li>
 									</ul>
 								</li>
@@ -288,7 +320,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		
 						<dl class="custom">
 							<dt onClick="">客户状态<img src="images/left/select_xl01.png"></dt>
-							<dd class="first_dd"><a href="javascript:document.getElementById('if1').setAttribute('src', '<%=path %>/crm/customerPAction_findcustomer1.action');">潜在客户</a></dd>
+							<dd class="first_dd"><a href="javascript:document.getElementById('if1').setAttribute('src', '<%=path %>/crm/customerPAction_findcustomer1.action');">普通会员</a></dd>
 							<dd><a href="javascript:document.getElementById('if1').setAttribute('src', '<%=path %>/crm/customerPAction_findcustomer2.action');">意向客户</a></dd>
 							<dd><a href="javascript:document.getElementById('if1').setAttribute('src', '<%=path %>/crm/customerPAction_findcustomer3.action');">成交客户</a></dd>
 							<dd><a href="javascript:document.getElementById('if1').setAttribute('src', '<%=path %>/crm/customerPAction_findcustomer4.action');">已流失客户</a></dd>

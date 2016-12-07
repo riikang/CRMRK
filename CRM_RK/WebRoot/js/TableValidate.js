@@ -586,6 +586,10 @@ $(function(){
 			$('#tip2').html("<font color='red'><b>×公司座机输入格式不正确</b></font>");
 			return false;
 		}
+		if($('#ifsel').val()==null||$('#ifsel').val()==""){
+			$('#tip2').html("<font color='red'><b>×请选择是否为企业客户</b></font>");
+			return false;
+		}
 		$('#tip2').html("");
 		
 		$.ajax({
@@ -646,6 +650,10 @@ $(function(){
 		
 		if(!numfilter.test($('#company_num').val())){
 			$('#tip2').html("<font color='red'><b>×公司座机输入格式不正确</b></font>");
+			return false;
+		}
+		if($('#ifsel').val()==null||$('#ifsel').val()==""){
+			$('#tip2').html("<font color='red'><b>×请选择是否为企业客户</b></font>");
 			return false;
 		}
 		$('#tip2').html("");

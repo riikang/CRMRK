@@ -77,7 +77,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     		<div class="horizontal-nav full-width horizontalNav-notprocessed">
         		<ul>
            		  <li><a href="<%=path %>/crm/chanceAction_goBackTheChance.action">返回销售机会</a></li>
-           		  <li onclick="confirm_delete()"><a href="javascript:void(0)">批量删除</a></li>
+           		  <li onclick="confirm_delete()"><a href="javascript:void(0)">删除</a></li>
            		  <li id="addnew"><a href="javascript:void(0)">新增跟进记录</a></li>
         		</ul>
     		</div>

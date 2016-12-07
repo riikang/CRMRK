@@ -150,11 +150,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<td align="right">任务等级:</td>
 						<td><select style="width:200px;height:30px;" id="sel2" name="mission.level">
 							<option value="">--请选择--</option>
-							<option value="最高">最高</option>
-							<option value="高">高</option>
-							<option value="中">中</option>
-							<option value="低">低</option>
-							<option value="最低">最低</option>
+							<option value="普通">普通</option>
+							<option value="重要">重要</option>
+							<option value="紧急">紧急</option>
   						</select></td>
 						</tr>
 						<tr>

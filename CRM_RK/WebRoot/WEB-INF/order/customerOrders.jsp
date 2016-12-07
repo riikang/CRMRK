@@ -42,6 +42,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <body>
     <div id="content">
 		<div id="content-body">
+		<!--导航条 -->
+		<div class="demo">
+			<div class="horizontal-nav full-width horizontalNav-notprocessed">
+        		<ul>
+           		  <li style="background-color:#317eb4"><a href="javascript:void(0)">消费记录</a></li>
+        		</ul>
+    		</div>
+		</div>
 			<!-- 数据表格  -->
 			<div id="reportTableDiv" class="span10">
 				<table id="reportTable">

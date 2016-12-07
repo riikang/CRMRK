@@ -280,6 +280,26 @@ public class OrderAction {
 				}
 				orders.setManager(manager);
 				orderService.save(orders);
+				
+				//根据该客户的总消费金额，设为普通会员，VIP1(>=500),VIP2(>=2000),VIP3(>=5000)
+				orderss=orderService.findByCustomer(customerPs.get(0).getId(), manager.getId());
+				double summoney=0;
+				for (int i = 0; i < orderss.size(); i++) {
+					summoney = summoney+orderss.get(i).getDealpriceT();
+				}
+				if(summoney>0&&summoney<500){
+					customerPs.get(0).setType("普通客户");
+				}else if(500<=summoney&&summoney<2000){
+					customerPs.get(0).setType("VIP1");
+				}else if(2000<=summoney&&summoney<5000){
+					customerPs.get(0).setType("VIP2");
+				}else{
+					customerPs.get(0).setType("VIP3");
+				}
+				
+				//有客户下单，则这个客户状态更改为成交客户
+				customerPs.get(0).setStatus("成交客户");
+				
 				customerPService.update(customerPs.get(0));
 				return "addorder_s";
 			}
@@ -346,6 +366,10 @@ public class OrderAction {
 				}
 				orders.setManager(manager);
 				orderService.update(orders);
+				
+				//有客户下单，则该客户更改为成交客户
+				customerPs.get(0).setStatus("成交客户");
+				
 				customerPService.update(customerPs.get(0));
 				return "updateOrder_s";
 			}

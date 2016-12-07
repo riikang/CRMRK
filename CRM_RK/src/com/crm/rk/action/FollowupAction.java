@@ -5,19 +5,30 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import com.crm.rk.model.Chance;
+import com.crm.rk.model.CustomerP;
 import com.crm.rk.model.Followup;
 import com.crm.rk.model.Manager;
 import com.crm.rk.service.ChanceService;
+import com.crm.rk.service.CustomerPService;
 import com.crm.rk.service.FollowupService;
 import com.opensymphony.xwork2.ActionContext;
 
 public class FollowupAction {
 	@Resource private FollowupService followupService;
 	@Resource private ChanceService chanceService;
+	@Resource private CustomerPService customerPService;
 	Followup followup;
 	Chance chance;
 	List<Followup> followups;
 	List<Chance> chances;
+	List<CustomerP> customerPs;
+	public List<CustomerP> getCustomerPs() {
+		return customerPs;
+	}
+	public void setCustomerPs(List<CustomerP> customerPs) {
+		this.customerPs = customerPs;
+	}
+
 	private String fid;
 	
 	public String getFid() {
@@ -103,7 +114,7 @@ public class FollowupAction {
 		}
 	}
 	
-	public String deleteSomefollowup(){
+	public String deleteSomefollowup() throws Exception{
 		if(fid==null||fid==""){
 			System.out.println("没有数据");
 			return "deleteSomefollowup_f";
@@ -115,15 +126,14 @@ public class FollowupAction {
 				fid2[i]=Integer.parseInt(fid1[i]);
 			}
 			for(int i=0;i<fid2.length;i++){
-				System.out.println(fid2[i]);
+				followupService.deleteById(Followup.class, fid2[i]);
 			}
 			return "deleteSomefollowup_s";
 		}
 	}
 	
 	public String deleteTheFollowup() throws Exception{
-		//followupService.deleteById(Followup.class, followup.getId());
-		System.out.println(followup.getId());
+		followupService.deleteById(Followup.class, followup.getId());
 		return "deleteTheFollowup_s";
 	}
 	
@@ -135,8 +145,20 @@ public class FollowupAction {
 				return "error";
 			}else {
 				chance=chanceService.findById(Chance.class, followup.getChance().getId());
-				chance.setStage(followup.getStage());
-				chanceService.update(chance);
+				if(followup.getFollowstage().equals("跟进完成")){
+					chance.setStage(followup.getStage());
+					customerPs=customerPService.findCustomerPByNameAndManager(chance.getCustomerP().getCname(), manager.getId());
+					if(chance.getStage().equals("确认订单")||chance.getStage().equals("成功交易")){
+						customerPs.get(0).setStatus("成交客户");
+					}else if(chance.getStage().equals("失败交易")){
+						customerPs.get(0).setStatus("已流失客户");
+					}else{
+						customerPs.get(0).setStatus("意向客户");
+					}
+					customerPService.update(customerPs.get(0));
+					chanceService.update(chance);
+				}
+				
 				followup.setChance(chance);
 				followupService.update(followup);
 				return "updateFollowup_s";

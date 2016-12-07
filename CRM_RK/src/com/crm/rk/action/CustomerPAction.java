@@ -187,7 +187,7 @@ public class CustomerPAction extends ActionSupport {
 			if(manager==null||level<2){
 				return "error";
 			}else{
-				customerPs=customerPService.findCustomerPByTypeAndManager("普通客户", manager.getId());
+				customerPs=customerPService.findCustomerPByTypeAndManager("普通会员", manager.getId());
 				return "findcustomer_s";
 			}
 		}else{
@@ -256,6 +256,12 @@ public class CustomerPAction extends ActionSupport {
 				userPowers=userPowerService.findAll(UserPower.class);
 				customerP.setManager(manager);
 				customerP.setUserPower(userPowers.get(userPowers.size()-1));
+				
+				//判断客户状态是否为空，若为空则设为潜在客户
+				if(customerP.getStatus()==null||customerP.getStatus().equals("")){
+					customerP.setStatus("潜在客户");
+				}
+				
 				customerPService.save(customerP);
 				return "addcustomerp_s";
 			}
@@ -313,6 +319,12 @@ public class CustomerPAction extends ActionSupport {
 				userPower.setUsername(customerP.getEmail());
 				customerP.setUserPower(userPower);
 				customerP.setManager(manager);
+				
+				//判断客户状态是否为空，若为空则设为潜在客户
+				if(customerP.getStatus()==null||customerP.getStatus().equals("")){
+					customerP.setStatus("潜在客户");
+				}
+				
 				userPowerService.update(userPower);
 				customerPService.update(customerP);
 				return "updatecustomerp_s";

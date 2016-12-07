@@ -17,13 +17,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript" src="js/bootstrap.min.js"></script>
 	<link href="css/bootstrap-combined.min.css" rel="stylesheet" media="screen">
 	<link href="css/daohang.css" rel="stylesheet">
-	<script>  
+	<script> 
 		$(function(){
 			//检查登录权限
 			if("${applicationScope.level}"!=4){
 				alert("您没有权限浏览该页面，请重新登录");
 				window.location.href="<%=path%>/login.jsp";
 			}
+			//默认加载页面
+			document.getElementById("if1").setAttribute("src","version.jsp");
 			//动态显示时间
 			setInterval(function(){   
 	            $("#atime").text("当前时间:"+new Date().toLocaleString());   
@@ -50,7 +52,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			$('#workspace').click(function(){
 				$('#workspace').addClass("active");
 				$('#info').removeClass("active");
-				$('#if1').attr('src', '');
+				$('#if1').attr('src', 'version.jsp');
 			});
 			$('dd').click(function(){
 				$('#workspace').addClass("active");
@@ -118,23 +120,35 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									 <a data-toggle="dropdown" class="dropdown-toggle" href="#">主要功能<strong class="caret"></strong></a>
 									<ul class="dropdown-menu">
 										<li>
-											<a href="#">下拉导航1</a>
+											<a href="javascript:document.getElementById('if1').setAttribute('src', '<%=path %>/crm/customerPAction_findAllcustomer.action');">客户管理</a>
 										</li>
 										<li>
-											<a href="#">下拉导航2</a>
+											<a href="javascript:document.getElementById('if1').setAttribute('src', '<%=path %>/crm/productAction_findAllProduct.action');">商品管理</a>
 										</li>
 										<li>
-											<a href="#">其他</a>
+											<a href="javascript:document.getElementById('if1').setAttribute('src', '<%=path %>/crm/productReportAction_findAllProductReport.action');">商品销售报表</a>
+										</li>
+										<li>
+											<a href="javascript:document.getElementById('if1').setAttribute('src', '<%=path %>/crm/customerReportAction_findAllCustomerReport.action');">客户消费报表</a>
+										</li>
+										<li>
+											<a href="javascript:document.getElementById('if1').setAttribute('src', '<%=path %>/crm/orderAction_findAllOrder.action');">订单管理</a>
+										</li>
+										<li>
+											<a href="javascript:document.getElementById('if1').setAttribute('src', '<%=path %>/crm/salesmanAction_findAllsalesman.action');">销售员管理</a>
+										</li>
+										<li>
+											<a href="javascript:document.getElementById('if1').setAttribute('src', '<%=path %>/crm/channelAction_findAllchannel.action');">渠道商管理</a>
 										</li>
 										<li class="divider"></li>
 										<li class="nav-header">
-											标签
+											账户
 										</li>
 										<li>
-											<a href="#">登陆</a>
+											<a href="javascript:$('#info').addClass('active');$('#workspace').removeClass('active');$('#if1').attr('src', '<%=path %>/crm/informationAction_managerInfo.action');">个人信息</a>
 										</li>
 										<li>
-											<a href="#"></a>
+											<a href="javascript:window.location.href='<%=path%>/crm/loginRegisterAction_logout.action' ">注销</a>
 										</li>
 									</ul>
 								</li>
@@ -143,14 +157,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								<li class="dropdown">
 									 <a data-toggle="dropdown" class="dropdown-toggle" href="#">消息(<span>0</span>)<strong class="caret"></strong></a>
 									<ul class="dropdown-menu">
+									<!-- 
 										<li>
-											<a href="#">新订单(<span>0</span>)</a>
+											<a href="javascript:void(0)">新订单(<span>0</span>)</a>
 										</li>
+									
 										<li>
-											<a href="#">新任务(<span>0</span>)</a>
+											<a href="javascript:void(0)">新任务(<span>0</span>)</a>
 										</li>
+									-->
 										<li>
-											<a href="#">新回复(<span>0</span>)</a>
+											<a href="javascript:void(0)">新回复(<span>0</span>)</a>
 										</li>
 									</ul>
 								</li>
@@ -215,7 +232,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		
 					<dl class="custom">
 						<dt onClick="">客户类型<img src="images/left/select_xl01.png"></dt>
-						<dd class="first_dd"><a href="javascript:document.getElementById('if1').setAttribute('src', '<%=path %>/crm/customerPAction_findcustomer5.action');">普通客户</a></dd>
+						<dd class="first_dd"><a href="javascript:document.getElementById('if1').setAttribute('src', '<%=path %>/crm/customerPAction_findcustomer5.action');">普通会员</a></dd>
 						<dd><a href="javascript:document.getElementById('if1').setAttribute('src', '<%=path %>/crm/customerPAction_findcustomer6.action');">VIP1</a></dd>
 						<dd><a href="javascript:document.getElementById('if1').setAttribute('src', '<%=path %>/crm/customerPAction_findcustomer7.action');">VIP2</a></dd>
 						<dd><a href="javascript:document.getElementById('if1').setAttribute('src', '<%=path %>/crm/customerPAction_findcustomer8.action');">VIP3</a></dd>
@@ -234,7 +251,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				
 				
 				<div class="span10">
-					<iframe id="if1" width="100%" scrolling="auto" height="800" marginheight="0" frameBorder=0 name="ifrmtest" src=""></iframe>
+					<iframe id="if1" width="100%" scrolling="auto" height="800" marginheight="0" frameBorder=0 name="ifrmtest" src="">
+					</iframe>
 				</div>
 				
 			</div>

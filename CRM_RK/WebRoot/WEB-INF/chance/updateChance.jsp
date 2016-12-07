@@ -173,7 +173,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							<option value="">--请选择--</option>
 							<option value="市场活动">市场活动</option>
 							<option value="客户介绍">客户介绍</option>
-							<option value="自动上门">自动上门</option>
   						</select></td>
 						</tr>
 						<tr>
@@ -202,12 +201,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<td align="right">机会阶段:</td>
 						<td><select style="width:185px;height:30px;" id="sel4" name="chance.stage">
 							<option value="初期沟通">初期沟通</option>
-							<option value="立项评估">立项评估</option>
 							<option value="商务谈判">商务谈判</option>
 							<option value="确认订单">确认订单</option>
 							<option value="成功交易">成功交易</option>
 							<option value="失败交易">失败交易</option>
-							<option value="游说">游说</option>
   						</select></td>
 						</tr>
 						<tr>

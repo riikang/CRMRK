@@ -26,6 +26,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			alert("您没有权限浏览该页面，请重新登录");
 			window.location.href="<%=path%>/login.jsp";
 		}
+		//默认加载页面
+		document.getElementById("if1").setAttribute("src","version.jsp");
 		//动态显示时间
 		setInterval(function(){   
             $("#atime").text("当前时间:"+new Date().toLocaleString());   
@@ -104,17 +106,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								<li id="workspace" class="active">
 									<a href="javascript:void(0)">工作台</a>
 								</li>
-								<li id="info">
-									<a href="javascript:void(0)">个人信息</a>
-								</li>
-								<li>
-									<a href="#">备用链接</a>
-								</li>
-								
 							</ul>
 							<ul class="nav pull-right">
 								<li>
-									<a href="#">您好,${applicationScope.user.email}</a>
+									<a href="javascript:void(0);">您好,${applicationScope.user.email}</a>
 								</li>
 								<li>
 									<a href="javascript:void(0);" id="atime"></a>
@@ -122,46 +117,31 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								<li class="divider-vertical">
 								</li>
 								<li class="dropdown">
-									 <a data-toggle="dropdown" class="dropdown-toggle" href="#">下拉菜单<strong class="caret"></strong></a>
+									 <a data-toggle="dropdown" class="dropdown-toggle" href="javascript:void(0);">主要功能<strong class="caret"></strong></a>
 									<ul class="dropdown-menu">
 										<li>
-											<a href="#">下拉导航1</a>
+											<a href="javascript:document.getElementById('if1').setAttribute('src', '<%=path %>/crm/orderAction_findCustomerOrder.action');">消费记录</a>
 										</li>
 										<li>
-											<a href="#">下拉导航2</a>
-										</li>
-										<li>
-											<a href="#">其他</a>
+											<a href="javascript:document.getElementById('if1').setAttribute('src', '<%=path %>/crm/serviceAction_findAllservice.action');">客户服务</a>
 										</li>
 										<li class="divider">
 										</li>
 										<li class="nav-header">
-											标签
+											账户
 										</li>
 										<li>
-											<a href="#">链接1</a>
-										</li>
-										<li>
-											<a href="#">链接2</a>
+											<a href="javascript:window.location.href='<%=path%>/crm/loginRegisterAction_logout.action' ">注销</a>
 										</li>
 									</ul>
 								</li>
 								<li class="divider-vertical">
 								</li>
 								<li class="dropdown">
-									 <a data-toggle="dropdown" class="dropdown-toggle" href="#">消息(<span>0</span>)<strong class="caret"></strong></a>
+									 <a data-toggle="dropdown" class="dropdown-toggle" href="javascript:void(0);">消息(<span>0</span>)<strong class="caret"></strong></a>
 									<ul class="dropdown-menu">
 										<li>
-											<a href="#">新订单(<span>0</span>)</a>
-										</li>
-										<li>
-											<a href="#">新销售机会(<span>0</span>)</a>
-										</li>
-										<li>
-											<a href="#">新营销任务(<span>0</span>)</a>
-										</li>
-										<li>
-											<a href="#">新回复(<span>0</span>)</a>
+											<a href="javascript:void(0);">新回复(<span>0</span>)</a>
 										</li>
 									</ul>
 								</li>

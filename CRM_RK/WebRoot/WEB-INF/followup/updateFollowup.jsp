@@ -136,22 +136,20 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<section id="section-2">
 						<table width=100% align="center" cellpadding="20">
 						<tr>
-						<td width="40%" align="right">跟踪阶段:</td>
+						<td width="40%" align="right">跟进阶段:</td>
 						<td width="60%"><select style="width:185px;height:30px;" id="sel2" name="followup.followstage">
-							<option value="跟踪中">跟踪中</option>
-							<option value="跟踪完成">跟踪完成</option>
+							<option value="跟进中">跟进中</option>
+							<option value="跟进完成">跟进完成</option>
   						</select></td>
 						</tr>
 						<tr>
-						<td align="right">跟踪后销售机会阶段:</td>
+						<td align="right">跟进后销售机会阶段:</td>
 						<td><select style="width:185px;height:30px;" id="sel3" name="followup.stage">
 							<option value="初期沟通">初期沟通</option>
-							<option value="立项评估">立项评估</option>
 							<option value="商务谈判">商务谈判</option>
 							<option value="确认订单">确认订单</option>
 							<option value="成功交易">成功交易</option>
 							<option value="失败交易">失败交易</option>
-							<option value="游说">游说</option>
   						</select></td>
 						</tr>
 						<tr>

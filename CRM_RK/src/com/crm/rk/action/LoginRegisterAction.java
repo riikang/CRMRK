@@ -286,4 +286,23 @@ public class LoginRegisterAction {
 		return "setRegister_s";
 	}
 	
+	public String logout(){
+		if(ActionContext.getContext().getApplication().get("level")!=null){
+			ActionContext.getContext().getApplication().remove("level");
+			if(ActionContext.getContext().getApplication().get("user")!=null){
+				ActionContext.getContext().getApplication().remove("user");
+			}
+			if(ActionContext.getContext().getApplication().get("manager")!=null){
+				ActionContext.getContext().getApplication().remove("manager");
+			}
+			if(ActionContext.getContext().getApplication().get("ssname")!=null){
+				ActionContext.getContext().getApplication().remove("ssname");
+			}
+			return "logout_s";
+		}else{
+			return "error";
+		}
+		
+	}
+	
 }

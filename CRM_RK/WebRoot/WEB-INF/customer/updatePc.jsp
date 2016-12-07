@@ -59,7 +59,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     		</div>
     		<div class="horizontal-nav full-width horizontalNav-notprocessed">
         		<ul>
-           		  <li><a href="<%=path %>/crm/customerPAction_findAllcustomerp.action">返回列表</a></li>
+           		  <li><a href="<%=path %>/crm/customerPAction_findAllcustomer.action">返回列表</a></li>
            		  <li onclick="confirm_delete()"><a href="javascript:void(0)">删除</a></li>
            		  <li id="updatecustomerp"><a href="javascript:void(0)">编辑</a></li>
         		</ul>
@@ -187,7 +187,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<td>
 						<select style="width:185px;height:30px;" id="cpt" name="customerP.type">
 							<option value="">--请选择--</option>
-							<option value="普通客户">普通客户</option>
+							<option value="普通会员">普通会员</option>
 							<option value="VIP1">VIP1</option>
 							<option value="VIP2">VIP2</option>
 							<option value="VIP3">VIP3</option>

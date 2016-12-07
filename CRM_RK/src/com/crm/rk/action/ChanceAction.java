@@ -54,6 +54,13 @@ public class ChanceAction {
 	private List<Product> products;
 	private String cid;
 	private String meid;
+	private String newchanceid;
+	public String getNewchanceid() {
+		return newchanceid;
+	}
+	public void setNewchanceid(String newchanceid) {
+		this.newchanceid = newchanceid;
+	}
 	public List<Message> getMessages() {
 		return messages;
 	}
@@ -212,6 +219,11 @@ public class ChanceAction {
 				int [] meid2 = new int[meid1.length];
 				for(int i=0;i<meid1.length;i++){
 					meid2[i]=Integer.parseInt(meid1[i]);
+					
+				}
+				String newchanceid1[]=newchanceid.split(",");
+				for(int i=0;i<newchanceid1.length;i++){
+					messageService.deleteById(Message.class, Integer.parseInt(newchanceid1[i]));
 				}
 				for(int i=0;i<meid2.length;i++){
 					Chance chance1=new Chance();
@@ -255,6 +267,17 @@ public class ChanceAction {
 					}
 				}
 				
+				//根据销售机会信息，判断用户状态
+				if(chance.getStage().equals("确认订单")||chance.getStage().equals("成功交易")){
+					customerPs.get(0).setStatus("成交客户");
+				}else if(chance.getStage().equals("失败交易")){
+					customerPs.get(0).setStatus("已流失客户");
+				}else{
+					customerPs.get(0).setStatus("意向客户");
+				}
+				customerPService.update(customerPs.get(0));
+				
+				//生成站内消息
 				if(level==4){
 					if(pid==chances.get(chances.size()-1).getSalesman().getId()){
 						Message message1=new Message(1,5,chances.get(chances.size()-1).getId(),3,chances.get(chances.size()-1).getSalesman().getId());
@@ -410,6 +433,16 @@ public class ChanceAction {
 						}
 					}
 				}
+				
+				//根据机会信息判断用户状态
+				if(chance.getStage().equals("确认订单")||chance.getStage().equals("成功交易")){
+					customerPs.get(0).setStatus("成交客户");
+				}else if(chance.getStage().equals("失败交易")){
+					customerPs.get(0).setStatus("已流失客户");
+				}else{
+					customerPs.get(0).setStatus("意向客户");
+				}
+				customerPService.update(customerPs.get(0));
 					
 				chanceService.update(chance);
 				return "updateChance_s";

@@ -24,22 +24,22 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		$(function(){
 			$('#atype').click(function(){
 				$('#type').append(
-						"<li><input style='height:30px;' type='text' id='dd2'/>&nbsp;<a id='submit' href='javascript:void(0)'>╋</a></li>"
+						"<li><input style='height:30px;border:solid  #46CFB0;' type='text' id='dd2'/>&nbsp;<a id='submit' href='javascript:void(0)'>╋</a></li>"
 						);
 			});
 			$('#acount').click(function(){
 				$('#count').append(
-						"<li><input style='height:30px;' type='text' id='dd3'/>&nbsp;<a id='submit2' href='javascript:void(0)'>╋</a></li>"
+						"<li><input style='height:30px;border:solid  #46CFB0;' type='text' id='dd3'/>&nbsp;<a id='submit2' href='javascript:void(0)'>╋</a></li>"
 						);
 			});
 			$('#astatus').click(function(){
 				$('#status').append(
-						"<li><input style='height:30px;' type='text' id='dd4'/>&nbsp;<a id='submit3' href='javascript:void(0)'>╋</a></li>"
+						"<li><input style='height:30px;border:solid  #46CFB0;' type='text' id='dd4'/>&nbsp;<a id='submit3' href='javascript:void(0)'>╋</a></li>"
 						);
 			});
 			$('#amoney').click(function(){
 				$('#money').append(
-						"<li><input style='height:30px;' type='text' id='dd5'/>&nbsp;<a id='submit4' href='javascript:void(0)'>╋</a></li>"
+						"<li><input style='height:30px;border:solid  #46CFB0;' type='text' id='dd5'/>&nbsp;<a id='submit4' href='javascript:void(0)'>╋</a></li>"
 						);
 			});
 			

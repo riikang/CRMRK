@@ -213,7 +213,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<td>
 						<select style="width:185px;height:30px;" name="customerP.type">
 							<option value="">--请选择--</option>
-							<option value="普通客户">普通客户</option>
+							<option value="普通客户">普通会员</option>
 							<option value="VIP1">VIP1</option>
 							<option value="VIP2">VIP2</option>
 							<option value="VIP3">VIP3</option>

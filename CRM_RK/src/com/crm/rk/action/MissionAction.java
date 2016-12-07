@@ -34,6 +34,13 @@ public class MissionAction extends ActionSupport {
 	Salesman salesman;
 	String mid;
 	String meid;
+	private String newmissionid;
+	public String getNewmissionid() {
+		return newmissionid;
+	}
+	public void setNewmissionid(String newmissionid) {
+		this.newmissionid = newmissionid;
+	}
 	public String getMeid() {
 		return meid;
 	}
@@ -155,6 +162,10 @@ public class MissionAction extends ActionSupport {
 				int [] meid2 = new int[meid1.length];
 				for(int i=0;i<meid1.length;i++){
 					meid2[i]=Integer.parseInt(meid1[i]);
+				}
+				String newmissionid1[]=newmissionid.split(",");
+				for(int i=0;i<newmissionid1.length;i++){
+					messageService.deleteById(Message.class, Integer.parseInt(newmissionid1[i]));
 				}
 				for(int i=0;i<meid2.length;i++){
 					Mission mission1=new Mission();

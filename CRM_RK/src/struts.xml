@@ -128,13 +128,14 @@
 			<result name="managerInfo_s">/WEB-INF/information/managerInfo.jsp</result>
 			<result name="salesmanInfo_s">/WEB-INF/information/salesmanInfo.jsp</result>
 			<result name="channelInfo_s">/WEB-INF/information/channelInfo.jsp</result>
-			<!-- 登录、注册 -->
+			<!-- 登录、注册 、注销-->
 			<result name="loginSet_1s">/customer_index.jsp</result>
 			<result name="loginSet_2s">/salesman_index.jsp</result>
 			<result name="loginSet_3s">/channel_index.jsp</result>
 			<result name="loginSet_4s">/index.jsp</result>
 			<result name="loginSet_f">/login.jsp</result>
 			<result name="setRegister_s">/login.jsp</result>
+			<result name="logout_s">/login.jsp</result>
 		</action>
 		<!-- AJAX -->
 		<action name="findAllProductByAjax" class="serviceAction" method="findAllProductByAjax"/>
