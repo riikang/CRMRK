@@ -38,9 +38,22 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		        window.event.returnValue = false;
 		    }
 			else{
-				var idid=$('#sid').text();
-				window.location.href="<%=path %>/crm/salesmanAction_deleteTheSalesman.action?salesman.id="+idid;
-				alert("删除成功");
+				$.ajax({
+					type: "POST",
+					url: "crm/salesmanAction_ifcandeleteone.action",
+					data: {deleteid:$('#sid').text()},
+					dataType: 'text',
+					success: function(result) {
+						if (result=="1") {
+							alert("该销售员存在关联数据，请删相关订单、销售机会、任务和服务记录后，再进行此操作");
+							return 
+						}else{
+							var idid=$('#sid').text();
+							window.location.href="<%=path %>/crm/salesmanAction_deleteTheSalesman.action?salesman.id="+idid;
+							alert("删除成功");
+						}
+					}
+				});
 			}				
 		}
 	</script>

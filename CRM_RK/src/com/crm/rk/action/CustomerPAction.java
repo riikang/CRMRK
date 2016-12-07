@@ -10,12 +10,20 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.struts2.ServletActionContext;
 
 import com.crm.rk.dao.UserPowerDao;
+import com.crm.rk.model.Chance;
 import com.crm.rk.model.CustomerP;
+import com.crm.rk.model.CustomerReportlog;
 import com.crm.rk.model.EmailMessage;
 import com.crm.rk.model.Manager;
+import com.crm.rk.model.Orders;
+import com.crm.rk.model.Servicelog;
 import com.crm.rk.model.UserPower;
+import com.crm.rk.service.ChanceService;
 import com.crm.rk.service.CustomerPService;
+import com.crm.rk.service.CustomerReportlogService;
 import com.crm.rk.service.EmailMessageService;
+import com.crm.rk.service.OrderService;
+import com.crm.rk.service.ServicelogService;
 import com.crm.rk.service.UserPowerService;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
@@ -23,15 +31,47 @@ import com.opensymphony.xwork2.ActionSupport;
 public class CustomerPAction extends ActionSupport {
 	@Resource private CustomerPService customerPService;
 	@Resource private UserPowerService userPowerService;
+	@Resource private CustomerReportlogService customerReportlogService;
+	@Resource private ChanceService chanceService;
+	@Resource private OrderService orderService;
+	@Resource private ServicelogService servicelogService;
 	private List<UserPower> userPowers;
 	private List<CustomerP> customerPs;
+	private List<CustomerReportlog> customerReportlogs;
+	private List<Chance> chances;
+	private List<Orders> orderss;
+	private List<Servicelog> servicelogs;
 	private UserPower userPower;
 	private CustomerP customerP;
 	@Resource private EmailMessageService emailMessageService;
 	EmailMessage emailMessage;
 	List<EmailMessage> emailMessages;
 	private String ccid;
-	
+	 
+	public List<CustomerReportlog> getCustomerReportlogs() {
+		return customerReportlogs;
+	}
+	public void setCustomerReportlogs(List<CustomerReportlog> customerReportlogs) {
+		this.customerReportlogs = customerReportlogs;
+	}
+	public List<Chance> getChances() {
+		return chances;
+	}
+	public void setChances(List<Chance> chances) {
+		this.chances = chances;
+	}
+	public List<Orders> getOrderss() {
+		return orderss;
+	}
+	public void setOrderss(List<Orders> orderss) {
+		this.orderss = orderss;
+	}
+	public List<Servicelog> getServicelogs() {
+		return servicelogs;
+	}
+	public void setServicelogs(List<Servicelog> servicelogs) {
+		this.servicelogs = servicelogs;
+	}
 	public List<UserPower> getUserPowers() {
 		return userPowers;
 	}
@@ -270,7 +310,91 @@ public class CustomerPAction extends ActionSupport {
 		}
 	}
 	
+	public String ifcandeleteone(){
+		Manager manager=(Manager)ActionContext.getContext().getApplication().get("manager");
+		HttpServletRequest request=ServletActionContext.getRequest();
+		HttpServletResponse response=ServletActionContext.getResponse();
+		response.setCharacterEncoding("UTF-8");
+		if(manager!=null){
+			int deleteid=Integer.parseInt(request.getParameter("deleteid"));
+			String result="";
+			chances=chanceService.findChanceByCustomerp(deleteid);
+			orderss=orderService.findByCustomer(deleteid, manager.getId());
+			servicelogs=servicelogService.findByCustomer(deleteid);
+			if(chances.size()>0 || orderss.size()>0 || servicelogs.size()>0 ){
+				result="1";
+			}else{
+				result="0";
+			}
+			try {
+				response.setCharacterEncoding("utf-8"); 
+				response.getWriter().print(result);
+				response.getWriter().flush();  
+		        response.getWriter().close();  
+			} catch (IOException e) {
+				e.printStackTrace();
+			}  
+		}else{
+			try {
+				response.setCharacterEncoding("utf-8"); 
+				response.getWriter().print("<script> alert('当前权限等级暂时无法执行此操作');</script>");
+				response.getWriter().flush();  
+		        response.getWriter().close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		return null;
+	}
+	
+	public String ifcandelete(){
+		Manager manager=(Manager)ActionContext.getContext().getApplication().get("manager");
+		HttpServletRequest request=ServletActionContext.getRequest();
+		HttpServletResponse response=ServletActionContext.getResponse();
+		response.setCharacterEncoding("UTF-8");
+		if(manager!=null){
+			String deleteid=request.getParameter("deleteid");
+			String result="";
+			String deleteid1[]=deleteid.split(", ");
+			int [] deleteid2 = new int[deleteid1.length];
+			for(int i=0;i<deleteid1.length;i++){
+				deleteid2[i]=Integer.parseInt(deleteid1[i]);
+				chances=chanceService.findChanceByCustomerp(deleteid2[i]);
+				orderss=orderService.findByCustomer(deleteid2[i], manager.getId());
+				servicelogs=servicelogService.findByCustomer(deleteid2[i]);
+				if(chances.size()>0 || orderss.size()>0 || servicelogs.size()>0 ){
+					result="1";
+					break;
+				}else{
+					result="0";
+				}
+			}
+			try {
+				response.setCharacterEncoding("utf-8"); 
+				response.getWriter().print(result);
+				response.getWriter().flush();  
+		        response.getWriter().close();  
+			} catch (IOException e) {
+				e.printStackTrace();
+			}  
+		}else{
+			try {
+				response.setCharacterEncoding("utf-8"); 
+				response.getWriter().print("<script> alert('当前权限等级暂时无法执行此操作');</script>");
+				response.getWriter().flush();  
+		        response.getWriter().close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		return null;
+	}
+	
 	public String deleteThecustomerp() throws Exception{
+		customerReportlogs=customerReportlogService.findCustomerReportlogByCustomerp(customerP.getId());
+		for (int i = 0; i < customerReportlogs.size(); i++) {
+			customerReportlogService.deleteById(CustomerReportlog.class, customerReportlogs.get(i).getId());
+		}
 		customerPService.deleteById(CustomerP.class, customerP.getId());
 		return "deleteThecustomerp_s";
 	}
@@ -287,6 +411,10 @@ public class CustomerPAction extends ActionSupport {
 				ccid2[i]=Integer.parseInt(ccid1[i]);
 			}
 			for(int i=0;i<ccid2.length;i++){
+				customerReportlogs=customerReportlogService.findCustomerReportlogByCustomerp(ccid2[i]);
+				for (int j = 0; j < customerReportlogs.size(); j++) {
+					customerReportlogService.deleteById(CustomerReportlog.class, customerReportlogs.get(j).getId());
+				}
 				customerPService.deleteById(CustomerP.class,ccid2[i]);
 			}
 			return "deleteSomecustomerp_s";

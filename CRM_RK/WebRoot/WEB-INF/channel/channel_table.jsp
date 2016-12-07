@@ -31,30 +31,43 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script src="<%=path%>/js/TableValidate.js"></script>
 	<script src="<%=path%>/js/myjq.js"></script>
 	<script>
-		//判断所选行是否为空，以及确认是否删除 start
-	    var flag=0;
-		function confirm_delete(){
-			if(flag>0){
-				if (!confirm("确认删除？")) {
-		           	 window.event.returnValue = false;
-		       		 }
-					else{
-						var f1=document.getElementById("f1");
-						f1.submit();
-						alert("删除成功");
-					}	
-			}else{
-				alert("未选中任何行");
-			}				
+	//删除
+	function confirm_delete(){
+		var rows=$('#reportTable').bootstrapTable('getSelections');
+		if(rows.length==0){
+			alert('请选择需要删除的数据（多选）');
+			return;
 		}
-		function confirm_checked(obj){
-			if(obj.checked==true){
-				flag++;
-			}else{
-				flag--;
-			}
+		if(rows.length>=1){
+			if(!confirm("确认删除？")){
+	           	 window.event.returnValue = false;
+	        }else{
+	        	var deleteid="";
+	        	for(var i=0;i<rows.length;i++){
+	        		if(i==rows.length-1){
+	        			deleteid=deleteid+rows[i].cid;
+	        		}else{
+	        			deleteid=deleteid+rows[i].cid+", ";
+	        		}
+	        	}
+	        	$.ajax({
+					type: "POST",
+					url: "crm/channelAction_ifcandelete.action",
+					data: {deleteid:deleteid},
+					dataType: 'text',
+					success: function(result) {
+						if (result=="1") {
+							alert("所选渠道商存在关联数据，请删相关任务、销售机会、销售员、订单和服务记录后，再进行此操作");
+							return 
+						}else{
+							window.location.href='<%=path %>/crm/channelAction_deleteSomeChannel.action?cid='+deleteid;
+							alert("删除成功");
+						}
+					}
+				});
+			}	
 		}
-		//判断所选行是否为空，以及确认是否删除 end
+	}
 		
 		$(document).ready(function() {
     		$('.full-width').horizontalNav({});//表格自适应
@@ -113,7 +126,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				exportTypes: ['excel'],
 				search: true,
 				clickToSelect: true,
-				columns: [{field:"cid",title:"渠道编号",align:"center",valign:"middle",sortable:"true"},
+				columns: [{field:"checkbox",checkbox: true,align:"center",valign:"middle"},
+						  {field:"cid",title:"渠道编号",align:"center",valign:"middle",sortable:"true"},
 				          {field:"cname",title:"渠道名称",align:"center",valign:"middle",sortable:"true"},
 				          {field:"postcode",title:"邮政编码",align:"center",valign:"middle",sortable:"true"},
 				          {field:"province",title:"省份",align:"center",valign:"middle",sortable:"true"},
@@ -155,7 +169,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<s:iterator value="channels" id="c1">
 		<script>
 		init.dates[ii] = {
-				'cid' : '<input type="checkbox" onchange="confirm_checked(this)" id="cid" name="cid" value="<s:property value="#c1.id"/>"/>&nbsp;<s:property value="#c1.id"/>',
+				//<input type="checkbox" onchange="confirm_checked(this)" id="cid" name="cid" value="<s:property value="#c1.id"/>"/>&nbsp;
+				'cid' : '<s:property value="#c1.id"/>',
 				'cname' : '<a href="<%=path %>/crm/channelAction_findTheChannel.action?channel.id=<s:property value='#c1.id'/>"><s:property value="#c1.cname"/></a>',
 				'postcode' : '<s:property value="#c1.postcode"/>',
 				'province':'<s:property value="#c1.province"/>',

@@ -12,24 +12,64 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.io.FileUtils;
 import org.apache.struts2.ServletActionContext;
 
+import com.crm.rk.model.Chance;
 import com.crm.rk.model.Manager;
+import com.crm.rk.model.Orders;
 import com.crm.rk.model.Product;
 import com.crm.rk.model.ProductDict;
+import com.crm.rk.model.Reportlog;
+import com.crm.rk.model.Servicelog;
+import com.crm.rk.service.ChanceService;
+import com.crm.rk.service.OrderService;
 import com.crm.rk.service.ProductDictService;
 import com.crm.rk.service.ProductService;
+import com.crm.rk.service.ReportlogService;
+import com.crm.rk.service.ServicelogService;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 
 public class ProductAction extends ActionSupport {
 	@Resource private ProductService productService;
 	@Resource private ProductDictService productDictService;
+	@Resource private ChanceService chanceService;
+	@Resource private OrderService orderService;
+	@Resource private ServicelogService servicelogService;
+	@Resource private ReportlogService reportlogService;
 	private List<ProductDict> porductDicts;
 	private Product product;
 	private List<Product> products;
+	private List<Chance> chances;
+	private List<Orders> orderss;
+	private List<Servicelog> servicelogs;
+	private List<Reportlog> reportlogs;
 	private String pid;
 	private File upload;
 	private String uploadFileName;
 	
+	public List<Chance> getChances() {
+		return chances;
+	}
+	public void setChances(List<Chance> chances) {
+		this.chances = chances;
+	}
+	public List<Orders> getOrderss() {
+		return orderss;
+	}
+	public void setOrderss(List<Orders> orderss) {
+		this.orderss = orderss;
+	}
+	public List<Servicelog> getServicelogs() {
+		return servicelogs;
+	}
+	public void setServicelogs(List<Servicelog> servicelogs) {
+		this.servicelogs = servicelogs;
+	}
+	public List<Reportlog> getReportlogs() {
+		return reportlogs;
+	}
+	public void setReportlogs(List<Reportlog> reportlogs) {
+		this.reportlogs = reportlogs;
+	}
 	public List<ProductDict> getPorductDicts() {
 		return porductDicts;
 	}
@@ -83,6 +123,86 @@ public class ProductAction extends ActionSupport {
 		}
 	}
 	
+	public String ifcandeleteone(){
+		Manager manager=(Manager)ActionContext.getContext().getApplication().get("manager");
+		HttpServletRequest request=ServletActionContext.getRequest();
+		HttpServletResponse response=ServletActionContext.getResponse();
+		response.setCharacterEncoding("UTF-8");
+		if(manager!=null){
+			int deleteid=Integer.parseInt(request.getParameter("deleteid"));
+			String result="";
+			chances=chanceService.findChanceByProduct(deleteid);
+			orderss=orderService.findOrdersByProduct(deleteid);
+			servicelogs=servicelogService.findByProduct(deleteid);
+			if(chances.size()>0 || orderss.size()>0 || servicelogs.size()>0 ){
+				result="1";
+			}else{
+				result="0";
+			}
+			try {
+				response.setCharacterEncoding("utf-8"); 
+				response.getWriter().print(result);
+				response.getWriter().flush();  
+		        response.getWriter().close();  
+			} catch (IOException e) {
+				e.printStackTrace();
+			}  
+		}else{
+			try {
+				response.setCharacterEncoding("utf-8"); 
+				response.getWriter().print("<script> alert('当前权限等级暂时无法执行此操作');</script>");
+				response.getWriter().flush();  
+		        response.getWriter().close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		return null;
+	}
+	
+	public String ifcandelete(){
+		Manager manager=(Manager)ActionContext.getContext().getApplication().get("manager");
+		HttpServletRequest request=ServletActionContext.getRequest();
+		HttpServletResponse response=ServletActionContext.getResponse();
+		response.setCharacterEncoding("UTF-8");
+		if(manager!=null){
+			String deleteid=request.getParameter("deleteid");
+			String result="";
+			String deleteid1[]=deleteid.split(", ");
+			int [] deleteid2 = new int[deleteid1.length];
+			for(int i=0;i<deleteid1.length;i++){
+				deleteid2[i]=Integer.parseInt(deleteid1[i]);
+				chances=chanceService.findChanceByProduct(deleteid2[i]);
+				orderss=orderService.findOrdersByProduct(deleteid2[i]);
+				servicelogs=servicelogService.findByProduct(deleteid2[i]);
+				if(chances.size()>0 || orderss.size()>0 || servicelogs.size()>0 ){
+					result="1";
+					break;
+				}else{
+					result="0";
+				}
+			}
+			try {
+				response.setCharacterEncoding("utf-8"); 
+				response.getWriter().print(result);
+				response.getWriter().flush();  
+		        response.getWriter().close();  
+			} catch (IOException e) {
+				e.printStackTrace();
+			}  
+		}else{
+			try {
+				response.setCharacterEncoding("utf-8"); 
+				response.getWriter().print("<script> alert('当前权限等级暂时无法执行此操作');</script>");
+				response.getWriter().flush();  
+		        response.getWriter().close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		return null;
+	}
+	
 	public String deleteSomeProduct() throws Exception{
 		if(pid==null||pid==""){
 			System.out.println("没有数据");
@@ -95,6 +215,10 @@ public class ProductAction extends ActionSupport {
 				pid2[i]=Integer.parseInt(pid1[i]);
 			}
 			for(int i=0;i<pid2.length;i++){
+				reportlogs=reportlogService.findReportlogByProduct(pid2[i]);
+				for (int j = 0; j < reportlogs.size(); j++) {
+					reportlogService.deleteById(Reportlog.class, reportlogs.get(j).getId());
+				}
 				productService.deleteById(Product.class, pid2[i]);
 			}
 			return "deleteSomeProduct_s";
@@ -102,6 +226,10 @@ public class ProductAction extends ActionSupport {
 	}
 	
 	public String deleteTheProduct() throws Exception{
+		reportlogs=reportlogService.findReportlogByProduct(product.getId());
+		for (int j = 0; j < reportlogs.size(); j++) {
+			reportlogService.deleteById(Reportlog.class, reportlogs.get(j).getId());
+		}
 		productService.deleteById(Product.class, product.getId());
 		return "deleteTheProduct_s";
 	}

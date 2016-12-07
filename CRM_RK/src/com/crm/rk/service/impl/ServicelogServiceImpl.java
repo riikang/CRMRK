@@ -18,8 +18,14 @@ public class ServicelogServiceImpl extends BaseServiceImpl<Servicelog> implement
 	public List<Servicelog> findBySalesman(int id){
 		return servicelogDao.findBySalesman(id);
 	}
+	public List<Servicelog> findByProduct(int id){
+		return servicelogDao.findByProduct(id);
+	}
 	public List<Servicelog> findByCustomer(int id){
 		return servicelogDao.findByCustomer(id);
+	}
+	public List<Servicelog> findByOrders(String id){
+		return servicelogDao.findByOrders(id);
 	}
 }
 

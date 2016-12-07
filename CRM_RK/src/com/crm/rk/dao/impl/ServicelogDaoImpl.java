@@ -12,7 +12,13 @@ public class ServicelogDaoImpl extends BaseDaoImpl<Servicelog> implements Servic
 	public List<Servicelog> findBySalesman(int id) {
 		return (List<Servicelog>)getHibernateTemplate().find("from Servicelog where salesman.id='"+id+"' ");
 	}
+	public List<Servicelog> findByProduct(int id) {
+		return (List<Servicelog>)getHibernateTemplate().find("from Servicelog where product.id='"+id+"' ");
+	}
 	public List<Servicelog> findByCustomer(int id) {
 		return (List<Servicelog>)getHibernateTemplate().find("from Servicelog where customerP.id='"+id+"' ");
+	}
+	public List<Servicelog> findByOrders(String id) {
+		return (List<Servicelog>)getHibernateTemplate().find("from Servicelog where orders.id='"+id+"' ");
 	}
 }

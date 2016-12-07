@@ -39,9 +39,22 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		         window.event.returnValue = false;
 		    }
 			else{
-				var idid=$('#cid').text();
-				window.location.href="<%=path %>/crm/channelAction_deleteTheChannel.action?channel.id="+idid;
-				alert("删除成功");
+				$.ajax({
+					type: "POST",
+					url: "crm/channelAction_ifcandeleteone.action",
+					data: {deleteid:$('#cid').text()},
+					dataType: 'text',
+					success: function(result) {
+						if (result=="1") {
+							alert("该渠道商存在关联数据，请删相关任务、销售机会、销售员、订单和服务记录后，再进行此操作");
+							return 
+						}else{
+							var idid=$('#cid').text();
+							window.location.href="<%=path %>/crm/channelAction_deleteTheChannel.action?channel.id="+idid;
+							alert("删除成功");
+						}
+					}
+				});
 			}				
 		}
 	</script>

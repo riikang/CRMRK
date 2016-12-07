@@ -38,9 +38,22 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    	window.event.returnValue = false;
 		    }
 			else{
-				var idid=$('#pid').text();
-				window.location.href="<%=path %>/crm/productAction_deleteTheProduct.action?product.id="+idid;
-				alert("删除成功");
+				$.ajax({
+					type: "POST",
+					url: "crm/productAction_ifcandeleteone.action",
+					data: {deleteid:$('#pid').text()},
+					dataType: 'text',
+					success: function(result) {
+						if (result=="1") {
+							alert("该商品存在关联数据，请删相关销售机会、订单和服务记录后，再进行此操作");
+							return 
+						}else{
+							var idid=$('#pid').text();
+							window.location.href="<%=path %>/crm/productAction_deleteTheProduct.action?product.id="+idid;
+							alert("删除成功");
+						}
+					}
+				});
 			}				
 		}
 	</script>

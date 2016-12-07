@@ -31,30 +31,43 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script src="<%=path%>/js/TableValidate.js"></script>
 	<script src="<%=path%>/js/myjq.js"></script>
 	<script>
-		//判断所选行是否为空，以及确认是否删除 start
-	    var flag=0;
-		function confirm_delete(){
-			if(flag>0){
-				if (!confirm("确认删除？")) {
-		           	 window.event.returnValue = false;
-		       		 }
-					else{
-						var f1=document.getElementById("f1");
-						f1.submit();
-						alert("删除成功");
-					}	
-			}else{
-				alert("未选中任何行");
-			}				
+	//删除
+	function confirm_delete(){
+		var rows=$('#reportTable').bootstrapTable('getSelections');
+		if(rows.length==0){
+			alert('请选择需要删除的数据（多选）');
+			return;
 		}
-		function confirm_checked(obj){
-			if(obj.checked==true){
-				flag++;
-			}else{
-				flag--;
-			}
+		if(rows.length>=1){
+			if(!confirm("确认删除？")){
+	           	 window.event.returnValue = false;
+	        }else{
+	        	var deleteid="";
+	        	for(var i=0;i<rows.length;i++){
+	        		if(i==rows.length-1){
+	        			deleteid=deleteid+rows[i].sid;
+	        		}else{
+	        			deleteid=deleteid+rows[i].sid+", ";
+	        		}
+	        	}
+	        	$.ajax({
+					type: "POST",
+					url: "crm/salesmanAction_ifcandelete.action",
+					data: {deleteid:deleteid},
+					dataType: 'text',
+					success: function(result) {
+						if (result=="1") {
+							alert("所选销售员存在关联数据，请删相关订单、销售机会、任务和服务记录后，再进行此操作");
+							return 
+						}else{
+							window.location.href='<%=path %>/crm/salesmanAction_deleteSomeSalesman.action?sid='+deleteid;
+							alert("删除成功");
+						}
+					}
+				});
+			}	
 		}
-		//判断所选行是否为空，以及确认是否删除 end
+	}
 		
 		$(document).ready(function() {
     		$('.full-width').horizontalNav({});//表格自适应
@@ -113,7 +126,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				exportTypes: ['excel'],
 				search: true,
 				clickToSelect: true,
-				columns: [{field:"sid",title:"编号",align:"center",valign:"middle",sortable:"true"},
+				columns: [{field:"checkbox",checkbox: true,align:"center",valign:"middle"},
+						  {field:"sid",title:"编号",align:"center",valign:"middle",sortable:"true"},
 				          {field:"sname",title:"姓名",align:"center",valign:"middle",sortable:"true"},
 				          {field:"sex",title:"性别",align:"center",valign:"middle",sortable:"true"},
 				          {field:"birth",title:"生日",align:"center",valign:"middle",sortable:"true"},
@@ -141,7 +155,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<s:iterator value="salesmans" id="s1">
 		<script>
 		init.dates[ii] = {
-				'sid' : '<input type="checkbox" onchange="confirm_checked(this)" id="sid" name="sid" value="<s:property value="#s1.id"/>"/>&nbsp;<s:property value="#s1.id"/>',
+				//<input type="checkbox" onchange="confirm_checked(this)" id="sid" name="sid" value="<s:property value="#s1.id"/>"/>&nbsp;
+				'sid' : '<s:property value="#s1.id"/>',
 				'sname' : '<a href="<%=path %>/crm/salesmanAction_findTheSalesman.action?salesman.id=<s:property value='#s1.id'/>"><s:property value="#s1.sname"/></a>',
 				'sex' : '<s:property value="#s1.sex"/>',
 				'birth':'<s:property value="#s1.birth"/>',

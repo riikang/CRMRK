@@ -37,6 +37,9 @@ public class OrderServiceImpl extends BaseServiceImpl<Orders> implements OrderSe
 	public List<Orders> findOrdersByChannelAndSalesman(int id,int id2){
 		return orderDao.findOrdersByChannelAndSalesman(id, id2);
 	}
+	public List<Orders> findOrdersByChance(int id){
+		return orderDao.findOrdersByChance(id);
+	}
 	public List<Orders> findByTitleAndManager(String title,int id){
 		return orderDao.findByTitleAndManager(title, id);
 	}

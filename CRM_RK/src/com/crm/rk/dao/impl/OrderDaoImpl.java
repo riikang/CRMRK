@@ -34,6 +34,9 @@ public class OrderDaoImpl extends BaseDaoImpl<Orders> implements OrderDao {
 	public List<Orders> findOrdersByChannelAndSalesman(int id,int id2){
 		return (List<Orders>)getHibernateTemplate().find("from Orders where channel.id='"+id+"' and salesman.id='"+id2+"'");
 	}
+	public List<Orders> findOrdersByChance(int id){
+		return (List<Orders>)getHibernateTemplate().find("from Orders where chance.id='"+id+"'");
+	}
 	public List<Orders> findByCustomer(int id,int id2){
 		return (List<Orders>)getHibernateTemplate().find("from Orders where customerP.id='"+id+"' and manager.id='"+id2+"' ");
 	}

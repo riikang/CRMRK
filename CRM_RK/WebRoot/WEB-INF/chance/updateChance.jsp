@@ -37,9 +37,22 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			if (!confirm("确认删除？")) {
 		        window.event.returnValue = false;
 		    }else{
-				var idid=$('#cid').text();
-				window.location.href="<%=path %>/crm/chanceAction_deleteTheChance.action?chance.id="+idid;
-				alert("删除成功");
+		    	$.ajax({
+					type: "POST",
+					url: "crm/chanceAction_ifcandeleteone.action",
+					data: {deleteid:$('#cid').text()},
+					dataType: 'text',
+					success: function(result) {
+						if (result=="1") {
+							alert("所选销售机会存在关联数据，请删相关订单后，再进行此操作");
+							return 
+						}else{
+							var idid=$('#cid').text();
+							window.location.href="<%=path %>/crm/chanceAction_deleteTheChance.action?chance.id="+idid;
+							alert("删除成功");
+						}
+					}
+				});
 			}				
 		}
 		//打开该机会的相关“跟进记录”

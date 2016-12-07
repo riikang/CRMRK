@@ -16,19 +16,27 @@ import org.apache.struts2.ServletActionContext;
 
 import com.crm.rk.model.Chance;
 import com.crm.rk.model.Channel;
+import com.crm.rk.model.Communionlog;
 import com.crm.rk.model.CustomerP;
 import com.crm.rk.model.Manager;
 import com.crm.rk.model.Orders;
+import com.crm.rk.model.Paylog;
 import com.crm.rk.model.Product;
 import com.crm.rk.model.ProductDict;
 import com.crm.rk.model.Salesman;
+import com.crm.rk.model.Sendlog;
+import com.crm.rk.model.Servicelog;
 import com.crm.rk.service.ChanceService;
 import com.crm.rk.service.ChannelService;
+import com.crm.rk.service.CommunionlogService;
 import com.crm.rk.service.CustomerPService;
 import com.crm.rk.service.OrderService;
+import com.crm.rk.service.PaylogService;
 import com.crm.rk.service.ProductDictService;
 import com.crm.rk.service.ProductService;
 import com.crm.rk.service.SalesmanService;
+import com.crm.rk.service.SendlogService;
+import com.crm.rk.service.ServicelogService;
 import com.opensymphony.xwork2.ActionContext;
 
 import net.sf.excelutils.ExcelException;
@@ -42,6 +50,10 @@ public class OrderAction {
 	@Resource private ChanceService chanceService;
 	@Resource private SalesmanService salesmanService;
 	@Resource private ProductDictService productDictService;
+	@Resource private ServicelogService servicelogService;
+	@Resource private PaylogService paylogService;
+	@Resource private SendlogService sendlogService;
+	@Resource private CommunionlogService communionlogService;
 	private ProductDict productDict;
 	private List<ProductDict> productDicts;
 	private Orders orders;
@@ -56,6 +68,16 @@ public class OrderAction {
 	private List<Channel> channels;
 	private List<Chance> chances;
 	private List<Salesman> salesmans;
+	private List<Servicelog> servicelogs;
+	private List<Paylog> paylogs;
+	private List<Sendlog> sendlogs;
+	private List<Communionlog> communionlogs;
+	public List<Communionlog> getCommunionlogs() {
+		return communionlogs;
+	}
+	public void setCommunionlogs(List<Communionlog> communionlogs) {
+		this.communionlogs = communionlogs;
+	}
 	private String oid;
 	
 	public String getOid() {
@@ -222,7 +244,7 @@ public class OrderAction {
 		}
 	}
 	
-	public String deleteSomeorder(){
+	public String deleteSomeorder() throws Exception{
 		if(oid==null||oid==""){
 			System.out.println("没有数据");
 			return "deleteSomeorder_f";
@@ -230,6 +252,22 @@ public class OrderAction {
 		else{
 			String oid1[]=oid.split(", ");
 			for(int i=0;i<oid1.length;i++){
+				servicelogs=servicelogService.findByOrders(oid1[i]);
+				for (int j = 0; j < servicelogs.size(); j++) {
+					communionlogs=communionlogService.findCommunionlogBySerid(servicelogs.get(j).getId());
+					for (int j2 = 0; j2 < communionlogs.size(); j2++) {
+						communionlogService.deleteById(Communionlog.class, communionlogs.get(j2).getId());;
+					}
+					servicelogService.deleteById(Servicelog.class, servicelogs.get(j).getId());
+				}
+				sendlogs=sendlogService.findSendlogByOrders(oid1[i]);
+				for (int j = 0; j < sendlogs.size(); j++) {
+					sendlogService.deleteById(Sendlog.class, sendlogs.get(j).getId());
+				}
+				paylogs=paylogService.findPaylogByOrders(oid1[i]);
+				for (int j = 0; j < paylogs.size(); j++) {
+					paylogService.deleteById(Paylog.class, paylogs.get(j).getId());
+				}
 				orderService.deleteByStringId(Orders.class,oid1[i]);
 			}
 			return "deleteSomeorder_s";
@@ -308,7 +346,23 @@ public class OrderAction {
 		}
 	}
 	
-	public String deleteTheOrder(){
+	public String deleteTheOrder() throws Exception{
+		servicelogs=servicelogService.findByOrders(orders.getId());
+		for (int j = 0; j < servicelogs.size(); j++) {
+			communionlogs=communionlogService.findCommunionlogBySerid(servicelogs.get(j).getId());
+			for (int j2 = 0; j2 < communionlogs.size(); j2++) {
+				communionlogService.deleteById(Communionlog.class, communionlogs.get(j2).getId());;
+			}
+			servicelogService.deleteById(Servicelog.class, servicelogs.get(j).getId());
+		}
+		sendlogs=sendlogService.findSendlogByOrders(orders.getId());
+		for (int j = 0; j < sendlogs.size(); j++) {
+			sendlogService.deleteById(Sendlog.class, sendlogs.get(j).getId());
+		}
+		paylogs=paylogService.findPaylogByOrders(orders.getId());
+		for (int j = 0; j < paylogs.size(); j++) {
+			paylogService.deleteById(Paylog.class, paylogs.get(j).getId());
+		}
 		orderService.deleteByStringId(Orders.class,orders.getId());
 		return "deleteTheOrder_s";
 	}

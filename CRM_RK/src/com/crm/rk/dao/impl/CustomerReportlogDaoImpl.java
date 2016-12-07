@@ -13,6 +13,9 @@ public class CustomerReportlogDaoImpl extends BaseDaoImpl<CustomerReportlog> imp
 	public List<CustomerReportlog> findCustomerReportlogByCrid(int id){
 		return (List<CustomerReportlog>)getHibernateTemplate().find("from CustomerReportlog where customerReport.id='"+id+"'");
 	}
+	public List<CustomerReportlog> findCustomerReportlogByCustomerp(int id){
+		return (List<CustomerReportlog>)getHibernateTemplate().find("from CustomerReportlog where customerP.id='"+id+"'");
+	}
 	public void deleteByCustomerReportId(Class<CustomerReportlog> entityClass,List<CustomerReportlog> customerreportlogs){
 		String  entityName = this.getHibernateTemplate().getSessionFactory().getClassMetadata(entityClass).getEntityName();
 		for(CustomerReportlog customerreportlog : customerreportlogs){

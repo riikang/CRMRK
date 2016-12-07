@@ -10,13 +10,20 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.struts2.ServletActionContext;
 
+import com.crm.rk.model.Chance;
 import com.crm.rk.model.Channel;
 import com.crm.rk.model.Manager;
+import com.crm.rk.model.Mission;
 import com.crm.rk.model.Orders;
 import com.crm.rk.model.Salesman;
+import com.crm.rk.model.Servicelog;
 import com.crm.rk.model.UserPower;
+import com.crm.rk.service.ChanceService;
 import com.crm.rk.service.ChannelService;
+import com.crm.rk.service.MissionService;
+import com.crm.rk.service.OrderService;
 import com.crm.rk.service.SalesmanService;
+import com.crm.rk.service.ServicelogService;
 import com.crm.rk.service.UserPowerService;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
@@ -28,12 +35,20 @@ public class SalesmanAction extends ActionSupport {
 	@Resource private SalesmanService salesmanService;
 	@Resource private ChannelService channelService;
 	@Resource private UserPowerService userPowerService;
+	@Resource private OrderService orderService;
+	@Resource private ChanceService chanceService;
+	@Resource private MissionService missionService;
+	@Resource private ServicelogService servicelogService;
 	private Salesman salesman;
 	private Channel channel;
 	private UserPower userPower;
 	private List<UserPower> userPowers;
 	private List<Salesman> salesmans;
 	private List<Channel> channels;
+	private List<Orders> orderss;
+	private List<Chance> chances;
+	private List<Mission> missions;
+	private List<Servicelog> servicelogs;
 	private String sid;
 	private String idtype;
 	public String getIdtype() {
@@ -152,6 +167,88 @@ public class SalesmanAction extends ActionSupport {
 		}else{
 			return "error";
 		}
+	}
+	
+	public String ifcandeleteone(){
+		Manager manager=(Manager)ActionContext.getContext().getApplication().get("manager");
+		HttpServletRequest request=ServletActionContext.getRequest();
+		HttpServletResponse response=ServletActionContext.getResponse();
+		response.setCharacterEncoding("UTF-8");
+		if(manager!=null){
+			int deleteid=Integer.parseInt(request.getParameter("deleteid"));
+			String result="";
+			orderss=orderService.findBySalesman(deleteid);
+			chances=chanceService.findChanceBySalesman(deleteid);
+			missions=missionService.findMissionBySalesman(deleteid);
+			servicelogs=servicelogService.findBySalesman(deleteid);
+			if(orderss.size()>0 || chances.size()>0 || missions.size()>0 || servicelogs.size()>0 ){
+				result="1";
+			}else{
+				result="0";
+			}
+			try {
+				response.setCharacterEncoding("utf-8"); 
+				response.getWriter().print(result);
+				response.getWriter().flush();  
+		        response.getWriter().close();  
+			} catch (IOException e) {
+				e.printStackTrace();
+			}  
+		}else{
+			try {
+				response.setCharacterEncoding("utf-8"); 
+				response.getWriter().print("<script> alert('当前权限等级暂时无法执行此操作');</script>");
+				response.getWriter().flush();  
+		        response.getWriter().close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		return null;
+	}
+	
+	public String ifcandelete(){
+		Manager manager=(Manager)ActionContext.getContext().getApplication().get("manager");
+		HttpServletRequest request=ServletActionContext.getRequest();
+		HttpServletResponse response=ServletActionContext.getResponse();
+		response.setCharacterEncoding("UTF-8");
+		if(manager!=null){
+			String deleteid=request.getParameter("deleteid");
+			String result="";
+			String deleteid1[]=deleteid.split(", ");
+			int [] deleteid2 = new int[deleteid1.length];
+			for(int i=0;i<deleteid1.length;i++){
+				deleteid2[i]=Integer.parseInt(deleteid1[i]);
+				orderss=orderService.findBySalesman(deleteid2[i]);
+				chances=chanceService.findChanceBySalesman(deleteid2[i]);
+				missions=missionService.findMissionBySalesman(deleteid2[i]);
+				servicelogs=servicelogService.findBySalesman(deleteid2[i]);
+				if(orderss.size()>0 || chances.size()>0 || missions.size()>0 || servicelogs.size()>0 ){
+					result="1";
+					break;
+				}else{
+					result="0";
+				}
+			}
+			try {
+				response.setCharacterEncoding("utf-8"); 
+				response.getWriter().print(result);
+				response.getWriter().flush();  
+		        response.getWriter().close();  
+			} catch (IOException e) {
+				e.printStackTrace();
+			}  
+		}else{
+			try {
+				response.setCharacterEncoding("utf-8"); 
+				response.getWriter().print("<script> alert('当前权限等级暂时无法执行此操作');</script>");
+				response.getWriter().flush();  
+		        response.getWriter().close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		return null;
 	}
 	
 	public String deleteSomeSalesman() throws Exception{

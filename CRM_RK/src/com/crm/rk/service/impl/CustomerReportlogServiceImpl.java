@@ -18,6 +18,9 @@ public class CustomerReportlogServiceImpl extends BaseServiceImpl<CustomerReport
 	public List<CustomerReportlog> findCustomerReportlogByCrid(int id){
 		return customerReportlogDao.findCustomerReportlogByCrid(id);
 	}
+	public List<CustomerReportlog> findCustomerReportlogByCustomerp(int id){
+		return customerReportlogDao.findCustomerReportlogByCustomerp(id);
+	}
 	public void deleteByCustomerReportId(Class<CustomerReportlog> entityClass,List<CustomerReportlog> customerreportlogs){
 		customerReportlogDao.deleteByCustomerReportId(entityClass, customerreportlogs);
 	}

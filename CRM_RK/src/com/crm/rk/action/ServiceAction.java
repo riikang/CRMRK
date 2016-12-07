@@ -211,6 +211,10 @@ public class ServiceAction {
 				scid2[i]=Integer.parseInt(scid1[i]);
 			}
 			for(int i=0;i<scid2.length;i++){
+				communionlogs=communionlogService.findCommunionlogBySerid(scid2[i]);
+				for (int j2 = 0; j2 < communionlogs.size(); j2++) {
+					communionlogService.deleteById(Communionlog.class, communionlogs.get(j2).getId());;
+				}
 				servicelogService.deleteById(Servicelog.class, scid2[i]);
 			}
 			return "deleteSomeservice_s";
@@ -218,6 +222,10 @@ public class ServiceAction {
 	}
 	
 	public String deleteTheService() throws Exception{
+		communionlogs=communionlogService.findCommunionlogBySerid(servicelog.getId());
+		for (int j2 = 0; j2 < communionlogs.size(); j2++) {
+			communionlogService.deleteById(Communionlog.class, communionlogs.get(j2).getId());;
+		}
 		servicelogService.deleteById(Servicelog.class, servicelog.getId());
 		return "deleteTheService_s";
 	}

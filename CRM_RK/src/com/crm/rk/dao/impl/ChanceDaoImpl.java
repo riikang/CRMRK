@@ -9,6 +9,12 @@ public class ChanceDaoImpl extends BaseDaoImpl<Chance> implements ChanceDao {
 	public List<Chance> findChanceByName(String name){
 		return (List<Chance>)getHibernateTemplate().find("from Chance where name='"+name+"'");
 	}
+	public List<Chance> findChanceByCustomerp(int id){
+		return (List<Chance>)getHibernateTemplate().find("from Chance where customerP.id='"+id+"'");
+	}
+	public List<Chance> findChanceByProduct(int id){
+		return (List<Chance>)getHibernateTemplate().find("from Chance where product.id='"+id+"'");
+	}
 	public List<Chance> findChanceByNameAndManager(String name,int id){
 		return (List<Chance>)getHibernateTemplate().find("from Chance where name='"+name+"' and manager.id='"+id+"'");
 	}

@@ -13,6 +13,7 @@ public interface OrderService extends BaseService<Orders> {
 	public List<Orders> findOrdersByProduct(int id);
 	public List<Orders> findOrdersByChannel(int id);
 	public List<Orders> findOrdersByChannelAndSalesman(int id,int id2);
+	public List<Orders> findOrdersByChance(int id);
 	public List<Orders> findByTitleAndManager(String title,int id);
 	public List<Orders> findByCustomer(int id,int id2);
 	public List<Orders> findBySalesman(int id);

@@ -20,6 +20,7 @@ import com.crm.rk.model.Followup;
 import com.crm.rk.model.Manager;
 import com.crm.rk.model.Message;
 import com.crm.rk.model.Mission;
+import com.crm.rk.model.Orders;
 import com.crm.rk.model.Product;
 import com.crm.rk.model.Salesman;
 import com.crm.rk.service.ChanceService;
@@ -27,6 +28,7 @@ import com.crm.rk.service.ChannelService;
 import com.crm.rk.service.CustomerPService;
 import com.crm.rk.service.FollowupService;
 import com.crm.rk.service.MessageService;
+import com.crm.rk.service.OrderService;
 import com.crm.rk.service.ProductService;
 import com.crm.rk.service.SalesmanService;
 import com.opensymphony.xwork2.ActionContext;
@@ -39,6 +41,7 @@ public class ChanceAction {
 	@Resource private CustomerPService customerPService;
 	@Resource private FollowupService followupService;
 	@Resource private MessageService messageService;
+	@Resource private OrderService orderService;
 	private Followup followup;
 	private Chance chance;
 	private Channel channel;
@@ -46,6 +49,7 @@ public class ChanceAction {
 	private CustomerP customerP;
 	private Product product;
 	private List<Followup> followups;
+	private List<Orders> orderss;
 	private List<Chance> chances=new ArrayList<Chance>();
 	private List<Channel> channels;
 	private List<Salesman> salesmans;
@@ -55,6 +59,12 @@ public class ChanceAction {
 	private String cid;
 	private String meid;
 	private String newchanceid;
+	public List<Orders> getOrderss() {
+		return orderss;
+	}
+	public void setOrderss(List<Orders> orderss) {
+		this.orderss = orderss;
+	}
 	public String getNewchanceid() {
 		return newchanceid;
 	}
@@ -302,6 +312,82 @@ public class ChanceAction {
 		}
 	}
 	
+	public String ifcandeleteone(){
+		Manager manager=(Manager)ActionContext.getContext().getApplication().get("manager");
+		HttpServletRequest request=ServletActionContext.getRequest();
+		HttpServletResponse response=ServletActionContext.getResponse();
+		response.setCharacterEncoding("UTF-8");
+		if(manager!=null){
+			int deleteid=Integer.parseInt(request.getParameter("deleteid"));
+			String result="";
+			orderss=orderService.findOrdersByChance(deleteid);
+			if(orderss.size()>0){
+				result="1";
+			}else{
+				result="0";
+			}
+			try {
+				response.setCharacterEncoding("utf-8"); 
+				response.getWriter().print(result);
+				response.getWriter().flush();  
+		        response.getWriter().close();  
+			} catch (IOException e) {
+				e.printStackTrace();
+			}  
+		}else{
+			try {
+				response.setCharacterEncoding("utf-8"); 
+				response.getWriter().print("<script> alert('当前权限等级暂时无法执行此操作');</script>");
+				response.getWriter().flush();  
+		        response.getWriter().close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		return null;
+	}
+	
+	public String ifcandelete(){
+		Manager manager=(Manager)ActionContext.getContext().getApplication().get("manager");
+		HttpServletRequest request=ServletActionContext.getRequest();
+		HttpServletResponse response=ServletActionContext.getResponse();
+		response.setCharacterEncoding("UTF-8");
+		if(manager!=null){
+			String deleteid=request.getParameter("deleteid");
+			String result="";
+			String deleteid1[]=deleteid.split(", ");
+			int [] deleteid2 = new int[deleteid1.length];
+			for(int i=0;i<deleteid1.length;i++){
+				deleteid2[i]=Integer.parseInt(deleteid1[i]);
+				orderss=orderService.findOrdersByChance(deleteid2[i]);;
+				if(orderss.size()>0 ){
+					result="1";
+					break;
+				}else{
+					result="0";
+				}
+			}
+			try {
+				response.setCharacterEncoding("utf-8"); 
+				response.getWriter().print(result);
+				response.getWriter().flush();  
+		        response.getWriter().close();  
+			} catch (IOException e) {
+				e.printStackTrace();
+			}  
+		}else{
+			try {
+				response.setCharacterEncoding("utf-8"); 
+				response.getWriter().print("<script> alert('当前权限等级暂时无法执行此操作');</script>");
+				response.getWriter().flush();  
+		        response.getWriter().close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		return null;
+	}
+	
 	public String deleteSomechance() throws Exception{
 		if(cid==null||cid==""){
 			System.out.println("没有数据");
@@ -314,6 +400,10 @@ public class ChanceAction {
 				cid2[i]=Integer.parseInt(cid1[i]);
 			}
 			for(int i=0;i<cid2.length;i++){
+				followups=followupService.findFollowupByChanceId(cid2[i]);
+				for (int j = 0; j < followups.size(); j++) {
+					followupService.deleteById(Followup.class, followups.get(j).getId());
+				}
 				chanceService.deleteById(Chance.class, cid2[i]);
 			}
 			return "deleteSomechance_s";
@@ -363,6 +453,10 @@ public class ChanceAction {
 	}
 	
 	public String deleteTheChance() throws Exception{
+		followups=followupService.findFollowupByChanceId(chance.getId());
+		for (int j = 0; j < followups.size(); j++) {
+			followupService.deleteById(Followup.class, followups.get(j).getId());
+		}
 		chanceService.deleteById(Chance.class,chance.getId());
 		return "deleteTheChance_s";
 	}

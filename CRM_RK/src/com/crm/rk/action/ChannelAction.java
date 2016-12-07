@@ -11,10 +11,19 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.struts2.ServletActionContext;
 
+import com.crm.rk.model.Chance;
 import com.crm.rk.model.Channel;
 import com.crm.rk.model.Manager;
+import com.crm.rk.model.Mission;
 import com.crm.rk.model.Orders;
+import com.crm.rk.model.Salesman;
+import com.crm.rk.model.Servicelog;
+import com.crm.rk.service.ChanceService;
 import com.crm.rk.service.ChannelService;
+import com.crm.rk.service.MissionService;
+import com.crm.rk.service.OrderService;
+import com.crm.rk.service.SalesmanService;
+import com.crm.rk.service.ServicelogService;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 
@@ -23,10 +32,49 @@ import net.sf.excelutils.ExcelUtils;
 
 public class ChannelAction extends ActionSupport {
 	@Resource private ChannelService channelService;
+	@Resource private MissionService missionService;
+	@Resource private ChanceService chanceService;
+	@Resource private OrderService orderService;
+	@Resource private SalesmanService salesmanService;
+	@Resource private ServicelogService servicelogService;
 	private Channel channel;
 	private List<Channel> channels;
+	private List<Mission> missions;
+	private List<Chance> chances;
+	private List<Orders> orderss;
+	private List<Salesman> salesmans;
+	private List<Servicelog> servicelogs;
 	private String cid;
-	
+	public List<Mission> getMissions() {
+		return missions;
+	}
+	public void setMissions(List<Mission> missions) {
+		this.missions = missions;
+	}
+	public List<Chance> getChances() {
+		return chances;
+	}
+	public void setChances(List<Chance> chances) {
+		this.chances = chances;
+	}
+	public List<Orders> getOrderss() {
+		return orderss;
+	}
+	public void setOrderss(List<Orders> orderss) {
+		this.orderss = orderss;
+	}
+	public List<Salesman> getSalesmans() {
+		return salesmans;
+	}
+	public void setSalesmans(List<Salesman> salesmans) {
+		this.salesmans = salesmans;
+	}
+	public List<Servicelog> getServicelogs() {
+		return servicelogs;
+	}
+	public void setServicelogs(List<Servicelog> servicelogs) {
+		this.servicelogs = servicelogs;
+	}
 	public String getCid() {
 		return cid;
 	}
@@ -76,6 +124,92 @@ public class ChannelAction extends ActionSupport {
 		}else {
 			return "error";
 		}
+	}
+	
+	public String ifcandeleteone(){
+		Manager manager=(Manager)ActionContext.getContext().getApplication().get("manager");
+		HttpServletRequest request=ServletActionContext.getRequest();
+		HttpServletResponse response=ServletActionContext.getResponse();
+		response.setCharacterEncoding("UTF-8");
+		if(manager!=null){
+			int deleteid=Integer.parseInt(request.getParameter("deleteid"));
+			String result="";
+			missions=missionService.findMissionByChannel(deleteid);
+			chances=chanceService.findChanceByChannel(deleteid);
+			orderss=orderService.findOrdersByChannel(deleteid);
+			salesmans=salesmanService.findSalesmanByChannel(deleteid);
+			servicelogs=servicelogService.findByChannel(deleteid);
+			if(missions.size()>0 || chances.size()>0 || orderss.size()>0 || salesmans.size()>0 
+					|| servicelogs.size()>0){
+				result="1";
+			}else{
+				result="0";
+			}
+			try {
+				response.setCharacterEncoding("utf-8"); 
+				response.getWriter().print(result);
+				response.getWriter().flush();  
+		        response.getWriter().close();  
+			} catch (IOException e) {
+				e.printStackTrace();
+			}  
+		}else{
+			try {
+				response.setCharacterEncoding("utf-8"); 
+				response.getWriter().print("<script> alert('当前权限等级暂时无法执行此操作');</script>");
+				response.getWriter().flush();  
+		        response.getWriter().close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		return null;
+	}
+	
+	public String ifcandelete(){
+		Manager manager=(Manager)ActionContext.getContext().getApplication().get("manager");
+		HttpServletRequest request=ServletActionContext.getRequest();
+		HttpServletResponse response=ServletActionContext.getResponse();
+		response.setCharacterEncoding("UTF-8");
+		if(manager!=null){
+			String deleteid=request.getParameter("deleteid");
+			String result="";
+			String cid1[]=deleteid.split(", ");
+			int [] cid2 = new int[cid1.length];
+			for(int i=0;i<cid1.length;i++){
+				cid2[i]=Integer.parseInt(cid1[i]);
+				missions=missionService.findMissionByChannel(cid2[i]);
+				chances=chanceService.findChanceByChannel(cid2[i]);
+				orderss=orderService.findOrdersByChannel(cid2[i]);
+				salesmans=salesmanService.findSalesmanByChannel(cid2[i]);
+				servicelogs=servicelogService.findByChannel(cid2[i]);
+				if(missions.size()>0 || chances.size()>0 || orderss.size()>0 || salesmans.size()>0 
+						|| servicelogs.size()>0){
+					result="1";
+					break;
+				}else{
+					result="0";
+				}
+			}
+			try {
+				response.setCharacterEncoding("utf-8"); 
+				response.getWriter().print(result);
+				response.getWriter().flush();  
+		        response.getWriter().close();  
+			} catch (IOException e) {
+				e.printStackTrace();
+			}  
+		}else{
+			try {
+				response.setCharacterEncoding("utf-8"); 
+				response.getWriter().print("<script> alert('当前权限等级暂时无法执行此操作');</script>");
+				response.getWriter().flush();  
+		        response.getWriter().close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		return null;
 	}
 	
 	public String deleteSomeChannel() throws Exception{

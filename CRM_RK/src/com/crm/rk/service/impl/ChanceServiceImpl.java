@@ -18,10 +18,16 @@ public class ChanceServiceImpl extends BaseServiceImpl<Chance> implements Chance
 	public List<Chance> findChanceByNameAndManager(String name,int id){
 		return chanceDao.findChanceByNameAndManager(name, id);
 	}
+	public List<Chance> findChanceByProduct(int id){
+		return chanceDao.findChanceByProduct(id);
+	}
 	public List<Chance> findChanceByChannel(int id){
 		return chanceDao.findChanceByChannel(id);
 	}
 	public List<Chance> findChanceBySalesman(int id){
 		return chanceDao.findChanceBySalesman(id);
+	}
+	public List<Chance> findChanceByCustomerp(int id){
+		return chanceDao.findChanceByCustomerp(id);
 	}
 }

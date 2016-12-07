@@ -32,30 +32,44 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script src="<%=path%>/js/TableValidate.js"></script>
 	<script src="<%=path%>/js/myjq.js"></script>
 	<script>
-		//判断所选行是否为空，以及确认是否删除 start
-	    var flag=0;
-		function confirm_delete(){
-			if(flag>0){
-				if (!confirm("确认删除？")) {
-		           	 window.event.returnValue = false;
-		       		 }
-					else{
-						var f1=document.getElementById("f1");
-						f1.submit();
-						alert("删除成功");
-					}	
-			}else{
-				alert("未选中任何行");
-			}				
+	//删除
+	function confirm_delete(){
+		var rows=$('#reportTable').bootstrapTable('getSelections');
+		if(rows.length==0){
+			alert('请选择需要删除的数据（多选）');
+			return;
 		}
-		function confirm_checked(obj){
-			if(obj.checked==true){
-				flag++;
-			}else{
-				flag--;
-			}
+		if(rows.length>=1){
+			if(!confirm("确认删除？")){
+	           	 window.event.returnValue = false;
+	        }else{
+	        	var deleteid="";
+	        	for(var i=0;i<rows.length;i++){
+	        		if(i==rows.length-1){
+	        			deleteid=deleteid+rows[i].id;
+	        		}else{
+	        			deleteid=deleteid+rows[i].id+", ";
+	        		}
+	        	}
+	        	$.ajax({
+					type: "POST",
+					url: "crm/customerPAction_ifcandelete.action",
+					data: {deleteid:deleteid},
+					dataType: 'text',
+					success: function(result) {
+						if (result=="1") {
+							alert("所选客户存在关联数据，请删相关销售机会、订单和服务记录后，再进行此操作");
+							return 
+						}else{
+							window.location.href='<%=path %>/crm/customerPAction_deleteSomecustomerp.action?ccid='+deleteid;
+							alert("删除成功");
+						}
+					}
+				});
+			}	
 		}
-		//判断所选行是否为空，以及确认是否删除 end
+	}
+
 		
 		$(document).ready(function() {
     		$('.full-width').horizontalNav({});//表格自适应
@@ -112,7 +126,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				showRefresh: true,
 				search: true,
 				clickToSelect: true,
-				columns: [{field:"id",title:"客户编号",align:"center",valign:"middle",sortable:"true"},
+				columns: [{field:"checkbox",checkbox: true,align:"center",valign:"middle"},
+						  {field:"id",title:"客户编号",align:"center",valign:"middle",sortable:"true"},
 				          {field:"gtime",title:"获取时间",align:"center",valign:"middle",sortable:"true"},
 				          {field:"name",title:"姓名",align:"center",valign:"middle",sortable:"true"},
 				          {field:"prov",title:"所在省份",align:"center",valign:"middle",sortable:"true"},
@@ -144,7 +159,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<s:iterator value="customerPs" id="cps">
 		<script>
 		init.dates[ii] = {
-				'id' : '<input type="checkbox" onchange="confirm_checked(this)" id="ccid" name="ccid" value="<s:property value="#cps.id"/>"/>&nbsp;<s:property value="#cps.id"/>',
+				//<input type="checkbox" onchange="confirm_checked(this)" id="ccid" name="ccid" value="<s:property value="#cps.id"/>"/>&nbsp;
+				'id' : '<s:property value="#cps.id"/>',
 				'gtime' : '${ppc1.gettime}<s:property value="#cps.gettime"/>',
 				'name' : '<a href="<%=path %>/crm/customerPAction_findThecustomerp.action?customerP.id=<s:property value='#cps.id'/>"><s:property value="#cps.cname"/></a>',
 				'prov':'<s:property value="#cps.prov"/>',
