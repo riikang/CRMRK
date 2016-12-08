@@ -84,8 +84,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				search: true,
 				showColumns: true,
 				showRefresh: true,
-				showExport: true,
-				exportTypes: ['csv','txt','xml'],
 				search: true,
 				clickToSelect: true,
 				columns: [{field:"title",title:"简述",align:"center",valign:"middle",sortable:"true"},

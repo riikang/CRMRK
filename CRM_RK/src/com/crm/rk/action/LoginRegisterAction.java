@@ -16,11 +16,13 @@ import net.sf.json.JSONString;
 import org.apache.struts2.ServletActionContext;
 
 import com.crm.rk.model.CustomerP;
+import com.crm.rk.model.EmailMessage;
 import com.crm.rk.model.Manager;
 import com.crm.rk.model.Message;
 import com.crm.rk.model.Salesman;
 import com.crm.rk.model.UserPower;
 import com.crm.rk.service.CustomerPService;
+import com.crm.rk.service.EmailMessageService;
 import com.crm.rk.service.ManagerService;
 import com.crm.rk.service.MessageService;
 import com.crm.rk.service.SalesmanService;
@@ -28,22 +30,33 @@ import com.crm.rk.service.UserPowerService;
 import com.mysql.jdbc.Connection;
 import com.opensymphony.xwork2.ActionContext;
 
+import freemarker.template.EmptyMap;
+
 public class LoginRegisterAction {
 	@Resource private UserPowerService userPowerService;
 	@Resource private SalesmanService salesmanService;
 	@Resource private CustomerPService customerPService;
 	@Resource private ManagerService managerService;
 	@Resource private MessageService messageService;
+	@Resource private EmailMessageService emailMessageService;
 	private Manager manager;
 	private CustomerP customerP;
 	private Salesman salesman;
 	private UserPower userPower;
+	private EmailMessage emailMessage;
 	private List<Message> messages;
 	private List<Manager> managers;
 	private List<CustomerP> customerPs;
 	private List<Salesman> salesmans;
 	private List<UserPower> userPowers;
 	private String idString;
+	
+	public EmailMessage getEmailMessage() {
+		return emailMessage;
+	}
+	public void setEmailMessage(EmailMessage emailMessage) {
+		this.emailMessage = emailMessage;
+	}
 	public List<Message> getMessages() {
 		return messages;
 	}
@@ -283,6 +296,14 @@ public class LoginRegisterAction {
 		manager.setUserPower(userPower);
 		userPower.setManager(manager);
 		userPowerService.save(userPower);
+		
+		emailMessage=new EmailMessage();
+		emailMessage.setContext("生日快乐");
+		emailMessage.setTitle("生日祝福");
+		emailMessage.setType("生日");
+		emailMessage.setManager(manager);
+		emailMessageService.save(emailMessage);
+		
 		return "setRegister_s";
 	}
 	

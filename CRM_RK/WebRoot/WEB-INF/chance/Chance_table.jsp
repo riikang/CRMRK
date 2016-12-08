@@ -125,7 +125,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				search: true,
 				clickToSelect: true,
 				columns: [{field:"checkbox",checkbox: true,align:"center",valign:"middle"},
-						  {field:"id",hidden:true},
+						  {field:"id",title:"编号",align:"center",valign:"middle",hidden:true},
 						  {field:"name",title:"机会名称",align:"center",valign:"middle",sortable:"true"},
 				          {field:"customer",title:"客户名称",align:"center",valign:"middle",sortable:"true"},
 				          {field:"product",title:"意向产品",align:"center",valign:"middle",sortable:"true"},

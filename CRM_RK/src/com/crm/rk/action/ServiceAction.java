@@ -424,7 +424,7 @@ public class ServiceAction {
 				}
 				servicelog.setManager(manager);
 				
-				Servicelog servicelog1=(Servicelog)servicelogService.findById(Servicelog.class, servicelog.getId());
+				/*Servicelog servicelog1=(Servicelog)servicelogService.findById(Servicelog.class, servicelog.getId());
 				if(level==4){
 					if(!servicelog1.getChannel().getCname().equals(servicelog.getChannel().getCname())){
 						messages=messageService.findByMidLevelAndPid(servicelog.getId(), 2, servicelog1.getSalesman().getId());
@@ -487,8 +487,7 @@ public class ServiceAction {
 							}
 						}
 					}
-				}
-				
+				}*/
 				
 				servicelogService.update(servicelog);
 				return "supdateServicelog_s";

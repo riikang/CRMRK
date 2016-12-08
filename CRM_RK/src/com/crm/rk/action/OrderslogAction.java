@@ -350,13 +350,13 @@ public class OrderslogAction {
 		}
 	}
 	
-	public String deletePaylog(){
-		System.out.println("!!!!!!!!!!!!!!!!"+paylog.getId());
+	public String deletePaylog() throws Exception{
+		paylogService.deleteById(Paylog.class, paylog.getId());
 		return "deletePaylog_s";
 	}
 	
-	public String deleteSendlog(){
-		System.out.println("!!!!!!!!!!!!!!!!"+sendlog.getId());
+	public String deleteSendlog() throws Exception{
+		sendlogService.deleteById(Sendlog.class, sendlog.getId());
 		return "deleteSendlog_s";
 	}
 	

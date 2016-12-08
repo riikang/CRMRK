@@ -109,8 +109,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				search: true,
 				showColumns: true,
 				showRefresh: true,
-				showExport: true,
-				exportTypes: ['csv','txt','xml'],
 				search: true,
 				clickToSelect: true,
 				columns: [{field:"checkbox",checkbox: true,align:"center",valign:"middle"},

@@ -153,7 +153,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<div class="tools-box">
 							<div class="operator-box-btn"><span class="face-icon">☺</span><span class="img-icon">▧</span>
 							<span style="margin-left:15px;"><a id="aaa1" href="javascript:void(0)">显示交流记录</a></span></div>
-							<div class="submit-btn"><input type="button" onClick="out()" value="提交评论" /></div>
+							<div class="submit-btn"><input type="button" onClick="out()" value="发送" /></div>
 						</div>
 					</div>
 				</div>

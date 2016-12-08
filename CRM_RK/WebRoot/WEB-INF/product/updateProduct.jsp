@@ -74,7 +74,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
            		  <li><a href="<%=path %>/crm/productAction_findAllProduct.action">返回列表</a></li>
            		  <li onclick="confirm_delete()"><a href="javascript:void(0)">删除</a></li>
            		  <li id="updateproduct"><a href="javascript:void(0)">编辑</a></li>
-           		  <li onclick=""><a href="javascript:void(0)">销量统计</a></li>
+           		 <!-- <li onclick=""><a href="javascript:void(0)">销量统计</a></li> -->
         		</ul>
     		</div>
 		</div>
