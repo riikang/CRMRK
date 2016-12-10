@@ -54,7 +54,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		$('#workspace').click(function(){
 			$('#workspace').addClass("active");
 			$('#info').removeClass("active");
-			$('#if1').attr('src', '');
+			$('#if1').attr('src', 'version.jsp');
 		});
 		$('dd').click(function(){
 			$('#workspace').addClass("active");

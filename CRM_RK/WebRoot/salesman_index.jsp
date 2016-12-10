@@ -242,16 +242,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 										</li>
 										 -->
 										<li>
-											<a href="javascript:document.getElementById('if1').setAttribute('src','<%=path %>/crm/chanceAction_findnewchance.action?meid='+newchance2+'&newchanceid='+newchanceid)">新销售机会(<span id='mm2'>0</span>)</a>
+											<a href="javascript:if(newchance>0){document.getElementById('if1').setAttribute('src','<%=path %>/crm/chanceAction_findnewchance.action?meid='+newchance2+'&newchanceid='+newchanceid)}else{alert('没有新的销售机会')}">新销售机会(<span id='mm2'>0</span>)</a>
 										</li>
 										<li>
-											<a href="javascript:document.getElementById('if1').setAttribute('src','<%=path %>/crm/missionAction_findnewmission.action?meid='+newmission2+'&newmissionid='+newmissionid)">新营销任务(<span id='mm3'>0</span>)</a>
+											<a href="javascript:if(newmission>0){document.getElementById('if1').setAttribute('src','<%=path %>/crm/missionAction_findnewmission.action?meid='+newmission2+'&newmissionid='+newmissionid)}else{alert('没有新的营销任务')}">新营销任务(<span id='mm3'>0</span>)</a>
 										</li>
 										<li>
-											<a href="#">待处理客服服务(<span id='mm4'>0</span>)</a>
+											<a href="javascript:void(0)">待处理客服服务(<span id='mm4'>0</span>)</a>
 										</li>
 										<li>
-											<a href="#">新回复(<span id='mm5'>0</span>)</a>
+											<a href="javascript:void(0)">新回复(<span id='mm5'>0</span>)</a>
 										</li>
 									</ul>
 								</li>
@@ -309,7 +309,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<dd class="first_dd"><a href="javascript:document.getElementById('if1').setAttribute('src', '<%=path %>/crm/customerPAction_findcustomer1.action');">潜在客户</a></dd>
 			<dd><a href="javascript:document.getElementById('if1').setAttribute('src', '<%=path %>/crm/customerPAction_findcustomer2.action');">意向客户</a></dd>
 			<dd><a href="javascript:document.getElementById('if1').setAttribute('src', '<%=path %>/crm/customerPAction_findcustomer3.action');">成交客户</a></dd>
-			<dd><a href="javascript:document.getElementById('if1').setAttribute('src', '<%=path %>/crm/customerPAction_findcustomer4.action');">已流失客户</a></dd>
+			<!-- <dd><a href="javascript:document.getElementById('if1').setAttribute('src', '<%=path %>/crm/customerPAction_findcustomer4.action');">已流失客户</a></dd>  -->
 		</dl>
 		
 		<dl class="custom">

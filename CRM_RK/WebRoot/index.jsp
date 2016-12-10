@@ -117,7 +117,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								<li class="divider-vertical">
 								</li>
 								<li class="dropdown">
-									 <a data-toggle="dropdown" class="dropdown-toggle" href="#">主要功能<strong class="caret"></strong></a>
+									 <a data-toggle="dropdown" class="dropdown-toggle" href="javascript:void(0)">主要功能<strong class="caret"></strong></a>
 									<ul class="dropdown-menu">
 										<li>
 											<a href="javascript:document.getElementById('if1').setAttribute('src', '<%=path %>/crm/customerPAction_findAllcustomer.action');">客户管理</a>
@@ -155,7 +155,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								<li class="divider-vertical">
 								</li>
 								<li class="dropdown">
-									 <a data-toggle="dropdown" class="dropdown-toggle" href="#">消息(<span>0</span>)<strong class="caret"></strong></a>
+									 <a data-toggle="dropdown" class="dropdown-toggle" href="javascript:void(0)">消息(<span>0</span>)<strong class="caret"></strong></a>
 									<ul class="dropdown-menu">
 									<!-- 
 										<li>
@@ -227,7 +227,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<dd class="first_dd"><a href="javascript:document.getElementById('if1').setAttribute('src', '<%=path %>/crm/customerPAction_findcustomer1.action');">潜在客户</a></dd>
 						<dd><a href="javascript:document.getElementById('if1').setAttribute('src', '<%=path %>/crm/customerPAction_findcustomer2.action');">意向客户</a></dd>
 						<dd><a href="javascript:document.getElementById('if1').setAttribute('src', '<%=path %>/crm/customerPAction_findcustomer3.action');">成交客户</a></dd>
-						<dd><a href="javascript:document.getElementById('if1').setAttribute('src', '<%=path %>/crm/customerPAction_findcustomer4.action');">已流失客户</a></dd>
+						<!--<dd><a href="javascript:document.getElementById('if1').setAttribute('src', '<%=path %>/crm/customerPAction_findcustomer4.action');">已流失客户</a></dd> -->
 					</dl>
 		
 					<dl class="custom">

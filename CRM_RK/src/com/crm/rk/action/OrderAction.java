@@ -326,7 +326,7 @@ public class OrderAction {
 					summoney = summoney+orderss.get(i).getDealpriceT();
 				}
 				if(summoney>0&&summoney<500){
-					customerPs.get(0).setType("普通客户");
+					customerPs.get(0).setType("普通会员");
 				}else if(500<=summoney&&summoney<2000){
 					customerPs.get(0).setType("VIP1");
 				}else if(2000<=summoney&&summoney<5000){

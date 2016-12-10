@@ -118,7 +118,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				height: 700,
 				striped: true,
 				pagination: true,
-				pageSize: 20,
+				pageSize: 14,
 				pageNumber:1,
 				pageList: [10, 20, 50, 100, 200, 500],
 				search: true,
