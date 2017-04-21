@@ -18,7 +18,7 @@ import com.crm.rk.service.MissionService;
 import com.crm.rk.service.SalesmanService;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
-
+//任务动作类
 public class MissionAction extends ActionSupport {
 	@Resource private MissionService missionService;
 	@Resource private ChannelService channelService;
@@ -102,6 +102,7 @@ public class MissionAction extends ActionSupport {
 		this.mission = mission;
 	}
 	
+	//读取所有任务（区分等级和经理）
 	public String findAllmission() throws Exception{
 		Manager manager=(Manager)ActionContext.getContext().getApplication().get("manager");
 		if(ActionContext.getContext().getApplication().get("level")!=null){
@@ -130,6 +131,7 @@ public class MissionAction extends ActionSupport {
 		}
 	}
 	
+	//读取单个任务
 	public String findThemission() throws Exception{
 		Manager manager=(Manager)ActionContext.getContext().getApplication().get("manager");
 		if(ActionContext.getContext().getApplication().get("level")!=null){
@@ -151,6 +153,7 @@ public class MissionAction extends ActionSupport {
 		}
 	}
 	
+	//读取新的任务，同时删除站内消息的新任务通知
 	public String findnewmission() throws Exception{
 		Manager manager=(Manager)ActionContext.getContext().getApplication().get("manager");
 		if(ActionContext.getContext().getApplication().get("level")!=null){
@@ -179,6 +182,7 @@ public class MissionAction extends ActionSupport {
 		}
 	}
 	
+	//增加任务，并根据情况生成站内消息
 	public String addMission() throws Exception {
 		Manager manager=(Manager)ActionContext.getContext().getApplication().get("manager");
 		if(ActionContext.getContext().getApplication().get("level")!=null){
@@ -210,6 +214,7 @@ public class MissionAction extends ActionSupport {
 		}
 	}
 	
+	//删除多个任务
 	public String deleteSomeMission() throws Exception{
 		if(mid==null||mid==""){
 			System.out.println("没有数据");
@@ -228,11 +233,13 @@ public class MissionAction extends ActionSupport {
 		}
 	}
 	
+	//删除单个任务
 	public String deleteTheMission() throws Exception{
 		missionService.deleteById(Mission.class, mission.getId());
 		return "deleteTheMission_s";
 	}
 	
+	//更新任务，同时需要检查是否要更新站内消息
 	public String updateMission() throws Exception{
 		Manager manager=(Manager)ActionContext.getContext().getApplication().get("manager");
 		if(ActionContext.getContext().getApplication().get("level")!=null){

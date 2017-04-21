@@ -15,8 +15,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript" src="js/daohang.js"></script>
 	<script type="text/javascript" src="js/jquery-ui.js"></script>
 	<script type="text/javascript" src="js/bootstrap.min.js"></script>
+	<script src="<%=path%>/js/myjq.js"></script>
 	<link href="css/bootstrap-combined.min.css" rel="stylesheet" media="screen">
 	<link href="css/daohang.css" rel="stylesheet">
+	<link rel="stylesheet" href="<%=path%>/css/addProductMain.css" />
 	<script> 
 		$(function(){
 			//检查登录权限
@@ -59,6 +61,27 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				$('#info').removeClass("active");
 			});
 			/*个人信息，工作台样式切换 end*/
+			
+			/*功能定制*/
+			$('#gndz').click(function() {
+				$('#code6').center();
+		        $('#goodcover').show();
+		        $('#code6').fadeIn();
+    		});
+			
+			
+			
+			//弹出层事件 start
+			$('#closebt').click(function() {
+		        $('#code6').hide();
+		        $('#goodcover').hide();
+		    });
+			$('#goodcover').click(function() {
+		        $('#code6').hide();
+		        $('#goodcover').hide();
+		    });
+			//弹出层事件 end
+			
 		});
 	</script>  
 	<style type="text/css">
@@ -119,30 +142,33 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								<li class="dropdown">
 									 <a data-toggle="dropdown" class="dropdown-toggle" href="javascript:void(0)">主要功能<strong class="caret"></strong></a>
 									<ul class="dropdown-menu">
-										<li>
+										<li id="hidden_customer4">
 											<a href="javascript:document.getElementById('if1').setAttribute('src', '<%=path %>/crm/customerPAction_findAllcustomer.action');">客户管理</a>
 										</li>
-										<li>
+										<li id="hidden_product2">
 											<a href="javascript:document.getElementById('if1').setAttribute('src', '<%=path %>/crm/productAction_findAllProduct.action');">商品管理</a>
 										</li>
-										<li>
+										<li id="hidden_tjbb2">
 											<a href="javascript:document.getElementById('if1').setAttribute('src', '<%=path %>/crm/productReportAction_findAllProductReport.action');">商品销售报表</a>
 										</li>
-										<li>
+										<li id="hidden_tjbb3">
 											<a href="javascript:document.getElementById('if1').setAttribute('src', '<%=path %>/crm/customerReportAction_findAllCustomerReport.action');">客户消费报表</a>
 										</li>
-										<li>
+										<li id="hidden_orders2">
 											<a href="javascript:document.getElementById('if1').setAttribute('src', '<%=path %>/crm/orderAction_findAllOrder.action');">订单管理</a>
 										</li>
-										<li>
+										<li id="hidden_saleman2">
 											<a href="javascript:document.getElementById('if1').setAttribute('src', '<%=path %>/crm/salesmanAction_findAllsalesman.action');">销售员管理</a>
 										</li>
-										<li>
+										<li id="hidden_channel2">
 											<a href="javascript:document.getElementById('if1').setAttribute('src', '<%=path %>/crm/channelAction_findAllchannel.action');">渠道商管理</a>
 										</li>
 										<li class="divider"></li>
 										<li class="nav-header">
 											账户
+										</li>
+										<li>
+											<a id="gndz" href="javascript:void()">功能定制</a>
 										</li>
 										<li>
 											<a href="javascript:$('#info').addClass('active');$('#workspace').removeClass('active');$('#if1').attr('src', '<%=path %>/crm/informationAction_managerInfo.action');">个人信息</a>
@@ -189,41 +215,41 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<div class="line"></div>
 					<dl class="channel">
 						<dt onClick="">销售管理<img src="images/left/select_xl01.png"></dt>
-						<dd class="first_dd"><a href="javascript:document.getElementById('if1').setAttribute('src', '<%=path %>/crm/orderAction_findAllOrder.action');">销售订单</a></dd>
-						<dd><a href="javascript:document.getElementById('if1').setAttribute('src', '<%=path %>/crm/channelAction_findAllchannel.action');">销售渠道</a></dd>
-						<dd><a href="javascript:document.getElementById('if1').setAttribute('src', '<%=path %>/crm/salesmanAction_findAllsalesman.action');">销售员信息</a></dd>
-						<dd><a href="javascript:document.getElementById('if1').setAttribute('src', '<%=path %>/crm/orderslogAction_findAllOrders.action');">应收款项</a></dd>
+						<dd id="hidden_orders1" class="first_dd"><a href="javascript:document.getElementById('if1').setAttribute('src', '<%=path %>/crm/orderAction_findAllOrder.action');">销售订单</a></dd>
+						<dd id="hidden_channel1"><a href="javascript:document.getElementById('if1').setAttribute('src', '<%=path %>/crm/channelAction_findAllchannel.action');">销售渠道</a></dd>
+						<dd id="hidden_saleman1"><a href="javascript:document.getElementById('if1').setAttribute('src', '<%=path %>/crm/salesmanAction_findAllsalesman.action');">销售员信息</a></dd>
+						<dd id="hidden_yskx1"><a href="javascript:document.getElementById('if1').setAttribute('src', '<%=path %>/crm/orderslogAction_findAllOrders.action');">应收款项</a></dd>
 					</dl>
 	
 					<dl class="channel">
 						<dt onClick="">市场营销管理<img src="images/left/select_xl01.png"></dt>
-						<dd class="first_dd"><a href="javascript:document.getElementById('if1').setAttribute('src', '<%=path %>/crm/missionAction_findAllmission.action');">营销任务</a></dd>
-						<dd><a href="javascript:document.getElementById('if1').setAttribute('src', '<%=path %>/crm/chanceAction_findAllchance.action');">销售机会</a></dd>
+						<dd id="hidden_mission1" class="first_dd"><a href="javascript:document.getElementById('if1').setAttribute('src', '<%=path %>/crm/missionAction_findAllmission.action');">营销任务</a></dd>
+						<dd id="hidden_chance1"><a href="javascript:document.getElementById('if1').setAttribute('src', '<%=path %>/crm/chanceAction_findAllchance.action');">销售机会</a></dd>
 					</dl>
 		
 					<dl class="statistics">
-						<dt onClick="">统计报表<img src="images/left/select_xl01.png"></dt>
+						<dt id="hidden_tjbb1" onClick="">统计报表<img src="images/left/select_xl01.png"></dt>
 						<dd class="first_dd"><a href="javascript:document.getElementById('if1').setAttribute('src', '<%=path %>/crm/productReportAction_findAllProductReport.action');">商品销售报表</a></dd>
 						<dd class="first_dd"><a href="javascript:document.getElementById('if1').setAttribute('src', '<%=path %>/crm/customerReportAction_findAllCustomerReport.action');">客户消费统计</a></dd>
 					</dl>
 	
 					<dl class="system_log">
 						<dt>客户服务<img src="images/left/select_xl01.png"></dt>
-						<dd class="first_dd"><a href="javascript:document.getElementById('if1').setAttribute('src', '<%=path %>/crm/emailMessageAction_customerpServer.action');">客户关怀</a></dd>
-						<dd><a href="javascript:document.getElementById('if1').setAttribute('src', '<%=path %>/crm/serviceAction_sfindAllservice.action');">投诉/意见/咨询处理</a></dd>
+						<dd id="hidden_khgh1" class="first_dd"><a href="javascript:document.getElementById('if1').setAttribute('src', '<%=path %>/crm/emailMessageAction_customerpServer.action');">客户关怀</a></dd>
+						<dd id="hidden_service1"><a href="javascript:document.getElementById('if1').setAttribute('src', '<%=path %>/crm/serviceAction_sfindAllservice.action');">投诉/意见/咨询处理</a></dd>
 						<!--  <dd><a href="javascript:document.getElementById('if1').setAttribute('src', '<%=path %>/crm/serviceAction_sfindAllservice.action');">产品问答</a></dd>
 						<dd><a href="#">客户满意度</a></dd>-->
 					</dl>
 	
 					<dl class="custom">
-						<dt onClick="">全部客户<img src="images/left/select_xl01.png"></dt>
+						<dt id="hidden_customer1" onClick="">全部客户<img src="images/left/select_xl01.png"></dt>
 						<dd class="first_dd"><a href="javascript:document.getElementById('if1').setAttribute('src', '<%=path %>/crm/customerPAction_findAllcustomer.action');">所有客户</a></dd>
 						<dd><a href="javascript:document.getElementById('if1').setAttribute('src', '<%=path %>/crm/customerPAction_findAllcustomerp.action');">个人客户</a></dd>
 						<dd><a href="javascript:document.getElementById('if1').setAttribute('src', '<%=path %>/crm/customerPAction_findAllcustomerc.action');">企业客户</a></dd>
 					</dl>
 		
 					<dl class="custom">
-						<dt onClick="">客户状态<img src="images/left/select_xl01.png"></dt>
+						<dt id="hidden_customer2" onClick="">客户状态<img src="images/left/select_xl01.png"></dt>
 						<dd class="first_dd"><a href="javascript:document.getElementById('if1').setAttribute('src', '<%=path %>/crm/customerPAction_findcustomer1.action');">潜在客户</a></dd>
 						<dd><a href="javascript:document.getElementById('if1').setAttribute('src', '<%=path %>/crm/customerPAction_findcustomer2.action');">意向客户</a></dd>
 						<dd><a href="javascript:document.getElementById('if1').setAttribute('src', '<%=path %>/crm/customerPAction_findcustomer3.action');">成交客户</a></dd>
@@ -231,7 +257,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					</dl>
 		
 					<dl class="custom">
-						<dt onClick="">客户类型<img src="images/left/select_xl01.png"></dt>
+						<dt id="hidden_customer3" onClick="">客户类型<img src="images/left/select_xl01.png"></dt>
 						<dd class="first_dd"><a href="javascript:document.getElementById('if1').setAttribute('src', '<%=path %>/crm/customerPAction_findcustomer5.action');">普通会员</a></dd>
 						<dd><a href="javascript:document.getElementById('if1').setAttribute('src', '<%=path %>/crm/customerPAction_findcustomer6.action');">VIP1</a></dd>
 						<dd><a href="javascript:document.getElementById('if1').setAttribute('src', '<%=path %>/crm/customerPAction_findcustomer7.action');">VIP2</a></dd>
@@ -239,7 +265,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					</dl>
 		
 					<dl class="source">
-						<dt onClick="">商品管理<img src="images/left/select_xl01.png"></dt>
+						<dt id="hidden_product1" onClick="">商品管理<img src="images/left/select_xl01.png"></dt>
 						<dd class="first_dd"><a href="javascript:document.getElementById('if1').setAttribute('src', '<%=path %>/crm/productAction_findAllProduct.action');">
 						所有商品</a></dd>
 						<dd><a href="javascript:document.getElementById('if1').setAttribute('src', '<%=path %>/crm/productDictAction_findAllDict.action');">
@@ -248,6 +274,45 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</div>
 				</div>
 				<!-- 左侧导航条  end-->
+				
+				<!-- 修改服务内容 start -->
+  				<div id="goodcover"></div>
+				<div id="code6">
+  					<div class="close1"><a href="javascript:void(0)" id="closebt"><img src="images/close.gif"></a></div>
+ 					<div class="goodtxt">
+ 						<h4 align="center">请选择需要订购的服务内容</h4>
+ 						<table cellpadding="8" style="margin-top:0px;margin-left:90px;">
+ 							<tr>
+ 								<td align="right">销售订单管理: </td><td><input type="checkbox" name="checkBox1" value="1" checked="true"/></td>
+ 								<td align="right">销售渠道管理 : </td><td><input type="checkbox" name="checkBox1" value="2" checked="true"/></td>
+ 							</tr>
+ 							<tr>
+ 								<td align="right">销售员管理 : </td><td><input type="checkbox" name="checkBox1" value="3" checked="true"/></td>
+ 								<td align="right">应收款项 : </td><td><input type="checkbox" name="checkBox1" value="4" checked="true"/></td>
+ 							</tr>
+ 							<tr>
+ 								<td align="right">营销任务管理 : </td><td><input type="checkbox" name="checkBox1" value="5" checked="true"/></td>
+ 								<td align="right">营销机会管理 : </td><td><input type="checkbox" name="checkBox1" value="6" checked="true"/></td>
+ 							</tr>
+ 							<tr>
+ 								<td align="right">统计报表 : </td><td><input type="checkbox" name="checkBox1" value="7" checked="true"/></td>
+ 								<td align="right">客户关怀 : </td><td><input type="checkbox" name="checkBox1" value="8" checked="true"/></td>
+ 							</tr>
+ 							<tr>
+ 								<td align="right">投诉/意见/咨询 : </td><td><input type="checkbox" name="checkBox1" value="9" checked="true"/></td>
+ 								<td align="right">客户管理 : </td><td><input type="checkbox" name="checkBox1" value="10" checked="true"/></td>
+ 							</tr>
+ 							<tr>
+ 								<td align="right">商品管理 : </td><td><input type="checkbox" name="checkBox1" value="11" checked="true"/></td>
+ 								<td></td><td></td>
+ 							</tr>
+ 							<tr>
+ 								<td colspan="4" align="center"><input type="button" style="width:100px;height:30px;" value="确认" onclick="chk()" id="updatebtn"/></td>
+ 							</tr>
+ 						</table>
+  					</div>
+				</div>
+  				<!-- 修改服务内容 end -->
 				
 				
 				<div class="span10">
@@ -260,5 +325,108 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</div>
 	</div>
 </div>
+
+<script>
+
+function chk(){ 
+	var obj=document.getElementsByName('checkBox1'); 
+	for(var i=0; i<obj.length; i++){ 
+		if(obj[i].checked==false){
+			if(obj[i].value=='1'){
+				$('#hidden_orders1').hide();
+				$('#hidden_orders2').hide();
+			}
+			if(obj[i].value=='2'){
+				$('#hidden_channel1').hide();
+				$('#hidden_channel2').hide();
+			}
+			if(obj[i].value=='3'){
+				$('#hidden_saleman1').hide();
+				$('#hidden_saleman2').hide();
+			}
+			if(obj[i].value=='4'){
+				$('#hidden_yskx1').hide();
+			}
+			if(obj[i].value=='5'){
+				$('#hidden_mission1').hide();
+			}
+			if(obj[i].value=='6'){
+				$('#hidden_chance1').hide();
+				$('#hidden_chance2').hide();
+			}
+			if(obj[i].value=='7'){
+				$('#hidden_tjbb1').hide();
+				$('#hidden_tjbb2').hide();
+				$('#hidden_tjbb3').hide();
+			}
+			if(obj[i].value=='8'){
+				$('#hidden_khgh1').hide();
+			}
+			if(obj[i].value=='9'){
+				$('#hidden_service1').hide();
+			}
+			if(obj[i].value=='10'){
+				$('#hidden_customer1').hide();
+				$('#hidden_customer2').hide();
+				$('#hidden_customer3').hide();
+				$('#hidden_customer4').hide();
+			}
+			if(obj[i].value=='11'){
+				$('#hidden_product1').hide();
+				$('#hidden_product2').hide();
+			}
+		} 
+	}
+	
+	for(var i=0; i<obj.length; i++){ 
+		if(obj[i].checked==true){
+			if(obj[i].value=='1'){
+				$('#hidden_orders1').show();
+				$('#hidden_orders2').show();
+			}
+			if(obj[i].value=='2'){
+				$('#hidden_channel1').show();
+				$('#hidden_channel2').show();
+			}
+			if(obj[i].value=='3'){
+				$('#hidden_saleman1').show();
+				$('#hidden_saleman2').show();
+			}
+			if(obj[i].value=='4'){
+				$('#hidden_yskx1').show();
+			}
+			if(obj[i].value=='5'){
+				$('#hidden_mission1').show();
+			}
+			if(obj[i].value=='6'){
+				$('#hidden_chance1').show();
+				$('#hidden_chance2').show();
+			}
+			if(obj[i].value=='7'){
+				$('#hidden_tjbb1').show();
+				$('#hidden_tjbb2').show();
+				$('#hidden_tjbb3').show();
+			}
+			if(obj[i].value=='8'){
+				$('#hidden_khgh1').show();
+			}
+			if(obj[i].value=='9'){
+				$('#hidden_service1').show();
+			}
+			if(obj[i].value=='10'){
+				$('#hidden_customer1').show();
+				$('#hidden_customer2').show();
+				$('#hidden_customer3').show();
+				$('#hidden_customer4').show();
+			}
+			if(obj[i].value=='11'){
+				$('#hidden_product1').show();
+				$('#hidden_product2').show();
+			}
+		} 
+	}
+} 
+</script>
+
   </body>
 </html>

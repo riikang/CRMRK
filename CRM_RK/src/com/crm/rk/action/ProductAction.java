@@ -27,7 +27,7 @@ import com.crm.rk.service.ReportlogService;
 import com.crm.rk.service.ServicelogService;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
-
+//商品动作类
 public class ProductAction extends ActionSupport {
 	@Resource private ProductService productService;
 	@Resource private ProductDictService productDictService;
@@ -107,6 +107,7 @@ public class ProductAction extends ActionSupport {
 		this.products = products;
 	}
 	
+	//读取所有商品信息（区分经理）
 	public String findAllProduct() throws Exception{
 		Manager manager=(Manager)ActionContext.getContext().getApplication().get("manager");
 		if(ActionContext.getContext().getApplication().get("level")!=null){
@@ -123,6 +124,7 @@ public class ProductAction extends ActionSupport {
 		}
 	}
 	
+	//检查是否能删除商品（防止因为外键，而删除时报错）
 	public String ifcandeleteone(){
 		Manager manager=(Manager)ActionContext.getContext().getApplication().get("manager");
 		HttpServletRequest request=ServletActionContext.getRequest();
@@ -160,6 +162,7 @@ public class ProductAction extends ActionSupport {
 		return null;
 	}
 	
+	//检查是否能删除商品（防止因为外键，而删除时报错）
 	public String ifcandelete(){
 		Manager manager=(Manager)ActionContext.getContext().getApplication().get("manager");
 		HttpServletRequest request=ServletActionContext.getRequest();
@@ -203,6 +206,7 @@ public class ProductAction extends ActionSupport {
 		return null;
 	}
 	
+	//删除多个商品
 	public String deleteSomeProduct() throws Exception{
 		if(pid==null||pid==""){
 			System.out.println("没有数据");
@@ -225,6 +229,7 @@ public class ProductAction extends ActionSupport {
 		}
 	}
 	
+	//删除单个商品
 	public String deleteTheProduct() throws Exception{
 		reportlogs=reportlogService.findReportlogByProduct(product.getId());
 		for (int j = 0; j < reportlogs.size(); j++) {
@@ -234,6 +239,7 @@ public class ProductAction extends ActionSupport {
 		return "deleteTheProduct_s";
 	}
 	
+	//新增商品
 	public String addProduct() throws Exception{
 		Manager manager=(Manager)ActionContext.getContext().getApplication().get("manager");
 		if(ActionContext.getContext().getApplication().get("level")!=null){
@@ -262,6 +268,7 @@ public class ProductAction extends ActionSupport {
 		
 	}
 	
+	//更新商品
 	public String updateProduct() throws Exception{
 		Manager manager=(Manager)ActionContext.getContext().getApplication().get("manager");
 		if(ActionContext.getContext().getApplication().get("level")!=null){
@@ -289,6 +296,7 @@ public class ProductAction extends ActionSupport {
 		}
 	}
 	
+	//读取某个商品的详细信息
 	public String findTheProduct() throws Exception{
 		Manager manager=(Manager)ActionContext.getContext().getApplication().get("manager");
 		if(ActionContext.getContext().getApplication().get("level")!=null){
@@ -305,6 +313,7 @@ public class ProductAction extends ActionSupport {
 		}
 	}
 	
+	//验证商品名是否重复(新增)
 	public String validateInput(){
 		Manager manager=(Manager)ActionContext.getContext().getApplication().get("manager");
 		HttpServletRequest request=ServletActionContext.getRequest();
@@ -340,6 +349,7 @@ public class ProductAction extends ActionSupport {
 		return null;
 	}
 	
+	//验证商品名是否重复(更新)
 	public String validateInput2() throws Exception{
 		Manager manager=(Manager)ActionContext.getContext().getApplication().get("manager");
 		HttpServletRequest request=ServletActionContext.getRequest();

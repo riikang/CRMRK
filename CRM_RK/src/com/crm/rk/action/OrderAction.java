@@ -41,7 +41,7 @@ import com.opensymphony.xwork2.ActionContext;
 
 import net.sf.excelutils.ExcelException;
 import net.sf.excelutils.ExcelUtils;
-
+//订单动作类
 public class OrderAction {
 	@Resource private OrderService orderService;
 	@Resource private CustomerPService customerPService;
@@ -171,6 +171,7 @@ public class OrderAction {
 		this.products = products;
 	}
 	
+	//读取某个客户的所有订单
 	public String findCustomerOrder(){
 		Manager manager=(Manager)ActionContext.getContext().getApplication().get("manager");
 		if(ActionContext.getContext().getApplication().get("level")!=null){
@@ -183,6 +184,7 @@ public class OrderAction {
 		
 	}
 	
+	//读取所有订单（区分等级，渠道商，经理）
 	public String findAllOrder() throws Exception{
 		Manager manager=(Manager)ActionContext.getContext().getApplication().get("manager");
 		if(ActionContext.getContext().getApplication().get("level")!=null){
@@ -223,6 +225,7 @@ public class OrderAction {
 		}
 	}
 	
+	//读取某个订单详细信息
 	public String findTheOrder() throws Exception{
 		Manager manager=(Manager)ActionContext.getContext().getApplication().get("manager");
 		if(ActionContext.getContext().getApplication().get("level")!=null){
@@ -244,6 +247,7 @@ public class OrderAction {
 		}
 	}
 	
+	//删除多个订单，同时删除有关联（外键）的数据
 	public String deleteSomeorder() throws Exception{
 		if(oid==null||oid==""){
 			System.out.println("没有数据");
@@ -274,6 +278,7 @@ public class OrderAction {
 		}
 	}
 	
+	//添加订单
 	public String addorder() throws Exception{
 		Manager manager=(Manager)ActionContext.getContext().getApplication().get("manager");
 		if(ActionContext.getContext().getApplication().get("level")!=null){
@@ -346,6 +351,7 @@ public class OrderAction {
 		}
 	}
 	
+	//删除单个订单，同时删除有关联（外键）的数据
 	public String deleteTheOrder() throws Exception{
 		servicelogs=servicelogService.findByOrders(orders.getId());
 		for (int j = 0; j < servicelogs.size(); j++) {
@@ -367,6 +373,7 @@ public class OrderAction {
 		return "deleteTheOrder_s";
 	}
 	
+	//导出订单信息为excel
 	public void exportTableMessage() throws ExcelException, IOException{
 		Manager manager=(Manager)ActionContext.getContext().getApplication().get("manager");
 		HttpServletRequest request=ServletActionContext.getRequest();
@@ -391,6 +398,7 @@ public class OrderAction {
 		}
 	}
 	
+	//更新订单
 	public String updateOrder() throws Exception{
 		Manager manager=(Manager)ActionContext.getContext().getApplication().get("manager");
 		if(ActionContext.getContext().getApplication().get("level")!=null){
@@ -432,6 +440,7 @@ public class OrderAction {
 		}
 	}
 	
+	//验证订单标题是否重复（新增）
 	public String validateTitle(){
 		Manager manager=(Manager)ActionContext.getContext().getApplication().get("manager");
 		HttpServletRequest request=ServletActionContext.getRequest();
@@ -466,6 +475,7 @@ public class OrderAction {
 		return null;
 	}
 	
+	//验证订单标题是否重复（更新）
 	public String validateTitle2() throws Exception{
 		Manager manager=(Manager)ActionContext.getContext().getApplication().get("manager");
 		HttpServletRequest request=ServletActionContext.getRequest();

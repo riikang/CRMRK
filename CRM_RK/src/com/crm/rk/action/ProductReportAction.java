@@ -31,7 +31,7 @@ import com.crm.rk.service.ProductService;
 import com.crm.rk.service.ReportlogService;
 import com.crm.rk.util.JsonDateValueProcessor;
 import com.opensymphony.xwork2.ActionContext;
-
+//商品销售统计报表动作类
 public class ProductReportAction {
 	@Resource private ProductReportService productReportService;
 	@Resource private OrderService orderService;
@@ -117,6 +117,7 @@ public class ProductReportAction {
 		this.productReports = productReports;
 	}
 	
+	//查看所有商品报表
 	public String findAllProductReport() throws Exception{
 		Manager manager=(Manager)ActionContext.getContext().getApplication().get("manager");
 		if(ActionContext.getContext().getApplication().get("level")!=null){
@@ -133,6 +134,7 @@ public class ProductReportAction {
 		}
 	}
 	
+	//自动生成商品报表
 	@SuppressWarnings("deprecation")
 	public void autoCreateProductReport() throws Exception{
 		Manager manager=(Manager)ActionContext.getContext().getApplication().get("manager");
@@ -164,6 +166,7 @@ public class ProductReportAction {
 		}
 	}
 	
+	//生成商品报表详细记录
 	@SuppressWarnings("deprecation")
 	public void autoCreateProductReportlog() throws Exception{
 		Manager manager=(Manager)ActionContext.getContext().getApplication().get("manager");
@@ -198,6 +201,7 @@ public class ProductReportAction {
 		}
 	}
 	
+	//手动调用生成消费记录
 	@SuppressWarnings("deprecation")
 	public String CreateProductReport() throws Exception{
 		Manager manager=(Manager)ActionContext.getContext().getApplication().get("manager");
@@ -226,6 +230,7 @@ public class ProductReportAction {
 		return "CreateProductReport_s";
 	}
 	
+	//删除多个商品统计表
 	public String deleteSomeReport() throws Exception{
 		if(prid==null||prid==""){
 			System.out.println("没有数据");
@@ -246,6 +251,7 @@ public class ProductReportAction {
 		}
 	}
 	
+	//查看某个商品统计表的详细信息
 	public String findTheReportlog() throws Exception{
 		Manager manager=(Manager)ActionContext.getContext().getApplication().get("manager");
 		if(ActionContext.getContext().getApplication().get("level")!=null){
@@ -262,6 +268,7 @@ public class ProductReportAction {
 		}
 	}
 	
+	//删除单个商品统计表
 	public String deleteTheProductReport() throws Exception{
 		reportlogs=reportlogService.findReportlogByPrid(productReport.getId());
 		reportlogService.deleteByProductReportId(Reportlog.class, reportlogs);
@@ -269,6 +276,7 @@ public class ProductReportAction {
 		return "deleteTheProductReport_s";
 	}
 	
+	//根据id读取商品统计表
 	@SuppressWarnings("deprecation")
 	public String findReportlogByPid() throws Exception{
 		Manager manager=(Manager)ActionContext.getContext().getApplication().get("manager");
@@ -305,6 +313,7 @@ public class ProductReportAction {
 		return null;
 	}
 	
+	//导出统计表为excel
 	public void exportTableMessage() throws NumberFormatException, Exception{
 		Manager manager=(Manager)ActionContext.getContext().getApplication().get("manager");
 		HttpServletRequest request=ServletActionContext.getRequest();

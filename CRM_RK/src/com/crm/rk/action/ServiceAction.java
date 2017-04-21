@@ -31,7 +31,7 @@ import com.crm.rk.service.ProductService;
 import com.crm.rk.service.SalesmanService;
 import com.crm.rk.service.ServicelogService;
 import com.opensymphony.xwork2.ActionContext;
-
+//客户服务动作类
 public class ServiceAction {
 	@Resource private ServicelogService servicelogService;
 	@Resource private ChannelService channelService;
@@ -160,6 +160,7 @@ public class ServiceAction {
 		this.servicelogs = servicelogs;
 	}
 	
+	//读取所有服务记录（服务）（区分销售员，渠道商，经理）
 	public String sfindAllservice() throws Exception{
 		Manager manager=(Manager)ActionContext.getContext().getApplication().get("manager");
 		if(ActionContext.getContext().getApplication().get("level")!=null){
@@ -188,6 +189,7 @@ public class ServiceAction {
 		}
 	}
 	
+	//读取所有服务记录（客户）
 	public String findAllservice() throws Exception{
 		Manager manager=(Manager)ActionContext.getContext().getApplication().get("manager");
 		if(ActionContext.getContext().getApplication().get("level")!=null){
@@ -199,6 +201,7 @@ public class ServiceAction {
 		}
 	}
 	
+	//删除多个服务记录
 	public String deleteSomeservice() throws Exception{
 		if(scid==null||scid==""){
 			System.out.println("没有数据");
@@ -221,6 +224,7 @@ public class ServiceAction {
 		}
 	}
 	
+	//删除服务记录
 	public String deleteTheService() throws Exception{
 		communionlogs=communionlogService.findCommunionlogBySerid(servicelog.getId());
 		for (int j2 = 0; j2 < communionlogs.size(); j2++) {
@@ -230,6 +234,7 @@ public class ServiceAction {
 		return "deleteTheService_s";
 	}
 	
+	//读取某个服务记录的详细信息（客户）
 	public String findTheService() throws Exception{
 		Manager manager=(Manager)ActionContext.getContext().getApplication().get("manager");
 		if(ActionContext.getContext().getApplication().get("level")!=null){
@@ -241,6 +246,7 @@ public class ServiceAction {
 		}
 	}
 	
+	//读取某个服务的详细信息（服务）
 	public String sfindTheService() throws Exception{
 		Manager manager=(Manager)ActionContext.getContext().getApplication().get("manager");
 		if(ActionContext.getContext().getApplication().get("level")!=null){
@@ -268,6 +274,7 @@ public class ServiceAction {
 		}
 	}
 	
+	//新增服务（客户）
 	public String addservice() throws Exception{
 		Manager manager=(Manager)ActionContext.getContext().getApplication().get("manager");
 		if(ActionContext.getContext().getApplication().get("level")!=null){
@@ -294,6 +301,7 @@ public class ServiceAction {
 		}
 	}
 	
+	//新增服务（服务）
 	public String saddservice() throws Exception{
 		Manager manager=(Manager)ActionContext.getContext().getApplication().get("manager");
 		if(ActionContext.getContext().getApplication().get("level")!=null){
@@ -330,6 +338,7 @@ public class ServiceAction {
 		}
 	}
 	
+	//选则该客户的所有订单时候调用
 	public String findAllOrdersByAjax() throws Exception{
 		Manager manager=(Manager)ActionContext.getContext().getApplication().get("manager");
 		orderss=orderService.findAllByManager(Orders.class, manager.getId());
@@ -355,6 +364,7 @@ public class ServiceAction {
 		return null;
 	}
 	
+	//选择商品时候调用
 	public String findAllProductByAjax() throws Exception{
 		Manager manager=(Manager)ActionContext.getContext().getApplication().get("manager");
 		products=productService.findAllByManager(Product.class, manager.getId());
@@ -379,6 +389,7 @@ public class ServiceAction {
 		return null;
 	}
 	
+	//更新服务记录（客户）
 	public String updateServicelog() throws Exception{
 		Manager manager=(Manager)ActionContext.getContext().getApplication().get("manager");
 		if(ActionContext.getContext().getApplication().get("level")!=null){
@@ -393,6 +404,7 @@ public class ServiceAction {
 		}
 	}
 	
+	//更新服务记录（服务）
 	public String supdateServicelog() throws Exception{
 		Manager manager=(Manager)ActionContext.getContext().getApplication().get("manager");
 		if(ActionContext.getContext().getApplication().get("level")!=null){

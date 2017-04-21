@@ -19,7 +19,7 @@ import com.crm.rk.model.Manager;
 import com.crm.rk.service.CustomerPService;
 import com.crm.rk.service.EmailMessageService;
 import com.opensymphony.xwork2.ActionContext;
-
+//邮件动作类
 public class EmailMessageAction {
 	private static ApplicationContext ctx=new ClassPathXmlApplicationContext("applicationContext.xml");
 	private JavaMailSender mailSender= (JavaMailSender) ctx.getBean("sender");  
@@ -61,6 +61,7 @@ public class EmailMessageAction {
 		this.emailMessages = emailMessages;
 	}
 	
+	//更新消息
 	public String updateMessage() throws Exception{
 		Manager manager=(Manager)ActionContext.getContext().getApplication().get("manager");
 		if(ActionContext.getContext().getApplication().get("level")!=null){
@@ -77,6 +78,7 @@ public class EmailMessageAction {
 		}
 	}
 	
+	//在导航点击“客户关怀”时候调用
 	public String customerpServer() throws Exception{
 		Manager manager=(Manager)ActionContext.getContext().getApplication().get("manager");
 		if(ActionContext.getContext().getApplication().get("level")!=null){
@@ -94,6 +96,7 @@ public class EmailMessageAction {
 		}
 	}
 	
+	//发送邮件
 	public String sendSomeEmail() throws Exception{
 		Manager manager=(Manager)ActionContext.getContext().getApplication().get("manager");
 		if(ActionContext.getContext().getApplication().get("level")!=null){

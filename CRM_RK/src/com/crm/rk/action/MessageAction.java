@@ -17,7 +17,7 @@ import com.crm.rk.service.OrderService;
 import com.crm.rk.service.SalesmanService;
 import com.crm.rk.service.ServicelogService;
 import com.crm.rk.service.UserPowerService;
-
+//站内信息动作类
 public class MessageAction {
 	@Resource private ManagerService managerService;
 	@Resource private SalesmanService salesmanService;

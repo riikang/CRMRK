@@ -10,7 +10,7 @@ import com.crm.rk.service.ProductDictService;
 import com.crm.rk.service.ProductService;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
-
+//商品字典动作类
 public class ProductDictAction extends ActionSupport {
 	@Resource private ProductDictService productDictService;
 	private ProductDict productDict;
@@ -28,6 +28,7 @@ public class ProductDictAction extends ActionSupport {
 		this.productDicts = productDicts;
 	}
 	
+	//读取所有字典
 	public String findAllDict() throws Exception{
 		Manager manager=(Manager)ActionContext.getContext().getApplication().get("manager");
 		if(ActionContext.getContext().getApplication().get("level")!=null){
@@ -43,6 +44,7 @@ public class ProductDictAction extends ActionSupport {
 		}
 	}
 	
+	//新增数据字典
 	public String addDict() throws Exception{
 		Manager manager=(Manager)ActionContext.getContext().getApplication().get("manager");
 		if(ActionContext.getContext().getApplication().get("level")!=null){
@@ -59,6 +61,7 @@ public class ProductDictAction extends ActionSupport {
 		}
 	}
 	
+	//删除数据字典
 	public String deleteDict() throws Exception{
 		productDictService.deleteById(ProductDict.class, productDict.getId());
 		return "deleteDictDict_s";

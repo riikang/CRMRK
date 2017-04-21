@@ -30,7 +30,7 @@ import com.opensymphony.xwork2.ActionSupport;
 
 import net.sf.excelutils.ExcelException;
 import net.sf.excelutils.ExcelUtils;
-
+//销售员动作类
 public class SalesmanAction extends ActionSupport {
 	@Resource private SalesmanService salesmanService;
 	@Resource private ChannelService channelService;
@@ -100,6 +100,7 @@ public class SalesmanAction extends ActionSupport {
 		this.salesmans = salesmans;
 	}
 	
+	//读取所有销售员信息（区分经理）
 	public String findAllsalesman() throws Exception{
 		Manager manager=(Manager)ActionContext.getContext().getApplication().get("manager");
 		if(ActionContext.getContext().getApplication().get("level")!=null){
@@ -123,6 +124,7 @@ public class SalesmanAction extends ActionSupport {
 		}
 	}
 	
+	//读取某个销售员的详细信息
 	public String findTheSalesman() throws Exception{
 		Manager manager=(Manager)ActionContext.getContext().getApplication().get("manager");
 		if(ActionContext.getContext().getApplication().get("level")!=null){
@@ -139,6 +141,7 @@ public class SalesmanAction extends ActionSupport {
 		}
 	}
 	
+	//新增销售员
 	public String addSalesman() throws Exception{
 		Manager manager=(Manager)ActionContext.getContext().getApplication().get("manager");
 		if(ActionContext.getContext().getApplication().get("level")!=null){
@@ -169,6 +172,7 @@ public class SalesmanAction extends ActionSupport {
 		}
 	}
 	
+	//判断是否能删除，防止因为外键而报错
 	public String ifcandeleteone(){
 		Manager manager=(Manager)ActionContext.getContext().getApplication().get("manager");
 		HttpServletRequest request=ServletActionContext.getRequest();
@@ -207,6 +211,7 @@ public class SalesmanAction extends ActionSupport {
 		return null;
 	}
 	
+	//判断是否能删除，防止因为外键而报错
 	public String ifcandelete(){
 		Manager manager=(Manager)ActionContext.getContext().getApplication().get("manager");
 		HttpServletRequest request=ServletActionContext.getRequest();
@@ -251,6 +256,7 @@ public class SalesmanAction extends ActionSupport {
 		return null;
 	}
 	
+	//删除多个销售员
 	public String deleteSomeSalesman() throws Exception{
 		if(sid==null||sid==""){
 			System.out.println("没有数据");
@@ -269,6 +275,7 @@ public class SalesmanAction extends ActionSupport {
 		}
 	}
 	
+	//更新销售员
 	public String updateSalesman() throws Exception{
 		Manager manager=(Manager)ActionContext.getContext().getApplication().get("manager");
 		if(ActionContext.getContext().getApplication().get("level")!=null){
@@ -297,11 +304,13 @@ public class SalesmanAction extends ActionSupport {
 		}
 	}
 	
+	//删除单个销售员
 	public String deleteTheSalesman() throws Exception{
 		salesmanService.deleteById(Salesman.class,salesman.getId());
 		return "deleteTheSalesman_s";
 	}
 	
+	//导出销售员信息为excel
 	public void exportTableMessage() throws ExcelException, IOException{
 		Manager manager=(Manager)ActionContext.getContext().getApplication().get("manager");
 		HttpServletRequest request=ServletActionContext.getRequest();
@@ -326,6 +335,7 @@ public class SalesmanAction extends ActionSupport {
 		}
 	}
 	
+	//检查销售员姓名是否重复（新增）
 	public String validateInput1(){
 		Manager manager=(Manager)ActionContext.getContext().getApplication().get("manager");
 		HttpServletRequest request=ServletActionContext.getRequest();
@@ -360,6 +370,7 @@ public class SalesmanAction extends ActionSupport {
 		return null;
 	}
 	
+	//检查销售员姓名是否重复（更新）
 	public String validateInput2() throws Exception{
 		Manager manager=(Manager)ActionContext.getContext().getApplication().get("manager");
 		HttpServletRequest request=ServletActionContext.getRequest();

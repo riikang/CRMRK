@@ -33,7 +33,7 @@ import com.crm.rk.service.OrderService;
 import com.crm.rk.service.ProductService;
 import com.crm.rk.util.JsonDateValueProcessor;
 import com.opensymphony.xwork2.ActionContext;
-
+//客户消费记录动作类
 public class CustomerReportAction {
 	@Resource private CustomerReportService customerReportService;
 	@Resource private CustomerReportlogService customerReportlogService;
@@ -118,6 +118,7 @@ public class CustomerReportAction {
 		this.products = products;
 	}
 	
+	//删除客户消费记录（多个）
 	public String deleteSomeReport() throws Exception{
 		if(crid==null||crid==""){
 			System.out.println("没有数据");
@@ -138,6 +139,7 @@ public class CustomerReportAction {
 		}
 	}
 	
+	//读取所有客户消费记录（区分经理）
 	public String findAllCustomerReport() throws Exception{
 		Manager manager=(Manager)ActionContext.getContext().getApplication().get("manager");
 		if(ActionContext.getContext().getApplication().get("level")!=null){
@@ -154,6 +156,7 @@ public class CustomerReportAction {
 		}
 	}
 	
+	//自动生成客户消费记录，当“读取所有客户消费记录”时候进行，判断当前日期是否为1号
 	@SuppressWarnings("deprecation")
 	public void autoCreateCustomerReport() throws Exception{
 		Manager manager=(Manager)ActionContext.getContext().getApplication().get("manager");
@@ -173,6 +176,7 @@ public class CustomerReportAction {
 		}
 	}
 	
+	//手动生成客户消费记录
 	@SuppressWarnings("deprecation")
 	public String CreateCustomerReport() throws Exception{
 		Manager manager=(Manager)ActionContext.getContext().getApplication().get("manager");
@@ -185,6 +189,7 @@ public class CustomerReportAction {
 		return "CreateCustomerReport_s";
 	}
 	
+	//生成客户消费记录的详细条目
 	@SuppressWarnings("deprecation")
 	public void autoCreateCustomerReportlog() throws Exception{
 		Manager manager=(Manager)ActionContext.getContext().getApplication().get("manager");
@@ -219,6 +224,7 @@ public class CustomerReportAction {
 		}
 	}
 	
+	//读取客户消费消费记录详情
 	public String findTheCustomerReportlog() throws Exception{
 		Manager manager=(Manager)ActionContext.getContext().getApplication().get("manager");
 		if(ActionContext.getContext().getApplication().get("level")!=null){
@@ -235,6 +241,7 @@ public class CustomerReportAction {
 		}
 	}
 	
+	//动态显示客户消费详情
 	@SuppressWarnings("deprecation")
 	public String findCustomerConsumelog() throws Exception{
 		Manager manager=(Manager)ActionContext.getContext().getApplication().get("manager");
@@ -271,6 +278,7 @@ public class CustomerReportAction {
 		return null;
 	}
 	
+	//删除客户消费记录（单个）
 	public String deleteTheCustomerReport() throws Exception{
 		customerReportlogs=customerReportlogService.findCustomerReportlogByCrid(customerReport.getId());
 		customerReportlogService.deleteByCustomerReportId(CustomerReportlog.class, customerReportlogs);
@@ -278,6 +286,7 @@ public class CustomerReportAction {
 		return "deleteTheCustomerReport_s";
 	}
 	
+	//通过excel导出消费记录
 	public void exportTableMessage() throws NumberFormatException, Exception{
 		Manager manager=(Manager)ActionContext.getContext().getApplication().get("manager");
 		HttpServletRequest request=ServletActionContext.getRequest();

@@ -12,7 +12,7 @@ import com.crm.rk.service.ChanceService;
 import com.crm.rk.service.CustomerPService;
 import com.crm.rk.service.FollowupService;
 import com.opensymphony.xwork2.ActionContext;
-
+//跟踪记录动作类
 public class FollowupAction {
 	@Resource private FollowupService followupService;
 	@Resource private ChanceService chanceService;
@@ -62,6 +62,7 @@ public class FollowupAction {
 		this.chances = chances;
 	}
 	
+	//读取所有跟踪记录（区分销售机会）
 	public String findAllFollowup() throws Exception{
 		Manager manager=(Manager)ActionContext.getContext().getApplication().get("manager");
 		if(ActionContext.getContext().getApplication().get("level")!=null){
@@ -80,6 +81,7 @@ public class FollowupAction {
 		}
 	}
 	
+	//读取单个跟踪记录
 	public String findThefollowup() throws Exception{
 		Manager manager=(Manager)ActionContext.getContext().getApplication().get("manager");
 		if(ActionContext.getContext().getApplication().get("level")!=null){
@@ -95,6 +97,7 @@ public class FollowupAction {
 		}
 	}
 	
+	//新增跟踪记录
 	public String addfollowup() throws Exception{
 		Manager manager=(Manager)ActionContext.getContext().getApplication().get("manager");
 		if(ActionContext.getContext().getApplication().get("level")!=null){
@@ -114,6 +117,7 @@ public class FollowupAction {
 		}
 	}
 	
+	//删除销售记录（多个）
 	public String deleteSomefollowup() throws Exception{
 		if(fid==null||fid==""){
 			System.out.println("没有数据");
@@ -132,11 +136,13 @@ public class FollowupAction {
 		}
 	}
 	
+	//删除销售记录（单个 ）
 	public String deleteTheFollowup() throws Exception{
 		followupService.deleteById(Followup.class, followup.getId());
 		return "deleteTheFollowup_s";
 	}
 	
+	//更新销售记录（根据“跟踪阶段”，更新客户状态）
 	public String updateFollowup() throws Exception{
 		Manager manager=(Manager)ActionContext.getContext().getApplication().get("manager");
 		if(ActionContext.getContext().getApplication().get("level")!=null){

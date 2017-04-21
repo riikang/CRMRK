@@ -23,7 +23,7 @@ import com.crm.rk.service.CommunionlogService;
 import com.crm.rk.service.ServicelogService;
 import com.crm.rk.util.JsonDateValueProcessor;
 import com.opensymphony.xwork2.ActionContext;
-
+//在线服务交流动作类
 public class CommunionlogAction {
 	@Resource private CommunionlogService communionlogService;
 	@Resource private ServicelogService servicelogService;
@@ -56,6 +56,7 @@ public class CommunionlogAction {
 		this.servicelog = servicelog;
 	}
 	
+	//在当前页面动态添加聊天记录（加载最新的9条评论）
 	public String addCommunionlogByAjax() throws Exception{
 		HttpServletRequest request=ServletActionContext.getRequest();
 		int cid=Integer.valueOf(request.getParameter("c_id")); 
@@ -120,6 +121,7 @@ public class CommunionlogAction {
 		return null;
 	}
 	
+	//点击“显示交流记录”调用的action（加载最新的9条）
 	public String findAllCommunionlogByAjax() throws Exception{
 		JsonConfig jsonConfig = new JsonConfig();  
 		jsonConfig.registerJsonValueProcessor(Date.class, new JsonDateValueProcessor()); 
@@ -161,6 +163,7 @@ public class CommunionlogAction {
 		return null;
 	}
 	
+	//加载更多的聊天记录
 	public String findMoreCommunionlogByAjax(){
 		JsonConfig jsonConfig = new JsonConfig();  
 		jsonConfig.registerJsonValueProcessor(Date.class, new JsonDateValueProcessor()); 

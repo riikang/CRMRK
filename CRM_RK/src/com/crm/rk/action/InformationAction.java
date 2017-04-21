@@ -37,7 +37,7 @@ import com.crm.rk.service.ServicelogService;
 import com.crm.rk.service.UserPowerService;
 import com.crm.rk.util.JsonDateValueProcessor;
 import com.opensymphony.xwork2.ActionContext;
-
+//个人信息动作类
 public class InformationAction {
 	@Resource private ManagerService managerService;
 	@Resource private ChannelService channelService;
@@ -218,6 +218,7 @@ public class InformationAction {
 		this.products = products;
 	}
 
+	//读取经理个人信息
 	public String managerInfo() throws Exception{
 		Manager manager=(Manager)ActionContext.getContext().getApplication().get("manager");
 		if(ActionContext.getContext().getApplication().get("level")!=null){
@@ -247,6 +248,7 @@ public class InformationAction {
 		}
 	}
 	
+	//读取销售员个人信息（注意！！！如果没有和该销售员关联的服务记录，在判断满意度时候会报错）
 	public String salesmanInfo(){
 		Manager manager=(Manager)ActionContext.getContext().getApplication().get("manager");
 		if(ActionContext.getContext().getApplication().get("level")!=null){
@@ -277,6 +279,7 @@ public class InformationAction {
 		}
 	}
 	
+	//渠道商个人信息
 	public String channelInfo(){
 		Manager manager=(Manager)ActionContext.getContext().getApplication().get("manager");
 		if(ActionContext.getContext().getApplication().get("level")!=null){
@@ -300,6 +303,7 @@ public class InformationAction {
 		}
 	}
 	
+	//更新经理个人信息
 	public String updatemanagerInfo() throws Exception{
 		JsonConfig jsonConfig = new JsonConfig();
 		jsonConfig.setCycleDetectionStrategy(CycleDetectionStrategy.LENIENT);
@@ -327,6 +331,7 @@ public class InformationAction {
 		return null;
 	}
 	
+	//更新销售员个人信息
 	public String updatesalesmanInfo() throws Exception{
 		JsonConfig jsonConfig = new JsonConfig();
 		jsonConfig.registerJsonValueProcessor(Date.class, new JsonDateValueProcessor()); 
@@ -356,6 +361,7 @@ public class InformationAction {
 		return null;
 	}
 	
+	//更新渠道商个人信息
 	public String updatechannelInfo() throws Exception{
 		JsonConfig jsonConfig = new JsonConfig();
 		jsonConfig.registerJsonValueProcessor(Date.class, new JsonDateValueProcessor()); 
@@ -385,6 +391,7 @@ public class InformationAction {
 		return null;
 	}
 	
+	//修改密码验证
 	public String validate1() throws Exception{
 		int level=(Integer)(ActionContext.getContext().getApplication().get("level"));
 		HttpServletRequest request=ServletActionContext.getRequest();
@@ -418,6 +425,7 @@ public class InformationAction {
 		return null;
 	}
 	
+	//更新用户登录密码
 	public String updatepw() throws Exception{
 		int level=(Integer)(ActionContext.getContext().getApplication().get("level"));
 		HttpServletRequest request=ServletActionContext.getRequest();

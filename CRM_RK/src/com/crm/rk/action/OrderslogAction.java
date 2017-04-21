@@ -28,7 +28,7 @@ import com.crm.rk.service.PaylogService;
 import com.crm.rk.service.SendlogService;
 import com.crm.rk.util.JsonDateValueProcessor;
 import com.opensymphony.xwork2.ActionContext;
-
+//应收款（订单状态为未付款和部分付款）项动作类
 public class OrderslogAction {
 	@Resource private OrderService orderService;
 	@Resource private PaylogService paylogService;
@@ -77,6 +77,7 @@ public class OrderslogAction {
 		this.sendlogs = sendlogs;
 	}
 	
+	//读取所有应收款项
 	public String findAllOrders(){
 		Manager manager=(Manager)ActionContext.getContext().getApplication().get("manager");
 		if(ActionContext.getContext().getApplication().get("level")!=null){
@@ -110,6 +111,7 @@ public class OrderslogAction {
 		}
 	}
 	
+	//读取某个待收款项详细信息
 	public String findTheOrderlog(){
 		Manager manager=(Manager)ActionContext.getContext().getApplication().get("manager");
 		if(ActionContext.getContext().getApplication().get("level")!=null){
@@ -127,6 +129,7 @@ public class OrderslogAction {
 		}
 	}
 	
+	//添加付款记录
 	public String addOrderslog() throws Exception{
 		Manager manager=(Manager)ActionContext.getContext().getApplication().get("manager");
 		if(ActionContext.getContext().getApplication().get("level")!=null){
@@ -153,6 +156,7 @@ public class OrderslogAction {
 		}
 	}
 	
+	//添加交货记录
 	public String addOrderslog2() throws Exception{
 		Manager manager=(Manager)ActionContext.getContext().getApplication().get("manager");
 		if(ActionContext.getContext().getApplication().get("level")!=null){
@@ -177,6 +181,7 @@ public class OrderslogAction {
 		}
 	}
 	
+	//更新付款记录
 	public String updatePaylog() throws Exception{
 		JsonConfig jsonConfig = new JsonConfig();  
 		jsonConfig.registerJsonValueProcessor(Date.class, new JsonDateValueProcessor());
@@ -202,6 +207,7 @@ public class OrderslogAction {
 		return null;
 	}
 	
+	//更新付款记录
 	public String updatePaylog2() throws Exception{
 		Manager manager=(Manager)ActionContext.getContext().getApplication().get("manager");
 		if(ActionContext.getContext().getApplication().get("level")!=null){
@@ -251,6 +257,7 @@ public class OrderslogAction {
 		}
 	}
 	
+	//更新发货记录
 	public String updateSendlog() throws Exception{
 		JsonConfig jsonConfig = new JsonConfig();  
 		jsonConfig.registerJsonValueProcessor(Date.class, new JsonDateValueProcessor());
@@ -277,6 +284,7 @@ public class OrderslogAction {
 		return null;
 	}
 
+	//更新发货记录
 	public String updateSendlog2() throws Exception{
 		Manager manager=(Manager)ActionContext.getContext().getApplication().get("manager");
 		if(ActionContext.getContext().getApplication().get("level")!=null){
@@ -320,6 +328,7 @@ public class OrderslogAction {
 		}
 	}
 	
+	//导出excel
 	public void exportTableMessage() throws ExcelException, IOException{
 		Manager manager=(Manager)ActionContext.getContext().getApplication().get("manager");
 		HttpServletRequest request=ServletActionContext.getRequest();
@@ -350,11 +359,13 @@ public class OrderslogAction {
 		}
 	}
 	
+	//删除付款记录
 	public String deletePaylog() throws Exception{
 		paylogService.deleteById(Paylog.class, paylog.getId());
 		return "deletePaylog_s";
 	}
 	
+	//删除发货记录
 	public String deleteSendlog() throws Exception{
 		sendlogService.deleteById(Sendlog.class, sendlog.getId());
 		return "deleteSendlog_s";

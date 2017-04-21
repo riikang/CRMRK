@@ -29,7 +29,7 @@ import com.opensymphony.xwork2.ActionSupport;
 
 import net.sf.excelutils.ExcelException;
 import net.sf.excelutils.ExcelUtils;
-
+//销售渠道动作类
 public class ChannelAction extends ActionSupport {
 	@Resource private ChannelService channelService;
 	@Resource private MissionService missionService;
@@ -94,6 +94,7 @@ public class ChannelAction extends ActionSupport {
 		this.channels = channels;
 	}
 	
+	//读取所有渠道商
 	public String findAllchannel() throws Exception{
 		Manager manager=(Manager)ActionContext.getContext().getApplication().get("manager");
 		if(ActionContext.getContext().getApplication().get("level")!=null){
@@ -109,6 +110,7 @@ public class ChannelAction extends ActionSupport {
 		}
 	}
 	
+	//新增渠道商
 	public String addChannel() throws Exception{
 		Manager manager=(Manager)ActionContext.getContext().getApplication().get("manager");
 		if(ActionContext.getContext().getApplication().get("level")!=null){
@@ -126,6 +128,7 @@ public class ChannelAction extends ActionSupport {
 		}
 	}
 	
+	//判断是否能删除（单个，防止因为存在外键而删除出错）
 	public String ifcandeleteone(){
 		Manager manager=(Manager)ActionContext.getContext().getApplication().get("manager");
 		HttpServletRequest request=ServletActionContext.getRequest();
@@ -166,6 +169,7 @@ public class ChannelAction extends ActionSupport {
 		return null;
 	}
 	
+	//判断是否能删除（多个，防止因为存在外键而删除出错）
 	public String ifcandelete(){
 		Manager manager=(Manager)ActionContext.getContext().getApplication().get("manager");
 		HttpServletRequest request=ServletActionContext.getRequest();
@@ -212,6 +216,7 @@ public class ChannelAction extends ActionSupport {
 		return null;
 	}
 	
+	//删除多个渠道商
 	public String deleteSomeChannel() throws Exception{
 		if(cid==null||cid==""){
 			System.out.println("没有数据");
@@ -230,11 +235,13 @@ public class ChannelAction extends ActionSupport {
 		}
 	}
 	
+	//删除单个渠道商
 	public String deleteTheChannel() throws Exception{
 		channelService.deleteById(Channel.class, channel.getId());
 		return "deleteTheChannel_s";
 	}
 	
+	//读取单个渠道商
 	public String findTheChannel() throws Exception{
 		Manager manager=(Manager)ActionContext.getContext().getApplication().get("manager");
 		if(ActionContext.getContext().getApplication().get("level")!=null){
@@ -250,6 +257,7 @@ public class ChannelAction extends ActionSupport {
 		}
 	}
 	
+	//更新渠道商信息
 	public String updateChannel() throws Exception{
 		Manager manager=(Manager)ActionContext.getContext().getApplication().get("manager");
 		if(ActionContext.getContext().getApplication().get("level")!=null){
@@ -266,6 +274,7 @@ public class ChannelAction extends ActionSupport {
 		}
 	}
 	
+	//导出渠道商信息（excel）
 	public void exportTableMessage() throws ExcelException, IOException{
 		HttpServletRequest request=ServletActionContext.getRequest();
 		HttpServletResponse response=ServletActionContext.getResponse();
@@ -290,6 +299,8 @@ public class ChannelAction extends ActionSupport {
 		}
 	}
 	
+	
+	//判断渠道商名称是否重复（新增）
 	public String validateInput1(){
 		Manager manager=(Manager)ActionContext.getContext().getApplication().get("manager");
 		HttpServletRequest request=ServletActionContext.getRequest();
@@ -324,6 +335,7 @@ public class ChannelAction extends ActionSupport {
 		return null;
 	}
 	
+	//判断渠道商名称是否重复（更新，需要排除自身）
 	public String validateInput2() throws Exception{
 		Manager manager=(Manager)ActionContext.getContext().getApplication().get("manager");
 		HttpServletRequest request=ServletActionContext.getRequest();

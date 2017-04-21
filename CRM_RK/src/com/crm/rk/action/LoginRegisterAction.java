@@ -31,7 +31,7 @@ import com.mysql.jdbc.Connection;
 import com.opensymphony.xwork2.ActionContext;
 
 import freemarker.template.EmptyMap;
-
+//登录注册动作类
 public class LoginRegisterAction {
 	@Resource private UserPowerService userPowerService;
 	@Resource private SalesmanService salesmanService;
@@ -118,6 +118,7 @@ public class LoginRegisterAction {
 		this.userPowers = userPowers;
 	}
 	
+	//登录验证
 	public String validateLogin(){
 		HttpServletRequest request=ServletActionContext.getRequest();
 		String un=request.getParameter("un");
@@ -146,6 +147,7 @@ public class LoginRegisterAction {
 		return null;
 	}
 	
+	//登录后，将登陆用户的权限等级，类，对应经理保存在application
 	public String loginSet(){
 		if(userPower==null){
 			return "loginSet_f";
@@ -188,6 +190,7 @@ public class LoginRegisterAction {
 		}
 	}
 	
+	//注册验证用户名是否重复
 	public String validateRegister3(){
 		Manager manager=(Manager)ActionContext.getContext().getApplication().get("manager");
 		HttpServletRequest request=ServletActionContext.getRequest();
@@ -211,6 +214,7 @@ public class LoginRegisterAction {
 		return null;
 	}
 	
+	//检查用户名似乎否重复，排除自身，用于更新
 	public String validateRegister4() throws Exception{
 		Manager manager=(Manager)ActionContext.getContext().getApplication().get("manager");
 		HttpServletRequest request=ServletActionContext.getRequest();
@@ -240,6 +244,7 @@ public class LoginRegisterAction {
 		return null;
 	}
 	
+	//严验证邮箱是否重复
 	public String validateRegister1(){
 		HttpServletRequest request=ServletActionContext.getRequest();
 		String un=request.getParameter("un");
@@ -290,6 +295,7 @@ public class LoginRegisterAction {
 		return null;
 	}*/
 	
+	//经理注册完成后，预备生成“客户关怀”模块的发送邮件内容，防止产生错误
 	public String setRegister() throws Exception{
 		userPower.setUsername(manager.getEmail());
 		userPower.setLevel(4);
@@ -307,6 +313,7 @@ public class LoginRegisterAction {
 		return "setRegister_s";
 	}
 	
+	//注销
 	public String logout(){
 		if(ActionContext.getContext().getApplication().get("level")!=null){
 			ActionContext.getContext().getApplication().remove("level");

@@ -32,7 +32,7 @@ import com.crm.rk.service.OrderService;
 import com.crm.rk.service.ProductService;
 import com.crm.rk.service.SalesmanService;
 import com.opensymphony.xwork2.ActionContext;
-//commit test
+//销售机会动作类
 public class ChanceAction {
 	@Resource private ChanceService chanceService;
 	@Resource private ChannelService channelService;
@@ -162,6 +162,7 @@ public class ChanceAction {
 		this.products = products;
 	}
 	
+	//读取机会（区分权限、经理）
 	public String findAllchance() throws Exception{
 		Manager manager=(Manager)ActionContext.getContext().getApplication().get("manager");
 		if(ActionContext.getContext().getApplication().get("level")!=null){
@@ -189,6 +190,7 @@ public class ChanceAction {
 		}
 	}
 	
+	//ajax读取销售员信息（区分渠道）
 	public String findSalesman(){
 		Manager manager=(Manager)ActionContext.getContext().getApplication().get("manager");
 		if(channel.getCname()=="null"){
@@ -218,6 +220,7 @@ public class ChanceAction {
 		}
 	}
 	
+	//读取新销售机会（站内消息）
 	public String findnewchance() throws Exception{
 		Manager manager=(Manager)ActionContext.getContext().getApplication().get("manager");
 		if(ActionContext.getContext().getApplication().get("level")!=null){
@@ -247,6 +250,7 @@ public class ChanceAction {
 		}
 	}
 	
+	//新增销售机会
 	public String addchance() throws Exception{
 		Manager manager=(Manager)ActionContext.getContext().getApplication().get("manager");
 		if(ActionContext.getContext().getApplication().get("level")!=null){
@@ -312,6 +316,7 @@ public class ChanceAction {
 		}
 	}
 	
+	//判断是否可删除销售机会（单个，防止应为存在外键，而删除出错）
 	public String ifcandeleteone(){
 		Manager manager=(Manager)ActionContext.getContext().getApplication().get("manager");
 		HttpServletRequest request=ServletActionContext.getRequest();
@@ -347,6 +352,7 @@ public class ChanceAction {
 		return null;
 	}
 	
+	//判断是否可删除销售机会（多个，防止应为存在外键，而删除出错）
 	public String ifcandelete(){
 		Manager manager=(Manager)ActionContext.getContext().getApplication().get("manager");
 		HttpServletRequest request=ServletActionContext.getRequest();
@@ -388,6 +394,7 @@ public class ChanceAction {
 		return null;
 	}
 	
+	//删除销售机会（多个）
 	public String deleteSomechance() throws Exception{
 		if(cid==null||cid==""){
 			System.out.println("没有数据");
@@ -410,6 +417,7 @@ public class ChanceAction {
 		}
 	}
 	
+	//读取单个销售机会
 	public String findTheChance() throws Exception{
 		Manager manager=(Manager)ActionContext.getContext().getApplication().get("manager");
 		if(ActionContext.getContext().getApplication().get("level")!=null){
@@ -431,6 +439,7 @@ public class ChanceAction {
 		}
 	}
 	
+	//从跟踪记录返回到对应的销售机会
 	public String goBackTheChance() throws Exception{
 		Manager manager=(Manager)ActionContext.getContext().getApplication().get("manager");
 		if(ActionContext.getContext().getApplication().get("level")!=null){
@@ -452,6 +461,7 @@ public class ChanceAction {
 		}
 	}
 	
+	//删除单个销售机会
 	public String deleteTheChance() throws Exception{
 		followups=followupService.findFollowupByChanceId(chance.getId());
 		for (int j = 0; j < followups.size(); j++) {
@@ -461,6 +471,7 @@ public class ChanceAction {
 		return "deleteTheChance_s";
 	}
 	
+	//更新销售机会，同时判断否需要生成站内消息（判断是否改变了负责销售员，负责渠道）
 	public String updateChance() throws Exception{
 		Manager manager=(Manager)ActionContext.getContext().getApplication().get("manager");
 		if(ActionContext.getContext().getApplication().get("level")!=null){
@@ -546,6 +557,7 @@ public class ChanceAction {
 		}
 	}
 	
+	//ajax验证销售机会名称是否重复（新增）
 	public String validateInput1(){
 		Manager manager=(Manager)ActionContext.getContext().getApplication().get("manager");
 		HttpServletRequest request=ServletActionContext.getRequest();
@@ -580,6 +592,7 @@ public class ChanceAction {
 		return null;
 	}
 	
+	//ajax验证销售机会名称是否重复（更新，需要排除自身）
 	public String validateInput2() throws Exception{
 		Manager manager=(Manager)ActionContext.getContext().getApplication().get("manager");
 		HttpServletRequest request=ServletActionContext.getRequest();

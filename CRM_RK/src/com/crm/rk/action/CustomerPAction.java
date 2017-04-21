@@ -27,7 +27,7 @@ import com.crm.rk.service.ServicelogService;
 import com.crm.rk.service.UserPowerService;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
-
+//客户动作类
 public class CustomerPAction extends ActionSupport {
 	@Resource private CustomerPService customerPService;
 	@Resource private UserPowerService userPowerService;
@@ -115,6 +115,7 @@ public class CustomerPAction extends ActionSupport {
 		this.customerP = customerP;
 	}
 	
+	//读取所有客户
 	public	String findAllcustomer(){
 		Manager manager=(Manager)ActionContext.getContext().getApplication().get("manager");
 		if(ActionContext.getContext().getApplication().get("level")!=null){
@@ -130,6 +131,7 @@ public class CustomerPAction extends ActionSupport {
 		}
 	}
 	
+	//读取所有个人客户
 	public String findAllcustomerp() throws Exception{
 		Manager manager=(Manager)ActionContext.getContext().getApplication().get("manager");
 		if(ActionContext.getContext().getApplication().get("level")!=null){
@@ -145,6 +147,7 @@ public class CustomerPAction extends ActionSupport {
 		}
 	}
 	
+	//读取所有企业客户
 	public String findAllcustomerc() throws Exception{
 		Manager manager=(Manager)ActionContext.getContext().getApplication().get("manager");
 		if(ActionContext.getContext().getApplication().get("level")!=null){
@@ -160,6 +163,7 @@ public class CustomerPAction extends ActionSupport {
 		}
 	}
 	
+	//读取潜在客户
 	public String findcustomer1(){
 		Manager manager=(Manager)ActionContext.getContext().getApplication().get("manager");
 		if(ActionContext.getContext().getApplication().get("level")!=null){
@@ -175,6 +179,7 @@ public class CustomerPAction extends ActionSupport {
 		}
 	}
 	
+	//读取意向客户
 	public String findcustomer2(){
 		Manager manager=(Manager)ActionContext.getContext().getApplication().get("manager");
 		if(ActionContext.getContext().getApplication().get("level")!=null){
@@ -190,6 +195,7 @@ public class CustomerPAction extends ActionSupport {
 		}
 	}
 	
+	//读取成交客户
 	public String findcustomer3(){
 		Manager manager=(Manager)ActionContext.getContext().getApplication().get("manager");
 		if(ActionContext.getContext().getApplication().get("level")!=null){
@@ -205,6 +211,7 @@ public class CustomerPAction extends ActionSupport {
 		}
 	}
 	
+	//读取已流失客户
 	public String findcustomer4(){
 		Manager manager=(Manager)ActionContext.getContext().getApplication().get("manager");
 		if(ActionContext.getContext().getApplication().get("level")!=null){
@@ -220,6 +227,7 @@ public class CustomerPAction extends ActionSupport {
 		}
 	}
 	
+	//读取普通会员
 	public String findcustomer5(){
 		Manager manager=(Manager)ActionContext.getContext().getApplication().get("manager");
 		if(ActionContext.getContext().getApplication().get("level")!=null){
@@ -235,6 +243,7 @@ public class CustomerPAction extends ActionSupport {
 		}
 	}
 	
+	//读取VIP1
 	public String findcustomer6(){
 		Manager manager=(Manager)ActionContext.getContext().getApplication().get("manager");
 		if(ActionContext.getContext().getApplication().get("level")!=null){
@@ -250,6 +259,7 @@ public class CustomerPAction extends ActionSupport {
 		}
 	}
 	
+	//读取VIP2
 	public String findcustomer7(){
 		Manager manager=(Manager)ActionContext.getContext().getApplication().get("manager");
 		if(ActionContext.getContext().getApplication().get("level")!=null){
@@ -265,6 +275,7 @@ public class CustomerPAction extends ActionSupport {
 		}
 	}
 	
+	//读取VIP3
 	public String findcustomer8(){
 		Manager manager=(Manager)ActionContext.getContext().getApplication().get("manager");
 		if(ActionContext.getContext().getApplication().get("level")!=null){
@@ -280,6 +291,7 @@ public class CustomerPAction extends ActionSupport {
 		}
 	}
 	
+	//添加客户
 	public String addcustomerp() throws Exception{
 		Manager manager=(Manager)ActionContext.getContext().getApplication().get("manager");
 		if(ActionContext.getContext().getApplication().get("level")!=null){
@@ -310,6 +322,7 @@ public class CustomerPAction extends ActionSupport {
 		}
 	}
 	
+	//判断客户是否可以删除（单个，防止因为存在外键而报错）
 	public String ifcandeleteone(){
 		Manager manager=(Manager)ActionContext.getContext().getApplication().get("manager");
 		HttpServletRequest request=ServletActionContext.getRequest();
@@ -347,6 +360,7 @@ public class CustomerPAction extends ActionSupport {
 		return null;
 	}
 	
+	//判断客户是否可以删除（多个，防止因为存在外键而报错）
 	public String ifcandelete(){
 		Manager manager=(Manager)ActionContext.getContext().getApplication().get("manager");
 		HttpServletRequest request=ServletActionContext.getRequest();
@@ -390,6 +404,7 @@ public class CustomerPAction extends ActionSupport {
 		return null;
 	}
 	
+	//删除客户（单个）
 	public String deleteThecustomerp() throws Exception{
 		customerReportlogs=customerReportlogService.findCustomerReportlogByCustomerp(customerP.getId());
 		for (int i = 0; i < customerReportlogs.size(); i++) {
@@ -399,6 +414,7 @@ public class CustomerPAction extends ActionSupport {
 		return "deleteThecustomerp_s";
 	}
 	
+	//删除客户（多个）
 	public String deleteSomecustomerp() throws Exception{
 		if(ccid==null||ccid==""){
 			System.out.println("没有数据");
@@ -421,6 +437,7 @@ public class CustomerPAction extends ActionSupport {
 		}
 	}
 	
+	//根据ID读取单个客户信息
 	public String findThecustomerp() throws Exception{
 		Manager manager=(Manager)ActionContext.getContext().getApplication().get("manager");
 		if(ActionContext.getContext().getApplication().get("level")!=null){
@@ -436,6 +453,7 @@ public class CustomerPAction extends ActionSupport {
 		}
 	}
 	
+	//更新客户信息
 	public String updatecustomerp() throws Exception{
 		Manager manager=(Manager)ActionContext.getContext().getApplication().get("manager");
 		if(ActionContext.getContext().getApplication().get("level")!=null){
@@ -462,6 +480,7 @@ public class CustomerPAction extends ActionSupport {
 		}
 	}
 	
+	//检查用户名称（登陆账号）是否重复
 	public String validateInput(){
 		Manager manager=(Manager)ActionContext.getContext().getApplication().get("manager");
 		HttpServletRequest request=ServletActionContext.getRequest();
@@ -485,6 +504,7 @@ public class CustomerPAction extends ActionSupport {
 		return null;
 	}
 	
+	//检查用户名称（登陆账号）是否重复（排除自身，用于更新时候调用）
 	public String validateInput2() throws Exception{
 		Manager manager=(Manager)ActionContext.getContext().getApplication().get("manager");
 		HttpServletRequest request=ServletActionContext.getRequest();
@@ -514,6 +534,7 @@ public class CustomerPAction extends ActionSupport {
 		return null;
 	}
 	
+	//验证客户名是否重复（区分经理）
 	public String validateInput3(){
 		Manager manager=(Manager)ActionContext.getContext().getApplication().get("manager");
 		HttpServletRequest request=ServletActionContext.getRequest();
@@ -548,6 +569,7 @@ public class CustomerPAction extends ActionSupport {
 		return null;
 	}
 	
+	//验证客户名是否重复（区分经理，排除自身，用于更新时候调用）
 	public String validateInput4() throws Exception{
 		Manager manager=(Manager)ActionContext.getContext().getApplication().get("manager");
 		HttpServletRequest request=ServletActionContext.getRequest();
