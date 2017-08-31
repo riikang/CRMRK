@@ -46,7 +46,9 @@
         <property name="javaMailProperties">    
            <props>    
                	<prop key="mail.smtp.auth">true</prop>  <!-- 开启身份认证 -->  
-               	<prop key="mail.smtp.starttls.enable">true</prop><!-- 使用默认端口 -->
+               	<prop key="mail.smtp.ssl.enable">true</prop>
+               	<prop key="mail.transport.protocol">smtps</prop>  
+                <prop key="mail.smtp.starttls.enable">true</prop> <!--使用默认端口 -->
            </props>    
        </property> 
     </bean>
